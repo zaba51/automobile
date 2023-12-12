@@ -11,8 +11,9 @@
         <h3>{{section.headline }}</h3>
         <ul>
             <li *ngFor="let item of section.items">
-                <input type='checkbox' 
-                    (click)="onAddFilter(section.headline, item)"
+                <input type='checkbox'
+                    #checkbox 
+                    (click)="onAddFilter(section.group, item, checkbox.checked)"
                 />{{item.label}}
             </li>
         </ul>

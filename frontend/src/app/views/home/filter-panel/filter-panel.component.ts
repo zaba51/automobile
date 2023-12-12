@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { CatalogItem, Model } from 'src/shared/types/catalogTypes';
 
 export interface FilterSection {
+  group: string,
   headline: string,
   items: FilterItem[]
 }
@@ -18,7 +20,7 @@ export interface FilterItem {
 export class FilterPanelComponent implements OnInit {
   @Output() filterChange = new EventEmitter();
 
-  private filterList: { [key: string]: FilterItem[] }
+  private filterList: { [key: string]: string[] } = {}
 
   constructor() { }
 
@@ -28,6 +30,7 @@ export class FilterPanelComponent implements OnInit {
   
   filterSections: FilterSection[] = [
     {
+      group: 'company',
       headline: 'Company',
       items: [
         {
@@ -65,6 +68,7 @@ export class FilterPanelComponent implements OnInit {
       ]
     },
     {
+      group: 'price',
       headline: 'Price',
       items: [
         {
@@ -82,6 +86,7 @@ export class FilterPanelComponent implements OnInit {
       ]
     },
     {
+      group: 'gear',
       headline: 'Gear',
       items: [
         {
@@ -95,46 +100,56 @@ export class FilterPanelComponent implements OnInit {
       ]
     },
     {
+      group: 'color',
       headline: 'Color',
       items: [
         {
           label: 'Red',
-          value: 'Red'
+          value: 'red'
         },
         {
           label: 'Yellow',
-          value: 'Yellow'
+          value: 'yellow'
         },
         {
           label: 'Blue',
-          value: 'Blue'
+          value: 'blue'
         },
         {
           label: 'Green',
-          value: 'Green'
+          value: 'green'
         },
         {
           label: 'Black',
-          value: 'Black'
+          value: 'black'
         },
         {
           label: 'Silver',
-          value: 'Silver'
+          value: 'silver'
         },
         {
           label: 'White',
-          value: 'White'
+          value: 'white'
         },
       ]
     },
   ]
 
 
-  onAddFilter(sectionName: string, item: FilterItem) {
-    this.filterList[sectionName] = [
-      ...this.filterList[sectionName],
-      item
-    ]
+  onAddFilter(group: string, item: FilterItem, checked: boolean) {
+    if (checked) {
+      const filterList = this.filterList[group] ?? []
+  
+      this.filterList[group] = [
+        ...filterList,
+        item.value
+      ]
+    }
+    else {
+      const filterList = this.filterList[group] ?? []
+  
+      this.filterList[group] = filterList.filter(f => f !== item.value);
+    }
 
     this.filterChange.emit(this.filterList);
   }

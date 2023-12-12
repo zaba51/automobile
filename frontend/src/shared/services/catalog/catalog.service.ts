@@ -48,10 +48,10 @@ const catalogItems: CatalogItem[] = [
           seatCount: 7,
           engine: 'V8',
           imageUrl: 'https://example.com/suv-y-image.jpg',
-          color: 'red'
+          color: 'green'
       },
       price: 45000,
-      company: 'Toyota'
+      company: 'Seat'
   },
   {
     id: 2,
@@ -64,7 +64,7 @@ const catalogItems: CatalogItem[] = [
         seatCount: 7,
         engine: 'V8',
         imageUrl: 'https://example.com/suv-y-image.jpg',
-        color: 'red'
+        color: 'blue'
     },
     price: 45000,
     company: 'Toyota'

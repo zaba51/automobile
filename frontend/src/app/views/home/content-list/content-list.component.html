@@ -9,7 +9,7 @@
         <div class="sort-container"></div>
         <div class="vehicle-list-wrapper">
             <app-vehicle-card
-                *ngFor="let item of availableItems"
+                *ngFor="let item of displayedItems"
                 [item]="item"
                 (actionClick)="onActionClick($event)"
             >AAA</app-vehicle-card>

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CatalogItem } from 'src/shared/types/catalogTypes';
+import { CatalogItem, Model } from 'src/shared/types/catalogTypes';
 import { FilterItem } from '../filter-panel/filter-panel.component';
 
 @Component({
@@ -16,6 +16,7 @@ export class ContentListComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.displayedItems = this.availableItems; 
   }
 
   onActionClick(action: any) {
@@ -24,22 +25,38 @@ export class ContentListComponent implements OnInit {
     }
   }
 
-  public filterResults(filters: { [key: string]: FilterItem[] }) {
-    // this.displayedItems = this.availableItems.filter(item => {
-    // })
+  public filterResults(filters: { [key: string]: string[] }) {
+    let visibleItems = this.availableItems;
 
-    // let visibleItems = this.availableItems;
-
-    // Object.keys(filters).forEach(filter => {
-    //   visibleItems = this.filterBy(filter, visibleItems);
-    // });
-
+    Object.keys(filters).forEach(filter => {
+      if (filter === 'company') {
+        visibleItems = this.filterByCompany(filters['company'], visibleItems);
+      }
+      else if (filter === 'price') {
+        visibleItems = this.filterByPrice(filters['price'], visibleItems);
+      }
+      else {
+        visibleItems = this.filterBy(filter as keyof Model, filters[filter], visibleItems);
+      }
+    });
+    
+    this.displayedItems = visibleItems;
   }
 
-  // private filterBy(filter, visibleItems: CatalogItem[]) {
-  //   switch (filter) {
-  //     case 'Gear':
-  //       break;
-  //   }
-  // }
+  private filterByCompany(values: string[], visibleItems: CatalogItem[]) {
+    if (values.length < 1) return visibleItems;
+    return visibleItems.filter(item => values.includes(item.company))
+  }
+
+  private filterByPrice(values: string[], visibleItems: CatalogItem[]) {
+    if (values.length < 1) return visibleItems;
+
+    return visibleItems;
+  }
+
+  private filterBy(filter: keyof Model, values: string[],  visibleItems: CatalogItem[]) {
+    if (values.length < 1) return visibleItems;
+
+    return visibleItems.filter(item => values.includes( item.model[filter].toString() ))
+  }
 }
