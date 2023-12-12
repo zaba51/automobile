@@ -1,0 +1,24 @@
+ <div class="container">
+    <div class="main-section">
+        <img src="https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg" />
+        <div class="info">
+            <div class="title">{{ item.model.name }}</div>
+            <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.seatCount }} seats</div>
+            <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.engine }}</div>
+            <div class="info-line"><mat-icon>person</mat-icon>Small</div>
+        </div>
+        <div class="price">
+            <span>1 day</span>
+            <p>{{ item.price }}</p>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="footer">
+        <app-button
+            [title]="'Rent'"
+            [icon]="'credit_card'"
+            [size]="'small'"
+            (outClick)="onRentClick()"
+    ></app-button>
+    </div> 
+</div>

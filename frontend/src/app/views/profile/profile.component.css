@@ -1,0 +1,29 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height:calc(100vh - 60px);
+    overflow: hidden;
+}
+
+.navigation {
+    padding: 2rem;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--l);
+}
+
+ul li {
+    font-weight: 500;
+    padding: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.active {
+    background-color:var(--primary);
+}

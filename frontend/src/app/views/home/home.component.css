@@ -1,0 +1,9 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+app-footer {
+    margin-top: 1rem;
+}

@@ -1,0 +1,28 @@
+footer {
+    display: block;
+    background: url('../../../assets/images/banner.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+}
+
+.media-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-light);
+}
+
+.list:first-of-type {
+    grid-column: 3 / 4;
+}

@@ -1,0 +1,42 @@
+<div class="container">
+    <app-go-back (click)="goBack()"></app-go-back>
+
+    <div class="header">
+        <h2>Your deal</h2>
+        <app-button title="Save" icon="add">
+        </app-button>
+    </div>
+    <div class="divider"></div>
+    <div class="wrapper">
+        <div class="form-wrapper">
+            <h3>Car's details</h3>
+            <div class="form">
+                <app-input title="Company" placeholder="Model">
+                </app-input>
+                <app-input title="Gear" placeholder="Automatic">
+                </app-input>
+                <app-input title="doors" placeholder="" type="number">
+                </app-input>
+                <app-input title="doors" placeholder="" type="number">
+                </app-input>
+                <app-input title="Engine" placeholder="Electric">
+                </app-input>
+                <app-input title="Cars available" placeholder="" type="number">
+                </app-input>
+            </div>
+        </div>
+        <div class="section">
+            <img src="https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg" alt="">
+
+            <div class="upload-button">
+                <label for="file-upload" class="custom-file-upload">
+                    <mat-icon>upload</mat-icon><span>Change photo</span>
+                </label>
+                <input id="file-upload" type="file" />
+            </div>
+
+            <app-input title="Price per day" placeholder="Poland" type="number">
+            </app-input>
+        </div>
+    </div>
+</div>

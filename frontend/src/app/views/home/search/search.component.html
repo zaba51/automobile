@@ -1,0 +1,22 @@
+<div class="search-container">
+    <app-input
+        [type]="'text'"
+        [placeholder]="'Cracow'"
+        [title]="'Location'"
+    ></app-input>
+    <app-input
+        [type]="'date'"
+        [value]="'2023-06-03'"
+        [title]="'Date'"
+    ></app-input>
+    <app-input
+        [type]="'number'"
+        [placeholder]="'10'"
+        [title]="'Time (hours)'"
+    ></app-input>
+    <app-button
+        [title]="'Search'"
+        [icon]="'search'"
+        (click)="onClick()"
+    ></app-button>
+</div>

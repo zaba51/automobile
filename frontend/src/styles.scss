@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+*, *::after, *::before, html {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    color: #E2E2E2;
+    background-color: var(--dark-2);
+  }
+  
+  .divider {
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary);
+    margin: 0.5rem 0;
+  }
+  
+  a, button {
+    font-family: sans-serif;
+  }
+  
+  code {
+    color: #e01a76;
+  }
+  
+  :root {
+    --primary: #2CB67D;
+    --text-light: #E2E2E2;
+    --text-dark: #28282F;
+    --dark-1: #28282F;
+    --dark-2: #16161A;
+    --accent: #F7C130;
+    --alert: #2CB67D;
+  
+    --m: 18px; 
+    --l: 24px; 
+  }
+  
+  
+  /* width */
+  ::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--dark-1);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

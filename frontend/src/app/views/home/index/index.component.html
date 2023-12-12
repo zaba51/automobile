@@ -1,0 +1,26 @@
+<section class="banner">
+    <div class="banner-text">
+      <h1>Renting a car has<br />
+        <mark>never been simpler</mark>
+      </h1>
+      <p>thanks to Automobile.com</p>
+    </div>
+  </section>
+  <app-search
+    (search)="onSearch()"
+  ></app-search>
+  <main>
+    <div class="icon-section">
+      <div
+        class="icon-section-item"
+        *ngFor="let item of iconItems"
+      >
+        <div class="icon-section-icon">
+          <mat-icon class="icon">
+            {{item.icon}}
+          </mat-icon>
+        </div>
+        <span>{{ item.text }}</span>
+      </div>
+    </div>
+  </main>

@@ -1,0 +1,41 @@
+<header
+  [ngClass]="{
+    'home' : currentRoute === '/',
+    'regular': currentRoute !== '/'
+  }"
+>
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img src="../../assets/images/Automobile.png" />
+    </a>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+      aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <div class="action-buttons" [ngClass]="{ show: isExpanded }">
+      <ul class="action-buttons-list">
+        <li class="" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="" [routerLink]="['/']">Home</a>
+        </li>
+        <li class="" [routerLinkActive]="['link-active']">
+          <a class="" [routerLink]="['/login']">Sign off</a>
+        </li>
+      </ul>
+    </div>
+    <div class="profile" (click)="toggleMenu()">
+      <mat-icon>person</mat-icon>
+      <ng-container
+        *ngTemplateOutlet="menu"
+      ></ng-container>
+    </div>
+  </div>
+</header> 
+
+<ng-template #menu>
+  <div class="menu" *ngIf="isMenuOpen">
+    <ul>
+      <li (click)="goToProfile()">Profile</li>
+      <li (click)="goToProfile()">My reservations</li>
+    </ul>
+  </div>
+</ng-template>

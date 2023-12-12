@@ -1,0 +1,36 @@
+:host {
+    display: inline-block;
+}
+
+button {
+    background-color: var(--accent);
+    font-size: var(--m);
+    color: var(--text-dark);
+    border-radius: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.big {
+    padding: 12px 30px;
+}
+
+.medium {
+    padding: 8px 20px;
+}
+
+.small {
+    padding: 3px 10px;
+}
+
+button mat-icon {
+    font-weight: 600;
+}
+
+button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}

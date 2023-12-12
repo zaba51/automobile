@@ -1,0 +1,23 @@
+<footer>
+    <div class="media-section ">
+        <div class="list">
+            <h3>SOCIAL MEDIA</h3>
+            <ul>
+                <li *ngFor="let sc of socialMedia">
+                    <a [href]="sc.href">{{ sc.name }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="list">
+            <h3>LEARN ABOUT US</h3>
+            <ul>
+                <li *ngFor="let item of additionalLinks">
+                    {{ item.name }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="bottom-section">
+        <p>2016 - 2023 © All rights reserved.</p>
+    </div>
+</footer>

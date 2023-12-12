@@ -1,0 +1,18 @@
+<div class="container">
+    <app-filter-panel
+        (filterChange)="filterResults($event)"
+    ></app-filter-panel>
+    <main>
+        <div class="list-header">CARS AVAILABLE: {{availableItems.length}}</div>
+        <div class="divider"></div>
+        <div class="filter-chip-container">CHIPS</div>
+        <div class="sort-container"></div>
+        <div class="vehicle-list-wrapper">
+            <app-vehicle-card
+                *ngFor="let item of availableItems"
+                [item]="item"
+                (actionClick)="onActionClick($event)"
+            >AAA</app-vehicle-card>
+        </div>
+    </main>
+</div>

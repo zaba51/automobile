@@ -1,0 +1,15 @@
+.go-back {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: var(--text-light);
+    font-size: var(--m);
+    cursor: pointer;
+}
+
+mat-icon {
+    color: var(--primary);
+}

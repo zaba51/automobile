@@ -1,0 +1,19 @@
+<app-nav-menu></app-nav-menu>
+<div class="container">
+    <nav class="navigation">
+        <div class="logo"></div>
+        <ul>
+            <li
+                *ngFor="let tab of navigationTabs"
+                [ngClass]="{'active': tab.id === activeTab}"
+                (click)="changeTab(tab.id)"
+            >
+                <mat-icon>{{ tab.icon }}</mat-icon>
+                {{ tab.label }}
+            </li>
+        </ul>
+    </nav>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

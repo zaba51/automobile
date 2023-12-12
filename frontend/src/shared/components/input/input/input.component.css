@@ -1,0 +1,38 @@
+:host {
+    display: block;
+}
+
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    min-width: 10rem;
+}
+
+span {
+    color: var(--accent);
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    font-size: var(--m);
+    border-bottom: 2px solid var(--primary);
+    color: var(--text-light);
+    color-scheme: dark;
+    padding: 5px;
+}
+
+input:hover {
+    border-bottom: 2px solid var(--alert);
+}
+
+input::placeholder {
+    color: rgba(227, 227, 227, 0.399)
+}
+
+input:focus {
+    outline: none;
+}

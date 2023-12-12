@@ -1,0 +1,20 @@
+<nav>
+    <div class="nav-header">
+        <h2>Filters</h2>
+    </div>
+
+    <div
+        class="filter-section"
+        *ngFor="let section of filterSections"
+    >
+        <div class="divider"></div>
+        <h3>{{section.headline }}</h3>
+        <ul>
+            <li *ngFor="let item of section.items">
+                <input type='checkbox' 
+                    (click)="onAddFilter(section.headline, item)"
+                />{{item.label}}
+            </li>
+        </ul>
+    </div>
+</nav>

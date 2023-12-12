@@ -1,0 +1,80 @@
+<div class="container">
+    <app-go-back
+        (click)="goBack()"
+    ></app-go-back>
+    <h2>Your deal</h2>
+    <div class="divider"></div>
+    <div class="details-wrapper">
+        <main>
+            <app-vehicle-card>
+                
+            </app-vehicle-card>
+            <div class="divider"></div>
+            <div class="info">
+                <h3>Good to know</h3>
+                <p><mat-icon>check_box</mat-icon>Free cancellation up to 7 days before pick-up</p>
+                <p><mat-icon>check_box</mat-icon>Great choice</p>
+            </div>
+            <div class="divider"></div>
+            <h3>Driver's details</h3>
+            <div class="drivers-form">
+                <app-input
+                    [title]="'Name'"
+                    placeholder="Enter your name"
+                >
+                </app-input>
+                <app-input
+                    [title]="'Your surname'"
+                    placeholder="Enter your surname"
+                >
+                </app-input>
+                <app-input
+                    [title]="'Coutry'"
+                    placeholder="Poland"
+                >
+                </app-input>
+                <app-input
+                    [title]="'Phone number'"
+                    placeholder="+48 123 456 789"
+                >
+                </app-input>
+            </div>
+            <div class="terms">
+                <h3>Terms and condition</h3>
+                <p>By clicking "Rent and Pay" you accept our terms and conditions</p>
+            </div>
+            <app-button
+                title="Rent and Pay"
+                size="big"
+                icon="credit_card"
+            ></app-button>
+        </main>
+        <nav>
+            <div class="schedule">
+                <h3>Schedule</h3>
+                <div class="schedule-date">
+                    <div class="circle"></div>
+                    <div class="schedule-date-wrapper">
+                        <p>Fri, Dev 31 - 10:00 AM</p>
+                        <span>Cracow</span>
+                    </div>
+                </div>
+                <div class="schedule-date">
+                    <div class="circle"></div>
+                    <div class="schedule-date-wrapper">
+                        <p>Fri, Dev 31 - 10:00 AM</p>
+                        <span>Cracow</span>
+                    </div>
+                </div>
+            </div>
+            <div class="alert">
+                <mat-icon>info</mat-icon>
+                Standard insurance included
+            </div>
+            <div class="price-container">
+                <div class="price">PLN 50.00</div>
+                <span>/1 day</span>
+            </div>
+        </nav>
+    </div>
+</div>

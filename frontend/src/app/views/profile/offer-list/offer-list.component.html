@@ -1,0 +1,27 @@
+<div class="header">
+    <h2 class="cars-available">Cars available</h2>
+    <div class="search">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input type="text" class="search-input" placeholder="Search...">
+      </div>
+    <app-button
+        [title]="'Add car'"
+        [icon]="'add'"
+        [size]="'small'"
+        (click)="addNewVehicle()"
+    ></app-button>
+</div>
+<div class="divider"></div>
+<div class="vehicle-list-wrapper" *ngIf="catalogItems !== 'Loading'">
+    <app-vehicle-card
+        *ngFor="let item of catalogItems"
+        [item]="item"
+    ></app-vehicle-card>
+</div>
+
+<ng-container *ngIf="isDialogOpen">
+    <app-vehicle-form
+        class="form-modal"
+        (close)="toggleModal(false)"
+    ></app-vehicle-form>
+</ng-container>
