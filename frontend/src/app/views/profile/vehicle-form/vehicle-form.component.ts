@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CatalogService } from 'src/shared/services/catalog/catalog.service';
+import { AddItemDTO, CatalogItem } from 'src/shared/types/catalogTypes';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -7,17 +9,46 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./vehicle-form.component.css']
 })
 export class VehicleFormComponent implements OnInit {
+  
   @Output() close = new EventEmitter();
-  company   = new FormControl('');
-  gear      = new FormControl('');
-  doorCount = new FormControl();
-  seatCount = new FormControl();
-  engine    = new FormControl('');
-  available = new FormControl('');
 
-  constructor() { }
+  form = new FormGroup({
+    name: new FormControl('', Validators.required),
+    company: new FormControl('', Validators.required),
+    power: new FormControl(0, Validators.required),
+    gear: new FormControl('', Validators.required),
+    doorCount: new FormControl(0, Validators.required),
+    seatCount: new FormControl(0, Validators.required),
+    engine: new FormControl('', Validators.required),
+    available: new FormControl('', Validators.required),
+    price: new FormControl<number>(0, Validators.required),
+    color: new FormControl<string>('', Validators.required)
+  });
+
+  constructor(private catalogService: CatalogService) { }
 
   ngOnInit(): void {
+  }
+
+  onSave() {
+    if (this.form.valid) {
+      const newItem: AddItemDTO = {
+        model: {
+          power: this.form.value.power as number,
+          gear: this.form.value.gear as string,
+          engine: this.form.value.engine as string,
+          name: this.form.value.name as string,
+          doorCount: this.form.value.doorCount as number,
+          seatCount: this.form.value.seatCount as number,
+          color: this.form.value.color as  string,
+          imageUrl: '',
+        },
+        price: this.form.value.price as number,
+        company: 'New Company'
+      };
+
+      this.catalogService.addItem(1, newItem);
+    }
   }
 
   goBack() {

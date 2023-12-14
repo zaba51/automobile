@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CatalogItem } from 'src/shared/types/catalogTypes';
+import { AddItemDTO, CatalogItem } from 'src/shared/types/catalogTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,20 @@ export class CatalogService {
 
   getItemById(id: number) {
     return of(catalogItems.find(el => el.id === id))
+  }
+
+  addItem(companyId: number, item: AddItemDTO) {
+    const newItem: CatalogItem = {
+      id: 123,
+      model: {
+        id: Math.floor(Math.random() * 10000),
+        ...item.model
+      },
+      price: item.price,
+      company: item.company,
+    }
+
+    catalogItems.push(newItem);
   }
 }
 

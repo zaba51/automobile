@@ -3,7 +3,7 @@
 
     <div class="header">
         <h2>Your deal</h2>
-        <app-button title="Save" icon="add">
+        <app-button title="Save" icon="add" (click)="onSave()">
         </app-button>
     </div>
     <div class="divider"></div>
@@ -11,17 +11,21 @@
         <div class="form-wrapper">
             <h3>Car's details</h3>
             <div class="form">
-                <app-input title="Company" [formControl]="company" placeholder="Model">
+                <app-input title="Company" [formControl]="form.get('company')" placeholder="Company">
                 </app-input>
-                <app-input title="Gear" [formControl]="gear" placeholder="Automatic">
+                <app-input title="Name" [formControl]="form.get('name')" placeholder="Name">
                 </app-input>
-                <app-input title="Doors" [formControl]="doorCount" placeholder="5" type="number">
+                <app-input title="Gear" [formControl]="form.get('gear')" placeholder="Automatic">
                 </app-input>
-                <app-input title="Seats" [formControl]="seatCount" placeholder="5" type="number">
+                <app-input title="Doors" [formControl]="form.get('doorCount')" placeholder="5" type="number">
                 </app-input>
-                <app-input title="Engine" [formControl]="engine" placeholder="Electric">
+                <app-input title="Seats" [formControl]="form.get('seatCount')" placeholder="5" type="number">
                 </app-input>
-                <app-input title="Cars available" [formControl]="available" placeholder="" type="number">
+                <app-input title="Engine" [formControl]="form.get('engine')" placeholder="Electric">
+                </app-input>
+                <app-input title="Cars available" [formControl]="form.get('available')" placeholder="" type="number">
+                </app-input>
+                <app-input title="Color" [formControl]="form.get('color')" placeholder="" type="stirng">
                 </app-input>
             </div>
         </div>
@@ -35,7 +39,7 @@
                 <input id="file-upload" type="file" />
             </div>
 
-            <app-input title="Price per day" placeholder="Poland" type="number">
+            <app-input title="Price per day" [formControl]="form.get('price')" placeholder="Poland" type="number">
             </app-input>
         </div>
     </div>
