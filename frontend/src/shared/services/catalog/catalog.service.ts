@@ -17,6 +17,10 @@ export class CatalogService {
   getItemsByCompanyId(id: number) {
     return of(catalogItems);
   }
+
+  getItemById(id: number) {
+    return of(catalogItems.find(el => el.id === id))
+  }
 }
 
 
@@ -54,10 +58,10 @@ const catalogItems: CatalogItem[] = [
       company: 'Seat'
   },
   {
-    id: 2,
+    id: 3,
     model: {
         id: 102,
-        name: 'SUV Y',
+        name: 'SUV Z',
         power: 250,
         gear: 'Manual',
         doorCount: 5,
@@ -66,7 +70,7 @@ const catalogItems: CatalogItem[] = [
         imageUrl: 'https://example.com/suv-y-image.jpg',
         color: 'blue'
     },
-    price: 45000,
+    price: 55000,
     company: 'Toyota'
 },
 ];

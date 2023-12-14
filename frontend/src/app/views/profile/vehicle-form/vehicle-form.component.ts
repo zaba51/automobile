@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -7,6 +8,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class VehicleFormComponent implements OnInit {
   @Output() close = new EventEmitter();
+  company   = new FormControl('');
+  gear      = new FormControl('');
+  doorCount = new FormControl();
+  seatCount = new FormControl();
+  engine    = new FormControl('');
+  available = new FormControl('');
 
   constructor() { }
 

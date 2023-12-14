@@ -11,17 +11,17 @@
         <div class="form-wrapper">
             <h3>Car's details</h3>
             <div class="form">
-                <app-input title="Company" placeholder="Model">
+                <app-input title="Company" [formControl]="company" placeholder="Model">
                 </app-input>
-                <app-input title="Gear" placeholder="Automatic">
+                <app-input title="Gear" [formControl]="gear" placeholder="Automatic">
                 </app-input>
-                <app-input title="doors" placeholder="" type="number">
+                <app-input title="Doors" [formControl]="doorCount" placeholder="5" type="number">
                 </app-input>
-                <app-input title="doors" placeholder="" type="number">
+                <app-input title="Seats" [formControl]="seatCount" placeholder="5" type="number">
                 </app-input>
-                <app-input title="Engine" placeholder="Electric">
+                <app-input title="Engine" [formControl]="engine" placeholder="Electric">
                 </app-input>
-                <app-input title="Cars available" placeholder="" type="number">
+                <app-input title="Cars available" [formControl]="available" placeholder="" type="number">
                 </app-input>
             </div>
         </div>

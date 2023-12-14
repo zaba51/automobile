@@ -3,16 +3,18 @@
         [type]="'text'"
         [placeholder]="'Cracow'"
         [title]="'Location'"
+        [formControl]="location"
     ></app-input>
     <app-input
         [type]="'date'"
-        [value]="'2023-06-03'"
         [title]="'Date'"
+        [formControl]="date"
     ></app-input>
     <app-input
         [type]="'number'"
         [placeholder]="'10'"
         [title]="'Time (hours)'"
+        [formControl]="time"
     ></app-input>
     <app-button
         [title]="'Search'"

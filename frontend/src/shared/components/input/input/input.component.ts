@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -10,6 +11,7 @@ export class InputComponent implements OnInit {
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
   @Input() value: any = '';
+  @Input() formControl: any = new FormControl(this.value);
 
   constructor() { }
 
