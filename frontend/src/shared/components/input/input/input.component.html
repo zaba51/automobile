@@ -1,9 +1,13 @@
-<div class="input-container">
+<div class="input-container" >
     <span>{{ title }}</span>
     <input
         [type]="type"
         [placeholder]="placeholder"
         [value]="value"
         [formControl]="formControl"
+        [ngClass]="{'error': formControl.invalid && formControl.touched}"
     />
+    <div *ngIf="formControl.invalid && formControl.touched" class="error-message">
+        <span *ngIf="formControl.hasError('required')">This field is required</span>
+    </div>
 </div>

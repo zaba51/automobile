@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { markFormGroupTouched } from 'src/shared/helpers/validation';
 import { CatalogService } from 'src/shared/services/catalog/catalog.service';
 import { AddItemDTO, CatalogItem } from 'src/shared/types/catalogTypes';
 
@@ -9,7 +10,6 @@ import { AddItemDTO, CatalogItem } from 'src/shared/types/catalogTypes';
   styleUrls: ['./vehicle-form.component.css']
 })
 export class VehicleFormComponent implements OnInit {
-  
   @Output() close = new EventEmitter();
 
   form = new FormGroup({
@@ -31,6 +31,8 @@ export class VehicleFormComponent implements OnInit {
   }
 
   onSave() {
+    markFormGroupTouched(this.form);
+
     if (this.form.valid) {
       const newItem: AddItemDTO = {
         model: {
@@ -48,6 +50,8 @@ export class VehicleFormComponent implements OnInit {
       };
 
       this.catalogService.addItem(1, newItem);
+
+      this.close.emit();
     }
   }
 

@@ -23,16 +23,29 @@ input {
     color: var(--text-light);
     color-scheme: dark;
     padding: 5px;
+
+    &:hover {
+        border-bottom: 2px solid var(--alert);
+
+        &.error {
+            border-bottom: 2px solid var(--error);
+        }
+    }
+
+    &.error {
+        border-bottom: 2px solid var(--error);
+    }
+    
+    &::placeholder {
+        color: rgba(227, 227, 227, 0.399)
+    }
+
+    &:focus {
+        outline: none;
+    }
 }
 
-input:hover {
-    border-bottom: 2px solid var(--alert);
-}
-
-input::placeholder {
-    color: rgba(227, 227, 227, 0.399)
-}
-
-input:focus {
-    outline: none;
-}
+.error-message span {
+    color: var(--error);
+    font-size: 12px;
+  }
