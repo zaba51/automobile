@@ -1,0 +1,33 @@
+<div class="form">
+    <h1>Sign in</h1>
+    <app-input
+        [type]="'text'"
+        [placeholder]="'email'"
+        [title]="'Enter your email'"
+        [formControl]="form.get('email')"
+    ></app-input>
+    <app-input
+        [type]="'password'"
+        [placeholder]="'*******'"
+        [title]="'Enter your password'"
+        [formControl]="form.get('password')"
+    ></app-input>
+    <span>
+      <input type='checkbox' />Remember me
+    </span>
+    <app-button
+      [title]="'Sign In'"
+      [icon]="'login'"
+      [size]="'small'"
+      (click)="onLoginClick()"
+    ></app-button>
+</div>
+<div class="signup-section">
+  <div class="divider"></div>
+  <p>Dont have an account yet?</p>
+  <app-button
+      [title]="'Sign Up'"
+      [size]="'small'"
+      [icon]="'person_add'"
+  ></app-button>
+</div>

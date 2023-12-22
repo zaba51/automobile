@@ -7,10 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { OfferListComponent } from './offer-list/offer-list.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { isAuthenticatedGuard } from 'src/app/guards/is-authenticated.guard';
 
 const routes: Routes = [
   { path: '',
     component: ProfileComponent,
+    canActivate: [isAuthenticatedGuard],
     children: [
       {
         path: '',

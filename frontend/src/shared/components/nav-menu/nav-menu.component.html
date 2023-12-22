@@ -8,21 +8,21 @@
     <a class="navbar-brand" [routerLink]="['/']">
       <img src="../../assets/images/Automobile.png" />
     </a>
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-      aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
     <div class="action-buttons" [ngClass]="{ show: isExpanded }">
       <ul class="action-buttons-list">
-        <li class="" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="" [routerLink]="['/']">Home</a>
+        <li>
+          <a class="link" [routerLink]="['/']">Home</a>
         </li>
-        <li class="" [routerLinkActive]="['link-active']">
-          <a class="" [routerLink]="['/login']">Sign off</a>
+        <li>
+            <a *ngIf="!(authService.isLoggedIn$ | async)" class="link" (click)="navigateLogin()">Sign in</a>
         </li>
       </ul>
     </div>
-    <div class="profile" (click)="toggleMenu()">
+    <div
+      class="profile"
+      (click)="toggleMenu()"
+      *ngIf="authService.isLoggedIn$ | async"  
+    >
       <mat-icon>person</mat-icon>
       <ng-container
         *ngTemplateOutlet="menu"
@@ -36,6 +36,7 @@
     <ul>
       <li (click)="goToProfile()">Profile</li>
       <li (click)="goToProfile()">My reservations</li>
+      <li (click)="logout()">Sign off</li>
     </ul>
   </div>
 </ng-template>
