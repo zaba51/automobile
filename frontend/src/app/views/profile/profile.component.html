@@ -6,6 +6,7 @@
             <li
                 *ngFor="let tab of navigationTabs"
                 [ngClass]="{'active': tab.id === activeTab}"
+                class="navigation-anchor"
                 (click)="changeTab(tab.id)"
             >
                 <mat-icon>{{ tab.icon }}</mat-icon>

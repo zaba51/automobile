@@ -1,7 +1,13 @@
 <button
-    [ngClass]="size"
+    [ngClass]="{
+        'icon-button' : iconButton,
+        'small': size === 'small', 
+        'medium': size === 'medium', 
+        'big': size === 'big', 
+        'error': style === 'error',
+    }"
     (click)="outClick.emit()"
 >
     <mat-icon>{{icon}}</mat-icon>
-    <span>{{ title }}</span>
+    <span *ngIf="!iconButton">{{ title }}</span>
 </button>

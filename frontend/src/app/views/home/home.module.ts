@@ -6,7 +6,7 @@ import { SearchComponent } from './search/search.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedComponentsModule } from 'src/shared/shared-components.module';
 import { IndexComponent } from './index/index.component';
-import { ContentListComponent } from './content-list/content-list.component';
+import { ContentListComponent } from './catalog/content-list/content-list.component';
 import { DetailsComponent } from './details/details.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { FilterPanelComponent } from './filter-panel/filter-panel.component';

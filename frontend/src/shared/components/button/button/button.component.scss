@@ -12,6 +12,10 @@ button {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+
+    &.error {
+        background-color: var(--error);
+    }
 }
 
 .big {
@@ -33,4 +37,12 @@ button mat-icon {
 button:hover {
     opacity: 0.8;
     cursor: pointer;
+}
+
+.icon-button {
+    height: 35px;
+    width: 35px;
+    padding: 3px;
+    border-radius: 50%;
+    font-size:14px;
 }

@@ -25,11 +25,11 @@ export class IndexComponent {
     }
   ]
 
-  onSearch() {
+  onSearch(searchObj: {location: string, date: string, time: number}) {
     const queryParams = {
-      date: '2023-01-01',
-      time: '12:00',
-      location: 'City Center',
+      date: searchObj.date,
+      time: searchObj.time,
+      location: searchObj.location,
     };
 
 

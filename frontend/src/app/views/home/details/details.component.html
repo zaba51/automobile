@@ -25,25 +25,25 @@
                     <app-input
                         [title]="'Name'"
                         placeholder="Enter your name"
-                        [formControl]="name"
+                        [formControl]="form.get('name')"
                     >
                     </app-input>
                     <app-input
                         [title]="'Your surname'"
                         placeholder="Enter your surname"
-                        [formControl]="surname"
+                        [formControl]="form.get('surname')"
                     >
                     </app-input>
                     <app-input
                         [title]="'Coutry'"
                         placeholder="Poland"
-                        [formControl]="country"
+                        [formControl]="form.get('country')"
                     >
                     </app-input>
                     <app-input
                         [title]="'Phone number'"
                         placeholder="+48 123 456 789"
-                        [formControl]="number"
+                        [formControl]="form.get('number')"
                     >
                     </app-input>
                 </div>
@@ -55,6 +55,7 @@
                     title="Rent and Pay"
                     size="big"
                     icon="credit_card"
+                    (click)="onRentClick()"
                 ></app-button>
             </main>
             <nav>

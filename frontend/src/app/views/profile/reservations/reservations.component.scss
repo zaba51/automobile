@@ -1,0 +1,31 @@
+.reservation-item {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    background: var(--dark-1);
+    padding: 0.6rem;
+    border-radius: 5px;
+    align-items: center;
+    border-left: 5px solid var(--primary);
+
+    .actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .cell {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+
+        .label {
+            text-align: right;
+            font-size: 12px;
+            line-height: 12px;
+            color: var(--accent);
+        }
+    }
+
+    margin-top:1rem;
+}

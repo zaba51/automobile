@@ -23,6 +23,10 @@ export class SearchComponent implements OnInit {
 
   onClick() {
     console.log(this.location, this.date, this.time);
-    this.search.emit();
+    this.search.emit({
+      location: this.location.value,
+      date: this.date.value,
+      time: this.time.value
+    });
   }
 }

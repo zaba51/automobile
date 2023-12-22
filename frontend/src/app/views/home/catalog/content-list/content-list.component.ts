@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CatalogItem, Model } from 'src/shared/types/catalogTypes';
-import { FilterItem } from '../filter-panel/filter-panel.component';
+import { FilterItem } from '../../filter-panel/filter-panel.component';
 
 @Component({
   selector: 'app-content-list',
@@ -10,6 +10,8 @@ import { FilterItem } from '../filter-panel/filter-panel.component';
 })
 export class ContentListComponent implements OnInit {
   @Input() availableItems: CatalogItem[];
+
+  @Output() rentClick = new EventEmitter();
 
   displayedItems: CatalogItem[];
 
@@ -21,7 +23,9 @@ export class ContentListComponent implements OnInit {
 
   onActionClick(action: any) {
     if (action.type == 'rent') {
-      this.router.navigate(['/details', action.id])
+      this.router.navigate(['/details', action.id], {state: {a: 'asd'}})
+
+      this.rentClick.emit(action.id);
     }
   }
 
