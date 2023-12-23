@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   isDialogOpen = true;
-  activeTab: string = 'offer'
+  activeTab: string = '';
 
   navigationTabs = [
     {
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit {
       id: 'offer',
       label: 'Offer',
       icon: 'business',
-      path: ''
+      path: 'offer'
     },
     {
       id: 'reservations',
@@ -34,7 +35,7 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.router, this.route)
+    this.activeTab = this.router.routerState.snapshot.url.split('profile/')[1];
   }
 
   onActionClick(action: any) {

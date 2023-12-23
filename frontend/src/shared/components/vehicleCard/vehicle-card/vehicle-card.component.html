@@ -15,6 +15,15 @@
     <div class="divider"></div>
     <div class="footer">
         <app-button
+            *ngIf="isDelete"
+            title="Delete"
+            size="small"
+            [iconButton]="true"
+            icon="delete"
+            [style]="'error'"
+        ></app-button>
+        <app-button
+            *ngIf="isRent"
             [title]="'Rent'"
             [icon]="'credit_card'"
             [size]="'small'"

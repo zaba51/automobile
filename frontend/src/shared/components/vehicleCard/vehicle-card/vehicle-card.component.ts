@@ -9,6 +9,10 @@ import { CatalogItem } from 'src/shared/types/catalogTypes';
 export class VehicleCardComponent implements OnInit {
   @Input() item: CatalogItem;
 
+  @Input() isDelete: boolean = false;
+
+  @Input() isRent: boolean = true;
+
   @Output() actionClick = new EventEmitter();
 
   constructor() { }

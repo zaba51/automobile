@@ -10,6 +10,7 @@ import { ContentListComponent } from './catalog/content-list/content-list.compon
 import { DetailsComponent } from './details/details.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { FilterPanelComponent } from './filter-panel/filter-panel.component';
+import { isAuthenticatedGuard } from 'src/app/guards/is-authenticated.guard';
 
 const routes: Routes = [
   { 
@@ -26,7 +27,8 @@ const routes: Routes = [
       },
       {
         path: 'details/:id',
-        component: DetailsComponent
+        component: DetailsComponent,
+        canActivate: [isAuthenticatedGuard],
       }
     ]
   }

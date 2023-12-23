@@ -16,6 +16,8 @@
     <app-vehicle-card
         *ngFor="let item of catalogItems"
         [item]="item"
+        [isDelete]="true"
+        [isRent]="false"
     ></app-vehicle-card>
 </div>
 

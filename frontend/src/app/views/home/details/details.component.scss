@@ -2,6 +2,22 @@
     max-width: 1000px;
     margin: auto;
     padding: 1rem;
+
+    h3 {
+        font-size: var(--m);
+    }
+
+    .info {
+        &-item {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+
+            mat-icon {
+                color: var(--accent);
+            }
+        }
+    }
 }
 
 .details-wrapper {
@@ -11,6 +27,9 @@
 
 main {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 nav {
     padding: 0 1rem 1rem 1rem;
@@ -44,7 +63,7 @@ p {
     border-radius: 50%;
 }
 
-.drivers-form app-input {
+.drivers-form app-input:not(:first-of-type) {
     margin-top: 2rem;
 }
 

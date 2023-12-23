@@ -16,7 +16,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: OfferListComponent
+        redirectTo: 'offer',
+        pathMatch: 'full'
+      },
+      {
+        path: 'offer',
+        component: OfferListComponent,
       },
       {
         path: 'reservations',

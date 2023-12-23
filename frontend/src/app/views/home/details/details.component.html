@@ -11,13 +11,14 @@
             <main>
                 <app-vehicle-card
                     [item]='item'
+                    [isRent]="false"
                 >
                 </app-vehicle-card>
                 <div class="divider"></div>
                 <div class="info">
                     <h3>Good to know</h3>
-                    <p><mat-icon>check_box</mat-icon>Free cancellation up to 7 days before pick-up</p>
-                    <p><mat-icon>check_box</mat-icon>Great choice</p>
+                    <div class="info-item"><mat-icon>check_box</mat-icon>Free cancellation up to 7 days before pick-up</div>
+                    <div class="info-item"><mat-icon>check_box</mat-icon>Great choice</div>
                 </div>
                 <div class="divider"></div>
                 <h3>Driver's details</h3>
