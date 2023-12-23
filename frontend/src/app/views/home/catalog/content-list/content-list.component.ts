@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CatalogItem, Model } from 'src/shared/types/catalogTypes';
-import { FilterItem } from '../../filter-panel/filter-panel.component';
+import { FilterItem } from '../filter-panel/filter-panel.component';
 
 @Component({
   selector: 'app-content-list',
   templateUrl: './content-list.component.html',
-  styleUrls: ['./content-list.component.css']
+  styleUrls: ['./content-list.component.scss']
 })
 export class ContentListComponent implements OnInit {
   @Input() availableItems: CatalogItem[];
@@ -15,10 +15,20 @@ export class ContentListComponent implements OnInit {
 
   displayedItems: CatalogItem[];
 
+  selectedOption: string = 'price-up';
+  options = [
+    { value: 'price-up', label: 'Price (up)' },
+    { value: 'price-down', label: 'Price (down)' },
+  ];
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.displayedItems = this.availableItems; 
+  }
+
+  onSort() {
+    console.log(this.selectedOption);
   }
 
   onActionClick(action: any) {

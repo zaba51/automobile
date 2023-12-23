@@ -10,6 +10,7 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SortByPricePipe } from './pipes/sort-by-price.pipe';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     VehicleCardComponent,
     GoBackComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    SortByPricePipe
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     VehicleCardComponent,
     GoBackComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    SortByPricePipe
   ]
 })
 export class SharedComponentsModule { }

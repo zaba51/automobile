@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { CatalogItem, Model } from 'src/shared/types/catalogTypes';
 
 export interface FilterSection {
@@ -15,9 +15,11 @@ export interface FilterItem {
 @Component({
   selector: 'app-filter-panel',
   templateUrl: './filter-panel.component.html',
-  styleUrls: ['./filter-panel.component.css']
+  styleUrls: ['./filter-panel.component.scss']
 })
 export class FilterPanelComponent implements OnInit {
+  @ViewChild('filterCheckboxes') filterCheckboxes: ElementRef;
+
   @Output() filterChange = new EventEmitter();
 
   private filterList: { [key: string]: string[] } = {}
@@ -135,6 +137,18 @@ export class FilterPanelComponent implements OnInit {
     },
   ]
 
+  onClearFilters() {
+    if (this.filterCheckboxes) {
+      this.filterList = {};
+      this.filterChange.emit(this.filterList);
+
+      const checkboxes = this.filterCheckboxes.nativeElement.querySelectorAll('.checkbox') as HTMLInputElement[];
+
+      if (checkboxes) {
+        checkboxes.forEach((x) => { x.checked = false })
+      }
+    }
+  }
 
   onAddFilter(group: string, item: FilterItem, checked: boolean) {
     if (checked) {

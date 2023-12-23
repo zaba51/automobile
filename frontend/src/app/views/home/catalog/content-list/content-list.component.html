@@ -4,12 +4,19 @@
     ></app-filter-panel>
     <main>
         <div class="list-header">CARS AVAILABLE: {{availableItems.length}}</div>
+        <div class="sorting">
+            <select id="selectedOption" [(ngModel)]="selectedOption" (change)="onSort()">
+                <option *ngFor="let option of options" [value]="option.value">
+                    {{ option.label }}
+                </option>
+            </select>
+        </div>
         <div class="divider"></div>
         <div class="filter-chip-container">CHIPS</div>
         <div class="sort-container"></div>
         <div class="vehicle-list-wrapper">
             <app-vehicle-card
-                *ngFor="let item of displayedItems"
+                *ngFor="let item of displayedItems | sortByPrice: selectedOption"
                 [item]="item"
                 (actionClick)="onActionClick($event)"
             >AAA</app-vehicle-card>
