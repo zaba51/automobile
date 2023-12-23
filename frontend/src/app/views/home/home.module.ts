@@ -11,7 +11,7 @@ import { DetailsComponent } from './details/details.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { FilterPanelComponent } from './catalog/filter-panel/filter-panel.component';
 import { isAuthenticatedGuard } from 'src/app/guards/is-authenticated.guard';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { 
@@ -50,7 +50,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedComponentsModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }

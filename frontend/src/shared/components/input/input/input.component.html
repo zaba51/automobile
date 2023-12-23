@@ -4,10 +4,10 @@
         [type]="type"
         [placeholder]="placeholder"
         [value]="value"
-        [formControl]="formControl"
-        [ngClass]="{'error': formControl.invalid && formControl.touched}"
+        [formControl]="control"
+        [ngClass]="{'error': control.invalid && control.touched}"
     />
-    <div *ngIf="formControl.invalid && formControl.touched" class="error-message">
-        <span *ngIf="formControl.hasError('required')">This field is required</span>
+    <div *ngIf="control.invalid && control.touched" class="error-message">
+        <span *ngIf="control.hasError('required')">This field is required</span>
     </div>
 </div>
