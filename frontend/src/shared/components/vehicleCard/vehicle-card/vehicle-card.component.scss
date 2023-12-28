@@ -1,6 +1,5 @@
 .container {
     padding: 1rem;
-    max-width: 600px;
     border-radius: 10px;
     border: 2px solid var(--dark-1);
     font-size: var(--m);
@@ -10,6 +9,7 @@
     display: flex;
     gap: 1rem;
     width: 100%;
+    justify-content: center;
 }
 
 .main-section img {
@@ -55,4 +55,11 @@ mat-icon {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
+}
+
+@media (max-width: 450px) {
+    .main-section {
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+    }    
 }

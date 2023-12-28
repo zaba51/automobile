@@ -86,5 +86,53 @@ const catalogItems: CatalogItem[] = [
     },
     price: 55000,
     company: 'Toyota'
-},
+  },
+  {
+    id: 6,
+    model: {
+        id: 102,
+        name: 'SUV Z',
+        power: 250,
+        gear: 'Manual',
+        doorCount: 5,
+        seatCount: 7,
+        engine: 'V8',
+        imageUrl: 'https://example.com/suv-y-image.jpg',
+        color: 'blue'
+    },
+    price: 55000,
+    company: 'Toyota'
+  },
+  {
+    id: 4,
+    model: {
+        id: 102,
+        name: 'SUV Z',
+        power: 250,
+        gear: 'Manual',
+        doorCount: 5,
+        seatCount: 7,
+        engine: 'V8',
+        imageUrl: 'https://example.com/suv-y-image.jpg',
+        color: 'blue'
+    },
+    price: 55000,
+    company: 'Toyota'
+  },
+  {
+    id: 5,
+    model: {
+        id: 102,
+        name: 'SUV Z',
+        power: 250,
+        gear: 'Manual',
+        doorCount: 5,
+        seatCount: 7,
+        engine: 'V8',
+        imageUrl: 'https://example.com/suv-y-image.jpg',
+        color: 'blue'
+    },
+    price: 55000,
+    company: 'Toyota'
+  },
 ];

@@ -1,18 +1,28 @@
 <div class="container">
     <app-filter-panel
+        class="filter-panel desktop"
         (filterChange)="filterResults($event)"
     ></app-filter-panel>
     <main>
         <div class="list-header">CARS AVAILABLE: {{availableItems.length}}</div>
         <div class="sorting">
-            <select id="selectedOption" [(ngModel)]="selectedOption" (change)="onSort()">
+            <select id="selectedOption" [(ngModel)]="selectedOption">
                 <option *ngFor="let option of options" [value]="option.value">
                     {{ option.label }}
                 </option>
             </select>
         </div>
+        <div class="mobile-actions">
+            <div class="action" (click)="onToggleFilter(!filterPanelOpen); $event.stopPropagation()">
+                <mat-icon>filter_list</mat-icon>
+                <span>Filters</span>
+            </div>
+            <div class="action" (click)="onToggleSort(!sortPanelOpen); $event.stopPropagation()">
+                <mat-icon>sort</mat-icon>
+                <span>Sort</span>
+            </div>
+        </div>
         <div class="divider"></div>
-        <div class="filter-chip-container">CHIPS</div>
         <div class="sort-container"></div>
         <div class="vehicle-list-wrapper">
             <app-vehicle-card
@@ -22,4 +32,22 @@
             >AAA</app-vehicle-card>
         </div>
     </main>
+</div>
+
+<div class="side-panel" #sidePanel>
+    <app-filter-panel
+        [ngClass]="{'hidden': !filterPanelOpen}"
+        class="filter-panel mobile"
+        (filterChange)="filterResults($event)"
+    ></app-filter-panel>
+    <div
+        class="mobile-sort"
+        [ngClass]="{'hidden': !sortPanelOpen}"
+    >
+        <div
+            class="sort-item"
+            *ngFor="let option of options" (click)="selectedOption = option.value">
+            {{ option.label }}
+        </div>
+    </div>
 </div>

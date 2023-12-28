@@ -1,0 +1,47 @@
+.search-container {
+    width: 100%;
+    background-color: rgb(0, 66, 123);
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-radius: 15px;
+    background-color: var(--dark-1);
+}
+
+.search-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+
+}
+
+@media (max-width: 950px) {
+    .search-container {
+        grid-template-columns: repeat(2, 200px);
+        
+    }
+}
+
+@media (max-width: 500px) {
+    .search-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+:host ::ng-deep app-input {
+    width: 100%;
+    input {
+        width: 100%;
+    }
+}
+
+:host ::ng-deep .search-button {
+    width:100%;
+
+    button {
+        width: 100%;
+    }
+}

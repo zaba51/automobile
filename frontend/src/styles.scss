@@ -21,6 +21,10 @@
   a, button {
     font-family: sans-serif;
   }
+
+  .disable-scroll {
+    overflow: hidden !important;
+  }
   
   code {
     color: #e01a76;
@@ -62,4 +66,13 @@
     background: #555;
   }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html {
+  overflow-x :hidden
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  position: relative;
+}
+
+.overflow-x {
+  overflow-x: hidden;
+}
