@@ -64,3 +64,31 @@ h1 {
     width: 200%; /* something ridiculously big */
     height: 100%; /* something ridiculously big */
 }
+
+
+@media (max-width: 560px) {
+    .container {
+        grid-template-columns: 1fr;
+        background: linear-gradient(#16161A 1%, #2CB67D 105.01%);
+    }
+
+    .image-section {
+        display: none;
+    }
+
+    :host ::ng-deep app-input {
+        width: 100%;
+        input {
+            width: 100%;
+        }
+    }
+
+    :host ::ng-deep app-login-form app-button {
+        width:100%;
+    
+        button {
+            width: 100%;
+        }
+    }
+}
+

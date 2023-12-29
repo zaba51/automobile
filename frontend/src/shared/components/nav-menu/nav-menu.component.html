@@ -10,9 +10,9 @@
     </a>
     <div class="action-buttons" [ngClass]="{ show: isExpanded }">
       <ul class="action-buttons-list">
-        <li>
+        <!-- <li>
           <a class="link" [routerLink]="['/']">Home</a>
-        </li>
+        </li> -->
         <li>
             <a *ngIf="!(authService.isLoggedIn$ | async)" class="link" (click)="navigateLogin()">Sign in</a>
         </li>

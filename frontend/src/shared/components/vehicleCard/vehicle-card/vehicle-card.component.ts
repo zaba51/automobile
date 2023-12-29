@@ -13,6 +13,8 @@ export class VehicleCardComponent implements OnInit {
 
   @Input() isRent: boolean = true;
 
+  @Input() isPrice: boolean = true;
+
   @Output() actionClick = new EventEmitter();
 
   constructor() { }

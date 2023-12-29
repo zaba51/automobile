@@ -7,7 +7,7 @@
             <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.engine }}</div>
             <div class="info-line"><mat-icon>person</mat-icon>Small</div>
         </div>
-        <div class="element price">
+        <div class="element price" *ngIf="isPrice">
             <span>1 day</span>
             <p>{{ item.price }}</p>
         </div>

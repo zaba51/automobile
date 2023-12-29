@@ -12,6 +12,7 @@
                 <app-vehicle-card
                     [item]='item'
                     [isRent]="false"
+                    [isPrice]="false"
                 >
                 </app-vehicle-card>
                 <div class="divider"></div>
@@ -53,6 +54,7 @@
                     <p>By clicking "Rent and Pay" you accept our terms and conditions</p>
                 </div>
                 <app-button
+                    class="rent-button"
                     title="Rent and Pay"
                     size="big"
                     icon="credit_card"

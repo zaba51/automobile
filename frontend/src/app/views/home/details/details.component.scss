@@ -104,3 +104,27 @@ app-go-back {
     position: relative;
     left: -1rem;
 }
+
+@media (max-width: 850px) {
+    .details-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    
+    :host ::ng-deep app-input {
+        width: 100%;
+        input {
+            width: 100%;
+        }
+    }
+
+    :host ::ng-deep .rent-button {
+        width:100%;
+    
+        button {
+            width: 100%;
+        }
+    }
+}

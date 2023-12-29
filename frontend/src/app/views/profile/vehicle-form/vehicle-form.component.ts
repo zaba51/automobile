@@ -7,7 +7,7 @@ import { AddItemDTO, CatalogItem } from 'src/shared/types/catalogTypes';
 @Component({
   selector: 'app-vehicle-form',
   templateUrl: './vehicle-form.component.html',
-  styleUrls: ['./vehicle-form.component.css']
+  styleUrls: ['./vehicle-form.component.scss']
 })
 export class VehicleFormComponent implements OnInit {
   @Output() close = new EventEmitter();
