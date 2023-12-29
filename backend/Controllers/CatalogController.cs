@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace backend.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/catalog")]
 public class CatalogController : ControllerBase
 {
     private readonly IAutomobileRepository _automobileRepository;

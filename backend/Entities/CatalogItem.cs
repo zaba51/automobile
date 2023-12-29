@@ -16,6 +16,6 @@ namespace backend.Entities
 
         public double Price {get; set; }
 
-        public string? Company {get; set; }
+        public string? Supplier {get; set; }
     }
 }

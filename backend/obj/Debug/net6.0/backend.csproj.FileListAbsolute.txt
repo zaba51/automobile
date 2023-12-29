@@ -25,3 +25,13 @@ C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\obj\Debug\net6
 C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\obj\Debug\net6.0\backend.pdb
 C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\obj\Debug\net6.0\backend.genruntimeconfig.cache
 C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\obj\Debug\net6.0\ref\backend.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Humanizer.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Npgsql.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
