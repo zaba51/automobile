@@ -1,3 +1,4 @@
+using automobile.Helpers;
 using backend.DbContexts;
 using backend.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -5,23 +6,35 @@ using Microsoft.EntityFrameworkCore;
 namespace backend.Services {
     public class AutomobileRepository: IAutomobileRepository
     {
-        // private List<CatalogItem> catalogItems;
         private readonly AutomobileContext _context;
 
         public AutomobileRepository(AutomobileContext context)
         {
-            // catalogItems = new List<CatalogItem>{};
-            // catalogItems.Add(new CatalogItem() {
-            //     Id = 1,
-            //     Model = null,
-            //     Price = 100,
-            //     Company = "My company"
-            // });
             _context = context ?? throw new ArgumentException(nameof(context));
         }
 
         public async Task<IEnumerable<CatalogItem>> GetCatalogItemsAsync() {
-            return await _context.CatalogItems.ToListAsync();
+            return await _context.CatalogItems
+                .Include(item => item.Model)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CatalogItem>> GetMatchingCatalogItemsAsync(DateTime beginTime, int duration, string location)
+        {
+            // var unavailable = await _context.Reservations
+            //     .Where(r => TimeHelper.IsOverlapping(beginTime, beginTime.AddHours(duration), r.BeginTime, r.EndTime))
+            //     .Select(r => r.CatalogItem)
+            //     .ToListAsync();\
+            var unavailable = await _context.Reservations
+                .Where(r => (r.BeginTime >= beginTime && r.BeginTime < beginTime.AddHours(duration)) ||
+                            (r.EndTime > beginTime && r.EndTime <= beginTime.AddHours(duration)) ||
+                            (beginTime >= r.BeginTime && beginTime.AddHours(duration) <= r.EndTime))
+                .Select(r => r.CatalogItem)
+                .ToListAsync();
+
+            var all = await GetCatalogItemsAsync();
+
+            return all.Where(item => !unavailable.Contains(item));            
         }
     }
 }

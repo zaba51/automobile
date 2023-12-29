@@ -26,6 +26,8 @@ namespace backend.Entities
         public DateTime EndTime {get; set; }
 
         [Required]
-        public DriversDetails DriversDetails {get; set; } 
+        [ForeignKey("DriversDetailsId")]
+        public DriversDetails DriversDetails {get; set; }
+        public int DriversDetailsId {get; set; }
     }
 }

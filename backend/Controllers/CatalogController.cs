@@ -1,3 +1,4 @@
+using automobile.Models;
 using backend.Entities;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,10 @@ public class CatalogController : ControllerBase
         _automobileRepository = automobileRepository;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<CatalogItem>>> GetAvailableItems() {
-        var items = await _automobileRepository.GetCatalogItemsAsync();
+    [HttpPost]
+    public async Task<ActionResult<IEnumerable<CatalogItem>>> GetAvailableItems(CatalogRequest request) {
+        var items = await _automobileRepository
+            .GetMatchingCatalogItemsAsync(request.BeginTime, request.Duration, request.Location);
 
         return Ok(items);
     }

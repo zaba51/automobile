@@ -8,6 +8,9 @@ namespace backend.DbContexts
     {
         public DbSet<CatalogItem> CatalogItems {get; set; }
         public DbSet<Model> Models {get; set; }
+        public DbSet<Reservation> Reservations {get; set; }
+        public DbSet<DriversDetails> DriversDetails {get; set; }
+        public DbSet<User> Users {get; set; }
 
         public AutomobileContext(DbContextOptions options) : base(options)
         {
@@ -90,6 +93,61 @@ namespace backend.DbContexts
                     ModelId = 3,
                     Price = 60,
                     Supplier = "Budget"
+                }
+            );
+
+            modelBuilder.Entity<Reservation>().HasData(
+                new Reservation()
+                {
+                    Id = 1,
+                    CatalogItemId = 1,  // Use the appropriate CatalogItemId from your data
+                    UserId = 1,  // Use the appropriate UserId from your data
+                    BeginTime = DateTime.UtcNow.AddDays(1),
+                    EndTime = DateTime.UtcNow.AddDays(3),
+                    DriversDetailsId = 1  // Use the appropriate DriversDetailsId from your data
+                },
+                new Reservation()
+                {
+                    Id = 2,
+                    CatalogItemId = 2,
+                    UserId = 2,
+                    BeginTime = DateTime.UtcNow.AddDays(5),
+                    EndTime = DateTime.UtcNow.AddDays(8),
+                    DriversDetailsId = 2
+                }
+            );
+
+            modelBuilder.Entity<DriversDetails>().HasData(
+                new DriversDetails()
+                {
+                    Id = 1,
+                    Name = "John",
+                    Surname = "Doe",
+                    Country = "USA",
+                    Number = "123456789"
+                },
+                new DriversDetails()
+                {
+                    Id = 2,
+                    Name = "Jane",
+                    Surname = "Smith",
+                    Country = "Canada",
+                    Number = "987654321"
+                }
+            );
+
+            modelBuilder.Entity<User>().HasData(
+                new User()
+                {
+                    Id = 1,
+                    Name = "Alice",
+                    Email = "alice@example.com"
+                },
+                new User()
+                {
+                    Id = 2,
+                    Name = "Bob",
+                    Email = "bob@example.com"
                 }
             );
 
