@@ -1,4 +1,5 @@
 <app-content-list
+    *ngIf="availableItems !== 'Loading'"
     [availableItems]="availableItems"
     (rentClick)="onRentClick($event)"
 ></app-content-list>

@@ -64,8 +64,8 @@ export class DetailsComponent implements OnInit {
       const newItem: AddReservationDTO = {
         userId: 1,
         catalogItem: this.item,
-        beginDate: this.searchDetails.date,
-        endDate: this.searchDetails.date + this.searchDetails.time,
+        beginDate: this.searchDetails.beginTime,
+        endDate: this.searchDetails.beginTime + this.searchDetails.duration,
         driversDetails: {
           name: this.form.get('name')?.value as string,
           surname: this.form.get('surname')?.value as string,
@@ -83,6 +83,7 @@ export class DetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/search']);
+    // this.router.navigate(['/search']);
+    this.location.back();
   }
 }

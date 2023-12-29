@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.location.setValue('Cracow');
-    this.date.setValue(new Date().toLocaleString().split(',')[0]);
+    this.date.setValue(new Date().toISOString().split('T')[0]);
     this.time.setValue(10);
   }
 

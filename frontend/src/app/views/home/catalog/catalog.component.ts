@@ -5,9 +5,9 @@ import { CatalogService } from 'src/shared/services/catalog/catalog.service';
 import { CatalogItem } from 'src/shared/types/catalogTypes';
 
 export interface ISearchDetails {
-  date: string,
+  beginTime: string,
   location: string,
-  time: number,
+  duration: number,
 }
 
 @Component({
@@ -16,7 +16,7 @@ export interface ISearchDetails {
   styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent implements OnInit {
-  availableItems: CatalogItem[];
+  availableItems: CatalogItem[] | 'Loading' = 'Loading';
   searchDetails: ISearchDetails;
 
   constructor(
@@ -30,8 +30,8 @@ export class CatalogComponent implements OnInit {
     this.route.queryParams.pipe(
       switchMap((params) => {
         this.searchDetails = {
-          date: params['date'],
-          time: params['time'],
+          beginTime: new Date(params['date']).toISOString(),
+          duration: params['time'],
           location: params['location']
         };
         return this.catalogService.getAvailableItems(this.searchDetails);

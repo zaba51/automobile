@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { API_URL } from 'src/shared/api';
 import { AddItemDTO, CatalogItem } from 'src/shared/types/catalogTypes';
 
 @Injectable({
@@ -11,7 +12,8 @@ export class CatalogService {
   constructor(private http: HttpClient) { }
 
   getAvailableItems(searchRequest: any): Observable<CatalogItem[]> {
-    return of(catalogItems);
+    return this.http
+      .post<CatalogItem[]>(API_URL + '/catalog', searchRequest);
   }
 
   getItemsByCompanyId(id: number) {
