@@ -16,26 +16,32 @@ export class CatalogService {
       .post<CatalogItem[]>(API_URL + '/catalog', searchRequest);
   }
 
-  getItemsByCompanyId(id: number) {
-    return of(catalogItems);
+  getItemsBySupplierId(id: number) {
+    return this.http
+      .get<CatalogItem[]>(API_URL + '/catalog?supplierId=' + id);
   }
 
   getItemById(id: number) {
-    return of(catalogItems.find(el => el.id === id))
+    return this.http.get<CatalogItem>(API_URL + '/catalog/'+ id);
   }
 
-  addItem(companyId: number, item: AddItemDTO) {
-    const newItem: CatalogItem = {
-      id: 123,
-      model: {
-        id: Math.floor(Math.random() * 10000),
-        ...item.model
-      },
-      price: item.price,
-      supplier: item.supplier,
-    }
+  addItem(item: AddItemDTO) {
+    // const newItem: CatalogItem = {
+    //   id: 123,
+    //   model: {
+    //     id: Math.floor(Math.random() * 10000),
+    //     ...item.model
+    //   },
+    //   price: item.price,
+    //   supplier: {
+    //     id: item.supplierId,
+    //     name: "Supplier1",
+    //     logoUrl: 'https://example.com/sedan-x-image.jpg'
+    //   }
+    // }
 
-    catalogItems.push(newItem);
+    // catalogItems.push(newItem);
+    return this.http.post(API_URL + '/catalog/add', item);
   }
 }
 
@@ -56,7 +62,11 @@ const catalogItems: CatalogItem[] = [
           color: 'red'
       },
       price: 35000,
-      supplier: 'Supplier'
+      supplier: {
+        id: 1,
+        name: "Supplier1",
+        logoUrl: 'https://example.com/sedan-x-image.jpg'
+      }
   },
   {
       id: 2,
@@ -73,7 +83,11 @@ const catalogItems: CatalogItem[] = [
           color: 'green'
       },
       price: 45000,
-      supplier: 'Supplier'
+      supplier: {
+        id: 1,
+        name: "Supplier1",
+        logoUrl: 'https://example.com/sedan-x-image.jpg'
+      }
   },
   {
     id: 3,
@@ -90,7 +104,11 @@ const catalogItems: CatalogItem[] = [
         color: 'blue'
     },
     price: 55000,
-    supplier: 'Supplier'
+    supplier: {
+      id: 1,
+      name: "Supplier1",
+      logoUrl: 'https://example.com/sedan-x-image.jpg'
+    }
   },
   {
     id: 6,
@@ -107,7 +125,11 @@ const catalogItems: CatalogItem[] = [
         color: 'blue'
     },
     price: 55000,
-    supplier: 'Supplier'
+    supplier: {
+      id: 1,
+      name: "Supplier1",
+      logoUrl: 'https://example.com/sedan-x-image.jpg'
+    }
   },
   {
     id: 4,
@@ -124,7 +146,11 @@ const catalogItems: CatalogItem[] = [
         color: 'blue'
     },
     price: 55000,
-    supplier: 'Supplier'
+    supplier: {
+      id: 1,
+      name: "Supplier1",
+      logoUrl: 'https://example.com/sedan-x-image.jpg'
+    }
   },
   {
     id: 5,
@@ -141,6 +167,10 @@ const catalogItems: CatalogItem[] = [
         color: 'blue'
     },
     price: 55000,
-    supplier: 'Supplier'
+    supplier: {
+      id: 1,
+      name: "Supplier1",
+      logoUrl: 'https://example.com/sedan-x-image.jpg'
+    }
   },
 ];

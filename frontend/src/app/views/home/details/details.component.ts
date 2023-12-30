@@ -18,6 +18,8 @@ export class DetailsComponent implements OnInit {
   item: CatalogItem | "Loading" = 'Loading';
   id: number | null;
   searchDetails: ISearchDetails;
+  beginTime: Date;
+  endTime: Date;
 
   form = new FormGroup({
     name: new FormControl<string>('', Validators.required),
@@ -53,6 +55,8 @@ export class DetailsComponent implements OnInit {
     });
 
     this.searchDetails = (this.location.getState() as any)?.searchDetails;
+    this.beginTime = new Date(this.searchDetails.beginTime);
+    this.endTime = new Date(this.beginTime.getTime() + this.searchDetails.duration * 60 * 60);
   }
 
   onRentClick() {
@@ -67,7 +71,7 @@ export class DetailsComponent implements OnInit {
         userId: 1,
         catalogItemId: this.item.id,
         beginTime: this.searchDetails.beginTime,
-        endTime: new Date(date.getTime() + this.searchDetails.duration * 60 * 60).toISOString(),
+        endTime: this.endTime.toISOString(),
         driversDetails: {
           name: this.form.get('name')?.value as string,
           surname: this.form.get('surname')?.value as string,

@@ -2,7 +2,13 @@ export interface CatalogItem {
     id: number,
     model: Model,
     price: number,
-    supplier: string,
+    supplier: Supplier,
+}
+
+export interface Supplier {
+    id: number,
+    name: string,
+    logoUrl: string
 }
 
 export interface Model {
@@ -31,5 +37,5 @@ export interface AddItemDTO {
         imageUrl: string
     },
     price: number,
-    supplier: string,
+    supplierId: number,
 }

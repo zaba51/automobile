@@ -15,7 +15,7 @@ export class OfferListComponent implements OnInit {
   constructor(private catalogService: CatalogService) { }
 
   ngOnInit(): void {
-    this.catalogService.getItemsByCompanyId(1)
+    this.catalogService.getItemsBySupplierId(1)
       .subscribe((catalogItems: CatalogItem[]) => {
         this.catalogItems = catalogItems;
       })

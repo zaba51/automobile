@@ -67,15 +67,15 @@
                     <div class="schedule-date">
                         <div class="circle"></div>
                         <div class="schedule-date-wrapper">
-                            <p>Fri, Dev 31 - 10:00 AM</p>
-                            <span>Cracow</span>
+                            <p>{{ beginTime | date: 'full' }}</p>
+                            <span>{{ searchDetails.location }}</span>
                         </div>
                     </div>
                     <div class="schedule-date">
                         <div class="circle"></div>
                         <div class="schedule-date-wrapper">
-                            <p>Fri, Dev 31 - 10:00 AM</p>
-                            <span>Cracow</span>
+                            <p>{{ endTime | date: 'full' }}</p>
+                            <span>{{ searchDetails.location }}</span>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     Standard insurance included
                 </div>
                 <div class="price-container">
-                    <div class="price">PLN 50.00</div>
+                    <div class="price">{{ item.price }} USD</div>
                     <span>/1 day</span>
                 </div>
             </nav>

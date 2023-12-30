@@ -47,10 +47,10 @@ export class VehicleFormComponent implements OnInit {
           imageUrl: '',
         },
         price: this.form.value.price as number,
-        supplier: 'New supplier'
+        supplierId: 1
       };
 
-      this.catalogService.addItem(1, newItem);
+      this.catalogService.addItem(newItem).subscribe();
 
       this.close.emit();
     }

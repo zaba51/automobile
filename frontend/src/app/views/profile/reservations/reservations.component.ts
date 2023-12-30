@@ -8,6 +8,7 @@ import { IReservation, ReservationsService } from 'src/shared/services/reservati
 })
 export class ReservationsComponent implements OnInit {
   reservations: IReservation[];
+  userId: number = 1;
 
   constructor(
     private reservationsService: ReservationsService
@@ -18,11 +19,15 @@ export class ReservationsComponent implements OnInit {
   }
 
   delete(reservationId: number) {
-    this.reservationsService.deleteReservation(1, reservationId).subscribe(success => {
-      if (success) {
-        this.reservations = this.reservations.filter(x => x.id !== reservationId);
-      }
-    });
+    this.reservationsService.deleteReservation(this.userId, reservationId).subscribe(
+      {
+        next: (_) => this.reservations = this.reservations.filter(r => r.id != reservationId),
+        error: (e)=> {
+          if (e.status == 403) {
+            const message = "Reservation cannot be deleted later than 24 hours before beginning. "
+          }
+        }
+      });
   }
 
   viewDetails(reservationId: number) {

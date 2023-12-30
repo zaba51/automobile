@@ -40,7 +40,7 @@ export class ReservationsService {
     // if (!this.reservations[userId]) return of([]);
     // else return of(this.reservations[userId])
 
-    return this.http.get<IReservation[]>(API_URL + '/reservations/' + userId);
+    return this.http.get<IReservation[]>(API_URL + '/users/' + userId + '/reservations');
   }
 
   addReservation(userId: number, reservationRequest: AddReservationDTO): Observable<boolean> {
@@ -60,16 +60,11 @@ export class ReservationsService {
     // this.reservations[newReservation.userId].push(newReservation);
 
     // return of(true);
-    return this.http.post<boolean>(API_URL + '/reservations/' + userId, reservationRequest);
+    return this.http.post<boolean>(API_URL + '/users/' + userId + '/reservations', reservationRequest);
   }
 
-  deleteReservation(userId: number, reservationId: number): Observable<boolean> {
-    if (this.reservations[userId]) {
-      this.reservations[userId] = this.reservations[userId].filter(x => x.id !== reservationId);
-      return of(true)
-    }
-
-    return of(false);
+  deleteReservation(userId: number, reservationId: number): Observable<void> {
+    return this.http.delete<void>(API_URL + '/users/' + userId + '/reservations/' + reservationId);
   }
 }
 
@@ -92,7 +87,11 @@ const reservations: {[id: string]: IReservation[]} = {
           color: 'red'
       },
       price: 35000,
-      supplier: 'Supplier'
+      supplier: {
+        id: 1,
+        name: "Supplier1",
+        logoUrl: 'https://example.com/sedan-x-image.jpg'
+      }
     },
     beginTime: '12.12.1121',
     endTime: '12.12.1121',
@@ -121,7 +120,11 @@ const reservations: {[id: string]: IReservation[]} = {
           color: 'red'
       },
       price: 35000,
-      supplier: 'Supplier'
+      supplier: {
+        id: 1,
+        name: "Supplier1",
+        logoUrl: 'https://example.com/sedan-x-image.jpg'
+      }
     },
     beginTime: '12.12.1121',
     endTime: '12.12.1121',
