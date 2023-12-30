@@ -105,7 +105,7 @@ export class ContentListComponent implements OnInit {
 
   private filterByCompany(values: string[], visibleItems: CatalogItem[]) {
     if (values.length < 1) return visibleItems;
-    return visibleItems.filter(item => values.includes(item.company))
+    return visibleItems.filter(item => values.includes(item.model.company))
   }
 
   private filterByPrice(values: string[], visibleItems: CatalogItem[]) {
@@ -117,7 +117,7 @@ export class ContentListComponent implements OnInit {
   private filterBy(filter: keyof Model, values: string[],  visibleItems: CatalogItem[]) {
     if (values.length < 1) return visibleItems;
 
-    return visibleItems.filter(item => values.includes( item.model[filter].toString() ))
+    return visibleItems.filter(item => values.includes( item.model[filter].toString().toLowerCase() ))
   }
 
 }

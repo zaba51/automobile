@@ -40,13 +40,14 @@ export class VehicleFormComponent implements OnInit {
           gear: this.form.value.gear as string,
           engine: this.form.value.engine as string,
           name: this.form.value.name as string,
+          company: this.form.value.company as string,
           doorCount: this.form.value.doorCount as number,
           seatCount: this.form.value.seatCount as number,
           color: this.form.value.color as  string,
           imageUrl: '',
         },
         price: this.form.value.price as number,
-        company: 'New Company'
+        supplier: 'New supplier'
       };
 
       this.catalogService.addItem(1, newItem);

@@ -1,8 +1,8 @@
  <div class="container">
     <div class="main-section">
-        <img class="element" src="https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg" />
+        <img class="element" [src]="item.model.imageUrl" />
         <div class="element info">
-            <div class="title">{{ item.model.name }}</div>
+            <div class="title">{{ item.model.company }} {{ item.model.name }}</div>
             <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.seatCount }} seats</div>
             <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.engine }}</div>
             <div class="info-line"><mat-icon>person</mat-icon>Small</div>

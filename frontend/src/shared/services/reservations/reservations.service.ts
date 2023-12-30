@@ -1,22 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { API_URL } from 'src/shared/api';
 import { CatalogItem } from 'src/shared/types/catalogTypes';
 
 export interface IReservation {
   id: number,
   userId: number,
   catalogItem: CatalogItem,
-  beginDate: string,
-  endDate: string,
+  beginTime: string,
+  endTime: string,
   driversDetails: IDriversDetails
 }
 
 export interface AddReservationDTO {
   userId: number,
-  catalogItem: CatalogItem,
-  beginDate: string,
-  endDate: string,
+  catalogItemId: number,
+  beginTime: string,
+  endTime: string,
   driversDetails: IDriversDetails
 }
 
@@ -36,27 +37,30 @@ export class ReservationsService {
   constructor(private http: HttpClient) { }
 
   getReservations(userId: number): Observable<IReservation[]> {
-    if (!this.reservations[userId]) return of([]);
-    else return of(this.reservations[userId])
+    // if (!this.reservations[userId]) return of([]);
+    // else return of(this.reservations[userId])
+
+    return this.http.get<IReservation[]>(API_URL + '/reservations/' + userId);
   }
 
-  addReservation(reservationRequest: AddReservationDTO): Observable<boolean> {
-    const newReservation: IReservation = {
-      id: Math.floor(Math.random() * 10000),
-      userId: reservationRequest.userId,
-      catalogItem: reservationRequest.catalogItem,
-      beginDate: reservationRequest.beginDate,
-      endDate: reservationRequest.endDate,
-      driversDetails: reservationRequest.driversDetails
-    }
+  addReservation(userId: number, reservationRequest: AddReservationDTO): Observable<boolean> {
+    // const newReservation: IReservation = {
+    //   id: Math.floor(Math.random() * 10000),
+    //   userId: reservationRequest.userId,
+    //   catalogItem: reservationRequest.catalogItemId,
+    //   beginTime: reservationRequest.beginTime,
+    //   endTime: reservationRequest.endTime,
+    //   driversDetails: reservationRequest.driversDetails
+    // }
 
-    if (!this.reservations[newReservation.userId]) {
-      this.reservations[newReservation.userId] = []
-    }
+    // if (!this.reservations[newReservation.userId]) {
+    //   this.reservations[newReservation.userId] = []
+    // }
 
-    this.reservations[newReservation.userId].push(newReservation);
+    // this.reservations[newReservation.userId].push(newReservation);
 
-    return of(true);
+    // return of(true);
+    return this.http.post<boolean>(API_URL + '/reservations/' + userId, reservationRequest);
   }
 
   deleteReservation(userId: number, reservationId: number): Observable<boolean> {
@@ -78,6 +82,7 @@ const reservations: {[id: string]: IReservation[]} = {
       model: {
           id: 101,
           name: 'Sedan X',
+          company: 'Ford',
           power: 200,
           gear: 'Automatic',
           doorCount: 4,
@@ -87,10 +92,10 @@ const reservations: {[id: string]: IReservation[]} = {
           color: 'red'
       },
       price: 35000,
-      company: 'Toyota'
+      supplier: 'Supplier'
     },
-    beginDate: '12.12.1121',
-    endDate: '12.12.1121',
+    beginTime: '12.12.1121',
+    endTime: '12.12.1121',
     driversDetails: {
       name: 'asda',
       surname: 'adsasdasd',
@@ -106,6 +111,7 @@ const reservations: {[id: string]: IReservation[]} = {
       model: {
           id: 101,
           name: 'Sedan X',
+          company: 'Ford',
           power: 200,
           gear: 'Automatic',
           doorCount: 4,
@@ -115,10 +121,10 @@ const reservations: {[id: string]: IReservation[]} = {
           color: 'red'
       },
       price: 35000,
-      company: 'Toyota'
+      supplier: 'Supplier'
     },
-    beginDate: '12.12.1121',
-    endDate: '12.12.1121',
+    beginTime: '12.12.1121',
+    endTime: '12.12.1121',
     driversDetails: {
       name: 'asda',
       surname: 'adsasdasd',

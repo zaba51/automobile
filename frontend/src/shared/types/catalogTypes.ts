@@ -2,11 +2,12 @@ export interface CatalogItem {
     id: number,
     model: Model,
     price: number,
-    company: string,
+    supplier: string,
 }
 
 export interface Model {
     id: number,
+    company: string,
     name: string,
     power: number,
     gear: string,
@@ -23,11 +24,12 @@ export interface AddItemDTO {
         power: number,
         gear: string,
         doorCount: number,
+        company: string,
         seatCount: number,
         engine: string,
         color: string,
         imageUrl: string
     },
     price: number,
-    company: string,
+    supplier: string,
 }

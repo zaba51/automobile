@@ -61,11 +61,13 @@ export class DetailsComponent implements OnInit {
     markFormGroupTouched(this.form);
 
     if (this.form.valid) {
+      const date = new Date(this.searchDetails.beginTime);
+
       const newItem: AddReservationDTO = {
         userId: 1,
-        catalogItem: this.item,
-        beginDate: this.searchDetails.beginTime,
-        endDate: this.searchDetails.beginTime + this.searchDetails.duration,
+        catalogItemId: this.item.id,
+        beginTime: this.searchDetails.beginTime,
+        endTime: new Date(date.getTime() + this.searchDetails.duration * 60 * 60).toISOString(),
         driversDetails: {
           name: this.form.get('name')?.value as string,
           surname: this.form.get('surname')?.value as string,
@@ -74,7 +76,7 @@ export class DetailsComponent implements OnInit {
         }
       };
 
-      this.reservationsService.addReservation(newItem).subscribe(result => {
+      this.reservationsService.addReservation(1, newItem).subscribe(result => {
         if (result === true) {
           this.router.navigate(['/profile'])
         }
