@@ -9,6 +9,6 @@ namespace automobile.Models
 
         public double Price {get; set; }
 
-        public string? Supplier {get; set; }
+        public int SupplierId {get; set; }
     }
 }

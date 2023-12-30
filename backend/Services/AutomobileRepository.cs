@@ -18,6 +18,7 @@ namespace backend.Services {
         public async Task<IEnumerable<CatalogItem>> GetCatalogItemsAsync() {
             return await _context.CatalogItems
                 .Include(item => item.Model)
+                .Include(item => item.Supplier)
                 .ToListAsync();
         }
 
@@ -42,6 +43,22 @@ namespace backend.Services {
         public async Task<Model?> GetModelByQuery(Expression<Func<Model, bool>>  predicate) {
             return await _context.Models.Where(predicate).FirstOrDefaultAsync();
         }
+
+        public async Task<CatalogItem?> GetItemByQuery(Expression<Func<CatalogItem, bool>>  predicate) {
+            return await _context.CatalogItems
+                .Where(predicate)
+                .Include(item => item.Model)
+                .Include(item => item.Supplier)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<CatalogItem>> GetItemsByQuery(Expression<Func<CatalogItem, bool>>  predicate) {
+            return await _context.CatalogItems
+                .Where(predicate)
+                .Include(item => item.Model)
+                .Include(item => item.Supplier)
+                .ToListAsync();
+        }
         
         public void AddCatalogItem(CatalogItem catalogItem)
         {
@@ -64,6 +81,7 @@ namespace backend.Services {
                 .Include(r => r.DriversDetails)
                 .Include(r => r.CatalogItem)
                     .ThenInclude(item => item.Model)
+                 .Include(r => r.CatalogItem.Supplier)
                 .Where(r => r.UserId == userId)
                 .OrderBy(r => r.BeginTime)
                 .ToListAsync();
@@ -74,6 +92,26 @@ namespace backend.Services {
             _context.DriversDetails.Add(reservation.DriversDetails);
 
             _context.Reservations.Add(reservation);
+        }
+
+        public async Task<bool> UserExistsAsync(int userId)
+        {
+            return await _context.Users.AnyAsync(u => u.Id == userId);
+        }
+
+        public async Task<Reservation?> GetSingleReservationForUserAsync(int userId, int reservationId)
+        {
+            return await _context.Reservations
+                .Where(r => r.UserId == userId && r.Id == reservationId).FirstOrDefaultAsync();
+        }
+
+        public async Task DeleteReservation(Reservation reservation)
+        {
+            var driversDetails = await _context.DriversDetails.Where(d => d.Id == reservation.DriversDetailsId).FirstOrDefaultAsync();
+            if (driversDetails != null) {
+                _context.DriversDetails.Remove(driversDetails);
+            } 
+            _context.Reservations.Remove(reservation);
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace backend.Controllers;
 
 [ApiController]
-[Route("api/reservations")]
+[Route("api/users/{userId}/reservations")]
 public class ReservationController : ControllerBase
 {
     
@@ -17,7 +17,6 @@ public class ReservationController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{userId}")]
     public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(int userId)
     {
         // if (!await _automobileRepository.UserExistsAsync(userId))
@@ -38,8 +37,7 @@ public class ReservationController : ControllerBase
     }
     
     [HttpPost]
-    [Route("{userId}")]
-    public async Task<ActionResult> AddReservation(int userId, AddReservationDTO reservation)
+    public async Task<ActionResult<bool>> AddReservation(int userId, AddReservationDTO reservation)
     {
         var newReservation = new Reservation()
         {
@@ -63,7 +61,54 @@ public class ReservationController : ControllerBase
 
         await _automobileRepository.SaveChangesAsync();
 
-        return Ok();
+        return Ok(true);
+    }
 
+    
+    [HttpDelete("{reservationId}")]
+    public async Task<ActionResult<bool>> DeleteReservations(
+        int userId,
+        int reservationId
+    )
+    {
+            if (!await _automobileRepository.UserExistsAsync(userId))
+            {
+                return NotFound();
+            }
+
+            // var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+
+            // if (Convert.ToInt32(requestingUserId) != userId)
+            // {
+            //     return Forbid();
+            // }
+
+            var reservation = await _automobileRepository.GetSingleReservationForUserAsync(userId, reservationId);
+
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            
+            if (!CanDeleteReservation(reservation))
+            {
+                // return NotFound();
+            }
+
+            await _automobileRepository.DeleteReservation(reservation);
+
+            await _automobileRepository.SaveChangesAsync();
+
+            return NoContent();
+    }
+
+    private bool CanDeleteReservation(Reservation reservation) {
+        if (reservation.BeginTime + new TimeSpan(48, 0, 0) > DateTime.UtcNow) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -23,6 +23,18 @@ public class CatalogController : ControllerBase
         return Ok(items);
     }
 
+    [HttpGet]
+    [Route("{itemId}")]
+    public async Task<ActionResult<IEnumerable<CatalogItem>>> GetItemById(int itemId) {
+        var item = await _automobileRepository
+            .GetItemByQuery(item => item.Id == itemId);
+
+        if (item != null) {
+            return Ok(item);
+        }
+        return NotFound();
+    }
+
     [HttpPost("add")]
     public async Task<ActionResult> AddCatalogItem(AddCatalogItemDTO item)
     {
@@ -45,7 +57,7 @@ public class CatalogController : ControllerBase
 
                 Price = item.Price,
 
-                Supplier = item.Supplier
+                SupplierId = item.SupplierId
             };
         }
         else
@@ -62,7 +74,7 @@ public class CatalogController : ControllerBase
 
                 Price = item.Price,
 
-                Supplier = item.Supplier
+                SupplierId = item.SupplierId
             };
         }
 
@@ -72,4 +84,13 @@ public class CatalogController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<CatalogItem>>> GetItemsBySupplierId([FromQuery(Name="supplierId")] int supplierId)
+    {
+        var items = await _automobileRepository.GetItemsByQuery(item => item.Supplier.Id == supplierId);
+
+        return Ok(items);
+    }
+
 }

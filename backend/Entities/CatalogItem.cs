@@ -16,6 +16,9 @@ namespace backend.Entities
 
         public double Price {get; set; }
 
-        public string? Supplier {get; set; }
+        [Required]
+        [ForeignKey("SupplierId")]
+        public Supplier Supplier {get; set; }
+        public int SupplierId {get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace backend.DbContexts
         public DbSet<Reservation> Reservations {get; set; }
         public DbSet<DriversDetails> DriversDetails {get; set; }
         public DbSet<User> Users {get; set; }
+        public DbSet<Supplier> Suppliers {get; set; }
 
         public AutomobileContext(DbContextOptions options) : base(options)
         {
@@ -72,27 +73,40 @@ namespace backend.DbContexts
                 }
             );
 
+            modelBuilder.Entity<Supplier>().HasData(
+                new Supplier("Europcar")
+                {
+                    Id = 1,
+                    LogoUrl = "https://www.europcar.com/_nuxt/img/europcar-signature-green@3x.a2d761a.png"
+                },
+                new Supplier("Enterpsie")
+                {
+                    Id = 2,
+                    LogoUrl = "https://www.enterprise.com/content/experience-fragments/ecom/en/footer/master/_jcr_content/root/footer/footer/container/container/image.coreimg.png/1692607172448/logo-enterprise.png"
+                }
+            );
+
             modelBuilder.Entity<CatalogItem>().HasData(
                 new CatalogItem()
                 {
                     Id = 1,
                     ModelId = 1,
                     Price = 50,
-                    Supplier = "Europcar"
+                    SupplierId = 1
                 },
                 new CatalogItem()
                 {
                     Id = 2,
                     ModelId = 2,
                     Price = 80,
-                    Supplier = "Express"
+                    SupplierId = 1
                 },
                 new CatalogItem()
                 {
                     Id = 3,
                     ModelId = 3,
                     Price = 60,
-                    Supplier = "Budget"
+                    SupplierId = 2
                 }
             );
 
