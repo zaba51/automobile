@@ -1,11 +1,13 @@
 using backend.Entities;
 using backend.Models;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/users/{userId}/reservations")]
 public class ReservationController : ControllerBase
 {

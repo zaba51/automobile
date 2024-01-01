@@ -154,14 +154,15 @@ namespace backend.DbContexts
                 new User()
                 {
                     Id = 1,
-                    Name = "Alice",
-                    Email = "alice@example.com"
+                    Email = "alice@example.com",
+                    Password="pass1"
                 },
                 new User()
                 {
                     Id = 2,
-                    Name = "Bob",
-                    Email = "bob@example.com"
+                    Email = "bob@example.com",
+                    Role = "supplier",
+                    Password="pass1"
                 }
             );
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using backend.DbContexts;
@@ -11,9 +12,10 @@ using backend.DbContexts;
 namespace backend.Migrations
 {
     [DbContext(typeof(AutomobileContext))]
-    partial class AutomobileContextModelSnapshot : ModelSnapshot
+    [Migration("20231230164758_Login")]
+    partial class Login
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,19 +241,19 @@ namespace backend.Migrations
                         new
                         {
                             Id = 1,
-                            BeginTime = new DateTime(2024, 1, 1, 13, 45, 52, 630, DateTimeKind.Utc).AddTicks(1793),
+                            BeginTime = new DateTime(2023, 12, 31, 16, 47, 57, 928, DateTimeKind.Utc).AddTicks(7614),
                             CatalogItemId = 1,
                             DriversDetailsId = 1,
-                            EndTime = new DateTime(2024, 1, 3, 13, 45, 52, 630, DateTimeKind.Utc).AddTicks(1812),
+                            EndTime = new DateTime(2024, 1, 2, 16, 47, 57, 928, DateTimeKind.Utc).AddTicks(7620),
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            BeginTime = new DateTime(2024, 1, 5, 13, 45, 52, 630, DateTimeKind.Utc).AddTicks(1822),
+                            BeginTime = new DateTime(2024, 1, 4, 16, 47, 57, 928, DateTimeKind.Utc).AddTicks(7622),
                             CatalogItemId = 2,
                             DriversDetailsId = 2,
-                            EndTime = new DateTime(2024, 1, 8, 13, 45, 52, 630, DateTimeKind.Utc).AddTicks(1822),
+                            EndTime = new DateTime(2024, 1, 7, 16, 47, 57, 928, DateTimeKind.Utc).AddTicks(7622),
                             UserId = 2
                         });
                 });
@@ -303,6 +305,10 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -321,6 +327,7 @@ namespace backend.Migrations
                         {
                             Id = 1,
                             Email = "alice@example.com",
+                            Name = "Alice",
                             Password = "pass1",
                             Role = "user"
                         },
@@ -328,8 +335,9 @@ namespace backend.Migrations
                         {
                             Id = 2,
                             Email = "bob@example.com",
+                            Name = "Bob",
                             Password = "pass1",
-                            Role = "supplier"
+                            Role = "Supplier"
                         });
                 });
 

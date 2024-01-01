@@ -23,9 +23,14 @@ namespace backend.Services {
         Task<IEnumerable<CatalogItem>> GetItemsByQuery(Expression<Func<CatalogItem, bool>>  predicate);
 
         Task<bool> UserExistsAsync(int userId);
+        Task<User> GetSingleUserAsync(int userId);
+        Task<User?> GetUserByUsernameAsync(string email);
+        void AddUser(User user);
 
         Task<Reservation?> GetSingleReservationForUserAsync(int userId, int reservationId);
 
         Task DeleteReservation(Reservation reservation);
+
+        Task<User?> GetUserByCredentialsAsync(string? email, string? password);
     }
 }

@@ -113,5 +113,24 @@ namespace backend.Services {
             } 
             _context.Reservations.Remove(reservation);
         }
+
+        public async Task<User?> GetUserByCredentialsAsync(string? email, string? password)
+        {
+            return await _context.Users.Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();
+        }
+
+        public async Task<User?> GetSingleUserAsync(int userID)
+        {
+            return await _context.Users.Where(u => u.Id == userID).FirstOrDefaultAsync();
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string email) {
+            return await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
+        }
+
+        public void AddUser(User user)
+        {
+            _context.Users.Add(user);
+        }
     }
 }

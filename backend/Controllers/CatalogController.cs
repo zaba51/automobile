@@ -1,12 +1,14 @@
 using automobile.Models;
 using backend.Entities;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
 
 [ApiController]
 [Route("api/catalog")]
+// [Authorize]
 public class CatalogController : ControllerBase
 {
     private readonly IAutomobileRepository _automobileRepository;
@@ -36,6 +38,7 @@ public class CatalogController : ControllerBase
     }
 
     [HttpPost("add")]
+    [Authorize(Policy = "OnlySupplier")]
     public async Task<ActionResult> AddCatalogItem(AddCatalogItemDTO item)
     {
         var existingModel = await _automobileRepository.GetModelByQuery((model) => (
