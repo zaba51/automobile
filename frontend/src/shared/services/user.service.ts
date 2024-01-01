@@ -16,26 +16,37 @@ export class UserService {
   }
 
   login(email: string, password: string): Observable<string> {
-    // return this.http.post(
-    //   API_URL + '/authentication/authenticate',
-    //   { email, password },
-    //   { responseType: 'text' }
-    // );
-    const user = users.find(user => user.email === email);
-    if (!user) {
-      return throwError(() => new HttpErrorResponse({status: 401}))
-    }
-    const appUser: AppUser = {
-      sub: user.id,
-      email: user.email,
-      role: 'regular',
-      exp: Date.now() + 1000 * 60 * 10,
-    }
-    return of('token.' + btoa(JSON.stringify(appUser)));
+    return this.http.post(
+      API_URL + '/authentication/authenticate',
+      { email, password },
+      { responseType: 'text' }
+    );
+    // const user = users.find(user => user.email === email);
+    // if (!user) {
+    //   return throwError(() => new HttpErrorResponse({status: 401}))
+    // }
+    // const appUser: AppUser = {
+    //   sub: user.id,
+    //   email: user.email,
+    //   role: 'regular',
+    //   exp: Date.now() + 1000 * 60 * 10,
+    // }
+    // return of('token.' + btoa(JSON.stringify(appUser)));
+
+    // return this.http.post(API_URL+"/authentication/authenticate", { email, password }, { responseType: 'text' })
   }
 
-  register(newUser: AddUser): Observable<User> {
-    return this.http.post<User>(API_URL + '/users/', newUser);
+  logout() {
+    return this.http.get(API_URL + '/authentication/logout')
+  }
+
+  register(newUser: AddUser): Observable<string> {
+    return this.http.post(API_URL + '/users', newUser, { responseType: 'text' });
+  }
+
+  isSessionValid() {
+    // return this.http.get<boolean>(API_URL + '/authentication/ping');
+    return of(true);
   }
 }
 

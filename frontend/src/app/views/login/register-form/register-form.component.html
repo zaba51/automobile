@@ -1,1 +1,37 @@
-<p>register-form works!</p>
+<div class="form">
+    <h1>Sign in</h1>
+    <app-input
+        [type]="'text'"
+        [placeholder]="'email'"
+        [title]="'Enter your email'"
+        [control]="form.get('email')"
+    ></app-input>
+    <app-input
+        [type]="'password'"
+        [placeholder]="'*******'"
+        [title]="'Enter your password'"
+        [control]="form.get('password')"
+    ></app-input>
+    <app-input
+        [type]="'confirm password'"
+        [placeholder]="'*******'"
+        [title]="'Confirm your password'"
+        [control]="form.get('confirmPassword')"
+    ></app-input>
+    <app-button
+      [title]="'Sign up'"
+      [icon]="'login'"
+      [size]="'small'"
+      (click)="onRegisterClick()"
+    ></app-button>
+</div>
+<div class="signup-section">
+  <div class="divider"></div>
+  <p>Already have an account?</p>
+  <app-button
+      [title]="'Sign In'"
+      [size]="'small'"
+      [icon]="'person_add'"
+      [routerLink]="['/auth/login']"
+  ></app-button>
+</div>

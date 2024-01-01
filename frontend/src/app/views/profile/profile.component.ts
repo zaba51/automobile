@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,23 +17,30 @@ export class ProfileComponent implements OnInit {
       id: 'profile',
       label: 'Profile',
       icon: 'directions_car',
-      path: ''
+      path: '',
+      condition: true,
     },
     {
       id: 'offer',
       label: 'Offer',
       icon: 'business',
-      path: 'offer'
+      path: 'offer',
+      condition: this.isSupplier,
     },
     {
       id: 'reservations',
       label: 'Reservations',
       icon: 'directions_car',
-      path: 'reservations'
+      path: 'reservations',
+      condition: true,
     }
   ]
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  get isSupplier() {
+    return this.authService.user?.role === 'supplier';
+  }
+
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.activeTab = this.router.routerState.snapshot.url.split('profile/')[1];

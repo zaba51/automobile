@@ -8,6 +8,7 @@ import { OfferListComponent } from './offer-list/offer-list.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { isAuthenticatedGuard } from 'src/app/guards/is-authenticated.guard';
+import { isSupplierGuard } from 'src/app/guards/is-supplier.guard';
 
 const routes: Routes = [
   { path: '',
@@ -16,12 +17,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'offer',
+        redirectTo: 'reservations',
         pathMatch: 'full'
       },
       {
         path: 'offer',
         component: OfferListComponent,
+        canActivate: [isSupplierGuard],
       },
       {
         path: 'reservations',

@@ -5,8 +5,13 @@
                 <img src="../../../assets/images/Automobile.png" />
             </div>
             <app-login-form
+                *ngIf="activeForm === 'login'"
                 (login)="login($event)"
             ></app-login-form>
+            <app-register-form
+                *ngIf="activeForm === 'register'"
+                (register)="register($event)"
+            ></app-register-form>
         </section>
     </div>
     <div class="image-section">

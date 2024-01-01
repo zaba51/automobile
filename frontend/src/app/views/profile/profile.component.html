@@ -3,15 +3,19 @@
     <nav class="navigation">
         <div class="logo"></div>
         <ul>
-            <li
+            <ng-container
                 *ngFor="let tab of navigationTabs"
-                [ngClass]="{'active': tab.id === activeTab}"
-                class="navigation-anchor"
-                (click)="changeTab(tab.id)"
             >
-                <mat-icon>{{ tab.icon }}</mat-icon>
-                {{ tab.label }}
-            </li>
+                <li
+                    *ngIf="tab.condition"
+                    [ngClass]="{'active': tab.id === activeTab}"
+                    class="navigation-anchor"
+                    (click)="changeTab(tab.id)"
+                >
+                    <mat-icon>{{ tab.icon }}</mat-icon>
+                    {{ tab.label }}
+                </li>
+            </ng-container>
         </ul>
     </nav>
     <div>

@@ -26,12 +26,12 @@ export class NavMenuComponent implements OnInit {
   }
 
   navigateLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   toggleMenu() {

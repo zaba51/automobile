@@ -6,7 +6,12 @@ import { SharedComponentsModule } from 'src/shared/shared-components.module';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 
-const routes: Routes = [{ path: '', component: LoginComponent }];
+const routes: Routes = [
+  {
+    path: '**',
+    component: LoginComponent
+  }
+];
 
 @NgModule({
   declarations: [

@@ -5,7 +5,7 @@ export interface User {
   }
   
   export interface AddUser {
-    name: string,
+    password: string,
     email: string,
   }
   
