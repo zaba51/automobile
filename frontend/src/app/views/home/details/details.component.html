@@ -68,14 +68,14 @@
                         <div class="circle"></div>
                         <div class="schedule-date-wrapper">
                             <p>{{ beginTime | date: 'full' }}</p>
-                            <span>{{ searchDetails.location }}</span>
+                            <span>{{ item.location.cityName }}</span>
                         </div>
                     </div>
                     <div class="schedule-date">
                         <div class="circle"></div>
                         <div class="schedule-date-wrapper">
                             <p>{{ endTime | date: 'full' }}</p>
-                            <span>{{ searchDetails.location }}</span>
+                            <span>{{ item.location.cityName }}</span>
                         </div>
                     </div>
                 </div>

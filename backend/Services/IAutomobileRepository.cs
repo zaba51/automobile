@@ -7,7 +7,7 @@ namespace backend.Services {
     {
         Task<IEnumerable<CatalogItem>> GetCatalogItemsAsync();
 
-        Task<IEnumerable<CatalogItem>> GetMatchingCatalogItemsAsync(DateTime BeginTime, int Duration, string Location);
+        Task<IEnumerable<CatalogItem>> GetMatchingCatalogItemsAsync(DateTime BeginTime, int Duration, int locationId);
 
         void AddCatalogItem(CatalogItem catalogItem);
         void AddModel(Model model);
@@ -32,5 +32,7 @@ namespace backend.Services {
         Task DeleteReservation(Reservation reservation);
 
         Task<User?> GetUserByCredentialsAsync(string? email, string? password);
+
+        Task<IEnumerable<Location>> GetLocations();
     }
 }

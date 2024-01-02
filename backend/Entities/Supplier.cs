@@ -13,6 +13,8 @@ namespace backend.Entities
 
         public string LogoUrl {get; set; }
 
+        public List<Location> Locations { get; } = new();
+
         public Supplier(string name)
         {
             Name = name;

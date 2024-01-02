@@ -32,7 +32,7 @@ export interface IDriversDetails {
   providedIn: 'root'
 })
 export class ReservationsService {
-  reservations = reservations;
+  // reservations = reservations;
 
   constructor(private http: HttpClient) { }
 
@@ -44,22 +44,6 @@ export class ReservationsService {
   }
 
   addReservation(userId: number, reservationRequest: AddReservationDTO): Observable<boolean> {
-    // const newReservation: IReservation = {
-    //   id: Math.floor(Math.random() * 10000),
-    //   userId: reservationRequest.userId,
-    //   catalogItem: reservationRequest.catalogItemId,
-    //   beginTime: reservationRequest.beginTime,
-    //   endTime: reservationRequest.endTime,
-    //   driversDetails: reservationRequest.driversDetails
-    // }
-
-    // if (!this.reservations[newReservation.userId]) {
-    //   this.reservations[newReservation.userId] = []
-    // }
-
-    // this.reservations[newReservation.userId].push(newReservation);
-
-    // return of(true);
     return this.http.post<boolean>(API_URL + '/users/' + userId + '/reservations', reservationRequest);
   }
 
@@ -68,72 +52,72 @@ export class ReservationsService {
   }
 }
 
-const reservations: {[id: string]: IReservation[]} = {
-  1: [{
-    id: 123,
-    userId: 1,
-    catalogItem: {
-      id: 1,
-      model: {
-          id: 101,
-          name: 'Sedan X',
-          company: 'Ford',
-          power: 200,
-          gear: 'Automatic',
-          doorCount: 4,
-          seatCount: 5,
-          engine: 'V6',
-          imageUrl: 'https://example.com/sedan-x-image.jpg',
-          color: 'red'
-      },
-      price: 35000,
-      supplier: {
-        id: 1,
-        name: "Supplier1",
-        logoUrl: 'https://example.com/sedan-x-image.jpg'
-      }
-    },
-    beginTime: '12.12.1121',
-    endTime: '12.12.1121',
-    driversDetails: {
-      name: 'asda',
-      surname: 'adsasdasd',
-      country: 'adsasdasd',
-      number: 'adsasdasd',
-    }
-  },
-  {
-    id: 1234,
-    userId: 1,
-    catalogItem: {
-      id: 1,
-      model: {
-          id: 101,
-          name: 'Sedan X',
-          company: 'Ford',
-          power: 200,
-          gear: 'Automatic',
-          doorCount: 4,
-          seatCount: 5,
-          engine: 'V6',
-          imageUrl: 'https://example.com/sedan-x-image.jpg',
-          color: 'red'
-      },
-      price: 35000,
-      supplier: {
-        id: 1,
-        name: "Supplier1",
-        logoUrl: 'https://example.com/sedan-x-image.jpg'
-      }
-    },
-    beginTime: '12.12.1121',
-    endTime: '12.12.1121',
-    driversDetails: {
-      name: 'asda',
-      surname: 'adsasdasd',
-      country: 'adsasdasd',
-      number: 'adsasdasd',
-    }
-  }]
-};
+// const reservations: {[id: string]: IReservation[]} = {
+//   1: [{
+//     id: 123,
+//     userId: 1,
+//     catalogItem: {
+//       id: 1,
+//       model: {
+//           id: 101,
+//           name: 'Sedan X',
+//           company: 'Ford',
+//           power: 200,
+//           gear: 'Automatic',
+//           doorCount: 4,
+//           seatCount: 5,
+//           engine: 'V6',
+//           imageUrl: 'https://example.com/sedan-x-image.jpg',
+//           color: 'red'
+//       },
+//       price: 35000,
+//       supplier: {
+//         id: 1,
+//         name: "Supplier1",
+//         logoUrl: 'https://example.com/sedan-x-image.jpg'
+//       }
+//     },
+//     beginTime: '12.12.1121',
+//     endTime: '12.12.1121',
+//     driversDetails: {
+//       name: 'asda',
+//       surname: 'adsasdasd',
+//       country: 'adsasdasd',
+//       number: 'adsasdasd',
+//     }
+//   },
+//   {
+//     id: 1234,
+//     userId: 1,
+//     catalogItem: {
+//       id: 1,
+//       model: {
+//           id: 101,
+//           name: 'Sedan X',
+//           company: 'Ford',
+//           power: 200,
+//           gear: 'Automatic',
+//           doorCount: 4,
+//           seatCount: 5,
+//           engine: 'V6',
+//           imageUrl: 'https://example.com/sedan-x-image.jpg',
+//           color: 'red'
+//       },
+//       price: 35000,
+//       supplier: {
+//         id: 1,
+//         name: "Supplier1",
+//         logoUrl: 'https://example.com/sedan-x-image.jpg'
+//       }
+//     },
+//     beginTime: '12.12.1121',
+//     endTime: '12.12.1121',
+//     driversDetails: {
+//       name: 'asda',
+//       surname: 'adsasdasd',
+//       country: 'adsasdasd',
+//       number: 'adsasdasd',
+//     }
+//   }]
+// };
 

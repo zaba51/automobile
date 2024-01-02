@@ -19,25 +19,32 @@ namespace backend.Services {
             return await _context.CatalogItems
                 .Include(item => item.Model)
                 .Include(item => item.Supplier)
+                .Include(item => item.Location)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<CatalogItem>> GetMatchingCatalogItemsAsync(DateTime beginTime, int duration, string location)
+        public async Task<IEnumerable<CatalogItem>> GetMatchingCatalogItemsAsync(DateTime beginTime, int duration, int locationId)
         {
             // var unavailable = await _context.Reservations
             //     .Where(r => TimeHelper.IsOverlapping(beginTime, beginTime.AddHours(duration), r.BeginTime, r.EndTime))
             //     .Select(r => r.CatalogItem)
             //     .ToListAsync();\
+            var reservations = await _context.Reservations.ToListAsync();
+
             var unavailable = await _context.Reservations
                 .Where(r => (r.BeginTime >= beginTime && r.BeginTime < beginTime.AddHours(duration)) ||
                             (r.EndTime > beginTime && r.EndTime <= beginTime.AddHours(duration)) ||
-                            (beginTime >= r.BeginTime && beginTime.AddHours(duration) <= r.EndTime))
+                            (beginTime >= r.BeginTime && beginTime.AddHours(duration) <= r.EndTime)
+                        )
                 .Select(r => r.CatalogItem)
+                // .Include(c => c.Location)
+                // .Include(c => c.Model)
+                // .Include(c => c.Location)
                 .ToListAsync();
 
             var all = await GetCatalogItemsAsync();
 
-            return all.Where(item => !unavailable.Contains(item));            
+            return all.Where(item => !unavailable.Contains(item) && item.Location.Id == locationId);            
         }
 
         public async Task<Model?> GetModelByQuery(Expression<Func<Model, bool>>  predicate) {
@@ -49,6 +56,7 @@ namespace backend.Services {
                 .Where(predicate)
                 .Include(item => item.Model)
                 .Include(item => item.Supplier)
+                .Include(item => item.Location)
                 .FirstOrDefaultAsync();
         }
 
@@ -57,6 +65,7 @@ namespace backend.Services {
                 .Where(predicate)
                 .Include(item => item.Model)
                 .Include(item => item.Supplier)
+                .Include(item => item.Location)
                 .ToListAsync();
         }
         
@@ -82,6 +91,7 @@ namespace backend.Services {
                 .Include(r => r.CatalogItem)
                     .ThenInclude(item => item.Model)
                  .Include(r => r.CatalogItem.Supplier)
+                 .Include(r => r.CatalogItem.Location)
                 .Where(r => r.UserId == userId)
                 .OrderBy(r => r.BeginTime)
                 .ToListAsync();
@@ -131,6 +141,11 @@ namespace backend.Services {
         public void AddUser(User user)
         {
             _context.Users.Add(user);
+        }
+
+        public async Task<IEnumerable<Location>> GetLocations()
+        {
+            return await _context.Locations.ToListAsync();
         }
     }
 }

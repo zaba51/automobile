@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CatalogService } from 'src/shared/services/catalog/catalog.service';
+import { Location } from 'src/shared/types/catalogTypes';
 
 @Component({
   selector: 'app-index',
@@ -7,8 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent {
+  locations: Location[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private catalogService: CatalogService) { }
 
   iconItems = [
     {
@@ -25,11 +28,15 @@ export class IndexComponent {
     }
   ]
 
-  onSearch(searchObj: {location: string, date: string, time: number}) {
+  ngOnInit() {
+    this.catalogService.getLocations().subscribe((list: Location[]) => this.locations = list);
+  }
+
+  onSearch(searchObj: {locationId: number, date: string, time: number}) {
     const queryParams = {
       date: searchObj.date,
       time: searchObj.time,
-      location: searchObj.location,
+      locationId: searchObj.locationId,
     };
 
 

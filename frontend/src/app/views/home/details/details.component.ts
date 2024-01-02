@@ -56,7 +56,7 @@ export class DetailsComponent implements OnInit {
 
     this.searchDetails = (this.location.getState() as any)?.searchDetails;
     this.beginTime = new Date(this.searchDetails.beginTime);
-    this.endTime = new Date(this.beginTime.getTime() + this.searchDetails.duration * 60 * 60);
+    this.endTime = new Date(this.beginTime.getTime() + this.searchDetails.duration * 1000 * 60 * 60);
   }
 
   onRentClick() {

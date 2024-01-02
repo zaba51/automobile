@@ -20,7 +20,7 @@ public class CatalogController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<IEnumerable<CatalogItem>>> GetAvailableItems(CatalogRequest request) {
         var items = await _automobileRepository
-            .GetMatchingCatalogItemsAsync(request.BeginTime, request.Duration, request.Location);
+            .GetMatchingCatalogItemsAsync(request.BeginTime, request.Duration, request.LocationId);
 
         return Ok(items);
     }
@@ -30,6 +30,16 @@ public class CatalogController : ControllerBase
     public async Task<ActionResult<IEnumerable<CatalogItem>>> GetItemById(int itemId) {
         var item = await _automobileRepository
             .GetItemByQuery(item => item.Id == itemId);
+
+        if (item != null) {
+            return Ok(item);
+        }
+        return NotFound();
+    }
+
+    [HttpGet("locations")]
+    public async Task<ActionResult<IEnumerable<Location>>> GetLocations() {
+        var item = await _automobileRepository.GetLocations();
 
         if (item != null) {
             return Ok(item);

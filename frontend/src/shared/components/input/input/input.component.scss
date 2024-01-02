@@ -8,7 +8,30 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.2rem;
+    position: relative;
     min-width: 10rem;
+
+    .dropdown {
+        position: absolute;
+        top:100%;
+        background-color: var(--dark-2);
+        width: 100%;
+        z-index: 999;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                padding: 10px;
+                cursor: pointer;
+                &:hover {
+                    background-color: var(--primary);
+                }
+            }
+        }
+    }
 }
 
 span {
@@ -43,6 +66,7 @@ input {
     &:focus {
         outline: none;
     }
+
 }
 
 .error-message span {

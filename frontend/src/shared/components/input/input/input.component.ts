@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -12,10 +12,17 @@ export class InputComponent implements OnInit {
   @Input() type: string = 'text';
   @Input() value: any = '';
   @Input() control: any = new FormControl(this.value);
+  @Input() isDropdownOpen = false;
+  @Input() dropdownItems: any[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+
+  onDropdownSelect(item: any) {
+    this.control.patchValue(item.value);
+    this.value = item.value;
+  }
 }

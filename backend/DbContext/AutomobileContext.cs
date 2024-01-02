@@ -12,6 +12,7 @@ namespace backend.DbContexts
         public DbSet<DriversDetails> DriversDetails {get; set; }
         public DbSet<User> Users {get; set; }
         public DbSet<Supplier> Suppliers {get; set; }
+        public DbSet<Location> Locations {get; set; }
 
         public AutomobileContext(DbContextOptions options) : base(options)
         {
@@ -92,21 +93,24 @@ namespace backend.DbContexts
                     Id = 1,
                     ModelId = 1,
                     Price = 50,
-                    SupplierId = 1
+                    SupplierId = 1,
+                    LocationId = 1,
                 },
                 new CatalogItem()
                 {
                     Id = 2,
                     ModelId = 2,
                     Price = 80,
-                    SupplierId = 1
+                    SupplierId = 1,
+                    LocationId = 1,
                 },
                 new CatalogItem()
                 {
                     Id = 3,
                     ModelId = 3,
                     Price = 60,
-                    SupplierId = 2
+                    SupplierId = 2,
+                    LocationId = 1,
                 }
             );
 
@@ -163,6 +167,45 @@ namespace backend.DbContexts
                     Email = "bob@example.com",
                     Role = "supplier",
                     Password="pass1"
+                }
+            );
+
+            modelBuilder.Entity<Location>().HasData(
+                new Location()
+                {
+                    Id = 1,
+                    CityName = "Warsaw",
+                    CountryName = "Poland"
+                },
+                 new Location()
+                {
+                    Id = 2,
+                    CityName = "Prague",
+                    CountryName = "Chech Republic"
+                },
+                 new Location()
+                {
+                    Id = 3,
+                    CityName = "Cracow",
+                    CountryName = "Poland"
+                },
+                 new Location()
+                {
+                    Id = 4,
+                    CityName = "Gdansk",
+                    CountryName = "Poland"
+                },
+                 new Location()
+                {
+                    Id = 5,
+                    CityName = "Berlin",
+                    CountryName = "Germany"
+                },
+                 new Location()
+                {
+                    Id = 6,
+                    CityName = "Paris",
+                    CountryName = "France"
                 }
             );
 

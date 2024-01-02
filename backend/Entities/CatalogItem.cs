@@ -7,18 +7,23 @@ namespace backend.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id {get; set; }
+        public int Id { get; set; }
 
         [Required]
         [ForeignKey("ModelId")]
-        public Model Model {get; set; }
-        public int ModelId {get; set; }
+        public Model Model { get; set; }
+        public int ModelId { get; set; }
 
-        public double Price {get; set; }
+        public double Price { get; set; }
 
         [Required]
         [ForeignKey("SupplierId")]
-        public Supplier Supplier {get; set; }
-        public int SupplierId {get; set; }
+        public Supplier Supplier { get; set; }
+        public int SupplierId { get; set; }
+
+        [Required]
+        [ForeignKey("LocationId")]
+        public Location Location { get; set; }
+        public int LocationId { get; set; }
     }
 }

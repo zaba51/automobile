@@ -6,7 +6,7 @@ import { CatalogItem } from 'src/shared/types/catalogTypes';
 
 export interface ISearchDetails {
   beginTime: string,
-  location: string,
+  locationId: number,
   duration: number,
 }
 
@@ -32,7 +32,7 @@ export class CatalogComponent implements OnInit {
         this.searchDetails = {
           beginTime: new Date(params['date']).toISOString(),
           duration: params['time'],
-          location: params['location']
+          locationId: parseInt(params['locationId'])
         };
         return this.catalogService.getAvailableItems(this.searchDetails);
       })

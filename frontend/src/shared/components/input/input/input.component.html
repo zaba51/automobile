@@ -7,6 +7,11 @@
         [formControl]="control"
         [ngClass]="{'error': control.invalid && control.touched}"
     />
+    <div class="dropdown" *ngIf="dropdownItems.length > 0 && isDropdownOpen">
+        <ul>
+            <li (click)="onDropdownSelect(item)" *ngFor="let item of dropdownItems">{{ item.label }}</li>
+        </ul>
+    </div>
     <div *ngIf="control.invalid && control.touched" class="error-message">
         <span *ngIf="control.hasError('required')">This field is required</span>
         <span *ngIf="control.hasError('email')">Invalid email</span>

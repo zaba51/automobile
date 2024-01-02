@@ -3,6 +3,13 @@ export interface CatalogItem {
     model: Model,
     price: number,
     supplier: Supplier,
+    location: Location
+}
+
+export interface Location {
+    id: number,
+    cityName: string,
+    countryName: string
 }
 
 export interface Supplier {
