@@ -34,5 +34,7 @@ namespace backend.Services {
         Task<User?> GetUserByCredentialsAsync(string? email, string? password);
 
         Task<IEnumerable<Location>> GetLocations();
+
+        Task<Supplier?> GetSupplierByQuery(Expression<Func<Supplier, bool>>  predicate);
     }
 }

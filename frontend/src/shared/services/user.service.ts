@@ -21,19 +21,6 @@ export class UserService {
       { email, password },
       { responseType: 'text' }
     );
-    // const user = users.find(user => user.email === email);
-    // if (!user) {
-    //   return throwError(() => new HttpErrorResponse({status: 401}))
-    // }
-    // const appUser: AppUser = {
-    //   sub: user.id,
-    //   email: user.email,
-    //   role: 'regular',
-    //   exp: Date.now() + 1000 * 60 * 10,
-    // }
-    // return of('token.' + btoa(JSON.stringify(appUser)));
-
-    // return this.http.post(API_URL+"/authentication/authenticate", { email, password }, { responseType: 'text' })
   }
 
   logout() {

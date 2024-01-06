@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 import { IReservation, ReservationsService } from 'src/shared/services/reservations/reservations.service';
 
 @Component({
@@ -11,11 +12,17 @@ export class ReservationsComponent implements OnInit {
   userId: number = 1;
 
   constructor(
-    private reservationsService: ReservationsService
+    private reservationsService: ReservationsService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.reservationsService.getReservations(1).subscribe(reservations => this.reservations = reservations);
+    const supplierId = this.authService.user?.supplierId;
+    this.userId = this.authService.user!.sub;
+
+    if (supplierId) {
+      this.reservationsService.getReservations(supplierId).subscribe(reservations => this.reservations = reservations);
+    }
   }
 
   delete(reservationId: number) {

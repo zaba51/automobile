@@ -8,6 +8,7 @@ import { CatalogService } from 'src/shared/services/catalog/catalog.service';
 import { AddReservationDTO, ReservationsService } from 'src/shared/services/reservations/reservations.service';
 import { CatalogItem, Model } from 'src/shared/types/catalogTypes';
 import { ISearchDetails } from '../catalog/catalog.component';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-details',
@@ -20,6 +21,7 @@ export class DetailsComponent implements OnInit {
   searchDetails: ISearchDetails;
   beginTime: Date;
   endTime: Date;
+  userId: number;
 
   form = new FormGroup({
     name: new FormControl<string>('', Validators.required),
@@ -33,7 +35,8 @@ export class DetailsComponent implements OnInit {
     private catalogService: CatalogService,
     private route: ActivatedRoute,
     private location: Location,
-    private reservationsService: ReservationsService
+    private reservationsService: ReservationsService,
+    private authService: AuthService
   ) { }
 
 
@@ -53,6 +56,8 @@ export class DetailsComponent implements OnInit {
         this.item = item;
       }
     });
+
+    this.userId = this.authService.user!.sub;;
 
     this.searchDetails = (this.location.getState() as any)?.searchDetails;
     this.beginTime = new Date(this.searchDetails.beginTime);
@@ -80,7 +85,7 @@ export class DetailsComponent implements OnInit {
         }
       };
 
-      this.reservationsService.addReservation(1, newItem).subscribe(result => {
+      this.reservationsService.addReservation(this.userId, newItem).subscribe(result => {
         if (result === true) {
           this.router.navigate(['/profile'])
         }

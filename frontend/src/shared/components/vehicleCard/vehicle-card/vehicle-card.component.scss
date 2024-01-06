@@ -24,6 +24,7 @@ mat-icon {
     margin: 0;
     display: flex;
     align-items: center;
+    gap:6px;
 }
 
 .title {
@@ -55,6 +56,11 @@ mat-icon {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
+
+    img {
+        max-height: 40px;
+        margin-right: auto;
+    }
 }
 
 @media (max-width: 450px) {

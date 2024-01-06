@@ -4,8 +4,8 @@
         <div class="element info">
             <div class="title">{{ item.model.company }} {{ item.model.name }}</div>
             <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.seatCount }} seats</div>
-            <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.engine }}</div>
-            <div class="info-line"><mat-icon>person</mat-icon>Small</div>
+            <div class="info-line"><mat-icon>build_circle</mat-icon>{{ item.model.engine }}</div>
+            <div class="info-line"><mat-icon>settings</mat-icon>{{ item.model.gear }}</div>
         </div>
         <div class="element price" *ngIf="isPrice">
             <span>1 day</span>
@@ -14,6 +14,7 @@
     </div>
     <div class="divider"></div>
     <div class="footer">
+        <img [src]="item.supplier.logoUrl"/>
         <app-button
             *ngIf="isDelete"
             title="Delete"

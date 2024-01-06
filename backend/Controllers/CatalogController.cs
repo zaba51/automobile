@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using automobile.Models;
 using backend.Entities;
 using backend.Services;
@@ -51,6 +52,13 @@ public class CatalogController : ControllerBase
     [Authorize(Policy = "OnlySupplier")]
     public async Task<ActionResult> AddCatalogItem(AddCatalogItemDTO item)
     {
+
+        // var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+        // if(userRole != "supplier") {
+        //     return Forbid();
+        // }
+
         var existingModel = await _automobileRepository.GetModelByQuery((model) => (
             model.Company == item.Model.Company &&
             model.Name == item.Model.Name &&
@@ -67,10 +75,9 @@ public class CatalogController : ControllerBase
             newItem = new CatalogItem()
             {
                 ModelId = existingModel.Id,
-
                 Price = item.Price,
-
-                SupplierId = item.SupplierId
+                SupplierId = item.SupplierId,
+                LocationId = item.LocationId
             };
         }
         else
@@ -84,10 +91,9 @@ public class CatalogController : ControllerBase
             newItem = new CatalogItem()
             {
                 ModelId = model.Id,
-
                 Price = item.Price,
-
-                SupplierId = item.SupplierId
+                SupplierId = item.SupplierId,
+                LocationId = item.LocationId
             };
         }
 
@@ -99,11 +105,21 @@ public class CatalogController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CatalogItem>>> GetItemsBySupplierId([FromQuery(Name="supplierId")] int supplierId)
+    public async Task<ActionResult<IEnumerable<SupplierInfo>>> GetSupplierInfo([FromQuery(Name="supplierId")] int supplierId)
     {
+        var supplier = await _automobileRepository.GetSupplierByQuery(s => s.Id == supplierId);
+
+        if (supplier == null) {
+            return NotFound();
+        }
+
         var items = await _automobileRepository.GetItemsByQuery(item => item.Supplier.Id == supplierId);
 
-        return Ok(items);
+        var supplierInfo = new SupplierInfo() {
+            CatalogItems = items,
+            Supplier = supplier
+        };
+        return Ok(supplierInfo);
     }
 
 }

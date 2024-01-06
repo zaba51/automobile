@@ -14,4 +14,5 @@ export interface User {
     email: string,
     role: string,
     exp: number,
+    supplierId: number | null
   }

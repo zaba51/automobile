@@ -105,13 +105,18 @@ export class ContentListComponent implements OnInit {
 
   private filterByCompany(values: string[], visibleItems: CatalogItem[]) {
     if (values.length < 1) return visibleItems;
-    return visibleItems.filter(item => values.includes(item.model.company))
+    return visibleItems.filter(item => values.includes(item.model.company.toLowerCase()))
   }
 
   private filterByPrice(values: string[], visibleItems: CatalogItem[]) {
     if (values.length < 1) return visibleItems;
 
-    return visibleItems;
+    return visibleItems.filter(item => {
+      return values.some(filter => {
+        const [min, max] = filter.split('-').map(Number);
+        return item.price >= min && item.price < max;
+      });
+    });
   }
 
   private filterBy(filter: keyof Model, values: string[],  visibleItems: CatalogItem[]) {

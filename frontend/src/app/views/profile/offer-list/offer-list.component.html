@@ -25,5 +25,7 @@
     <app-vehicle-form
         class="form-modal"
         (close)="toggleModal(false)"
+        [locations]="supplier.locations"
+        [supplier]="supplier"
     ></app-vehicle-form>
 </ng-container>

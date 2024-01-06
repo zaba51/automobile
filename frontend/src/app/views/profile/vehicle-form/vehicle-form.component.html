@@ -23,9 +23,12 @@
                 </app-input>
                 <app-input title="Engine" [control]="form.get('engine')" placeholder="Electric">
                 </app-input>
-                <app-input title="Cars available" [control]="form.get('available')" placeholder="" type="number">
+                <app-input title="Location" [control]="form.get('location')" placeholder="Cracow" type="text"
+                    [isDropdownOpen]="isDropdownOpen"
+                    [dropdownItems]="dropdownItems"
+                >
                 </app-input>
-                <app-input title="Color" [control]="form.get('color')" placeholder="" type="stirng">
+                <app-input title="Color" [control]="form.get('color')" placeholder="" type="text">
                 </app-input>
             </div>
         </div>

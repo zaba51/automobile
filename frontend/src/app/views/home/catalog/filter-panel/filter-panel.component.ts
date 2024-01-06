@@ -74,6 +74,10 @@ export class FilterPanelComponent implements OnInit {
       headline: 'Price',
       items: [
         {
+          label: '0-50',
+          value: '0-50'
+        },
+        {
           label: '50-100',
           value: '50-100'
         },
@@ -83,7 +87,7 @@ export class FilterPanelComponent implements OnInit {
         },
         {
           label: '300+',
-          value: '300+'
+          value: '300-9999999'
         },
       ]
     },
@@ -156,13 +160,13 @@ export class FilterPanelComponent implements OnInit {
   
       this.filterList[group] = [
         ...filterList,
-        item.value
+        item.value.toLowerCase()
       ]
     }
     else {
       const filterList = this.filterList[group] ?? []
   
-      this.filterList[group] = filterList.filter(f => f !== item.value);
+      this.filterList[group] = filterList.filter(f => f !== item.value.toLowerCase());
     }
 
     this.filterChange.emit(this.filterList);

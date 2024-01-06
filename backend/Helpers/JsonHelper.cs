@@ -15,6 +15,7 @@ namespace backend.Helpers
                 email = user.Email,
                 role = user.Role,
                 exp = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 1000 * 60,
+                supplierId = user.SupplierId
             });
 
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonString));

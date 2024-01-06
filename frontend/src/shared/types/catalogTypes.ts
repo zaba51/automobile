@@ -15,7 +15,8 @@ export interface Location {
 export interface Supplier {
     id: number,
     name: string,
-    logoUrl: string
+    logoUrl: string,
+    locations: Location[]
 }
 
 export interface Model {
@@ -45,4 +46,10 @@ export interface AddItemDTO {
     },
     price: number,
     supplierId: number,
+    locationId: number 
+}
+
+export interface SupplierInfo {
+    supplier: Supplier;
+    catalogItems: CatalogItem[];
 }

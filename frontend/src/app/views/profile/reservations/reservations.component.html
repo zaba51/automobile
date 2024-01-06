@@ -4,11 +4,11 @@
 >
     <div class="cell">
         <div class="label">Data</div>
-        <span>{{ reservation.beginTime }}</span>
+        <span>{{ reservation.beginTime | date: 'short'}}</span>
     </div>
     <div class="cell">
         <div class="label">Lokalizacja</div>
-        <span>Cracow</span>
+        <span>{{ reservation.catalogItem.location.cityName }}, {{ reservation.catalogItem.location.countryName }}</span>
     </div>
     <div class="cell">
         <div class="label">Model</div>
@@ -24,7 +24,7 @@
                 title="Details"
                 size="small"
                 [iconButton]="true"
-                icon="credit_card"
+                icon="announcement"
                 (click)="viewDetails(reservation.id)"
             ></app-button>
         </div>

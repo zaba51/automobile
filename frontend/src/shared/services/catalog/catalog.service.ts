@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ISearchDetails } from 'src/app/views/home/catalog/catalog.component';
 import { API_URL } from 'src/shared/api';
-import { AddItemDTO, CatalogItem, Location } from 'src/shared/types/catalogTypes';
+import { AddItemDTO, CatalogItem, Location, SupplierInfo } from 'src/shared/types/catalogTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,8 @@ export class CatalogService {
       .post<CatalogItem[]>(API_URL + '/catalog', searchRequest);
   }
 
-  getItemsBySupplierId(id: number) {
-    return this.http
-      .get<CatalogItem[]>(API_URL + '/catalog?supplierId=' + id);
+  getSupplierInfo(id: number) {
+    return this.http.get<SupplierInfo>(API_URL + '/catalog?supplierId=' + id);
   }
 
   getItemById(id: number) {

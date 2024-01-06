@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { markFormGroupTouched } from 'src/shared/helpers/validation';
 import { CatalogService } from 'src/shared/services/catalog/catalog.service';
-import { AddItemDTO, CatalogItem } from 'src/shared/types/catalogTypes';
+import { AddItemDTO, CatalogItem, Location, Supplier } from 'src/shared/types/catalogTypes';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -10,6 +10,8 @@ import { AddItemDTO, CatalogItem } from 'src/shared/types/catalogTypes';
   styleUrls: ['./vehicle-form.component.scss']
 })
 export class VehicleFormComponent implements OnInit {
+  @Input() locations: Location[] = [];
+  @Input() supplier: Supplier;
   @Output() close = new EventEmitter();
 
   form = new FormGroup({
@@ -20,14 +22,41 @@ export class VehicleFormComponent implements OnInit {
     doorCount: new FormControl(0, Validators.required),
     seatCount: new FormControl(0, Validators.required),
     engine: new FormControl('', Validators.required),
-    available: new FormControl('', Validators.required),
+    location: new FormControl('', Validators.required),
     price: new FormControl<number>(0, Validators.required),
     color: new FormControl<string>('', Validators.required)
   });
 
+  isDropdownOpen = false;
+
+  get dropdownItems() {
+    return this.locations.map(location => {
+      return {
+        ...location,
+        label: `${location.cityName}, ${location.countryName}`,
+        value: location.cityName
+      }  
+    })
+  }
+  
   constructor(private catalogService: CatalogService) { }
 
+  get locationNames(): string[] {
+    return this.locations.map(x => x.cityName.toLowerCase());
+  }
+
   ngOnInit(): void {
+    this.form.get('location')?.valueChanges.subscribe(value => {
+      if (value === null ||
+          value.length <= 0 ||
+          this.locationNames.includes(value.toLowerCase())) 
+      {
+        this.isDropdownOpen = false;
+      }
+      else {
+        this.isDropdownOpen = true;
+      }
+    })
   }
 
   onSave() {
@@ -47,7 +76,8 @@ export class VehicleFormComponent implements OnInit {
           imageUrl: '',
         },
         price: this.form.value.price as number,
-        supplierId: 1
+        supplierId: this.supplier.id,
+        locationId: this.locations.find(x => x.cityName === this.form.value.location)?.id || 1,
       };
 
       this.catalogService.addItem(newItem).subscribe();

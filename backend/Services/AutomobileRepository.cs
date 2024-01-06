@@ -147,5 +147,13 @@ namespace backend.Services {
         {
             return await _context.Locations.ToListAsync();
         }
+
+        public async Task<Supplier?> GetSupplierByQuery(Expression<Func<Supplier, bool>>  predicate) {
+            return await _context.Suppliers
+                .Where(predicate)
+                .Include(s => s.Locations)
+                .FirstOrDefaultAsync();
+        }
+        
     }
 }

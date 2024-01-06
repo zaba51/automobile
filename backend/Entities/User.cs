@@ -15,7 +15,8 @@ namespace backend.Entities
         [MaxLength(50)]
         public string Password { get; set; }
 
-        
+        public int? SupplierId { get; set;} = null;
+
         public User()
         {
             Role = "user";

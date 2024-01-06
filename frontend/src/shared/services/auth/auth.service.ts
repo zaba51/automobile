@@ -71,7 +71,7 @@ export class AuthService {
 
     else {
       localStorage.removeItem(this.TOKEN_NAME);
-      this.user!.exp = Date.now() + 1000 * 60;
+      this.user!.exp = Date.now() + 1000 * 60 * 10;
       localStorage.setItem(this.TOKEN_NAME, btoa(JSON.stringify(this.user)));
     }
   }
