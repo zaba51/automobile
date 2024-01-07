@@ -1,6 +1,6 @@
  <div class="container">
     <div class="main-section">
-        <img class="element" [src]="item.model.imageUrl" />
+        <img class="element" [src]="BASE_URL + '/' +item.model.imageUrl" />
         <div class="element info">
             <div class="title">{{ item.model.company }} {{ item.model.name }}</div>
             <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.seatCount }} seats</div>

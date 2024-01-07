@@ -35,3 +35,5 @@ C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6
 C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Npgsql.dll
 C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Adrian\Documents\Studia\WSPAI\projekt\automobile\backend\bin\Debug\net6.0\backend.staticwebassets.runtime.json

@@ -39,7 +39,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   goToProfile() {
-    this.router.navigate(['/profile'])
+    this.router.navigate(['/profile/reservations'])
   }
 
   collapse() {

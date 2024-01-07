@@ -29,6 +29,10 @@ export class VehicleFormComponent implements OnInit {
 
   isDropdownOpen = false;
 
+  file: File;
+
+  src: string = '';
+
   get dropdownItems() {
     return this.locations.map(location => {
       return {
@@ -80,10 +84,22 @@ export class VehicleFormComponent implements OnInit {
         locationId: this.locations.find(x => x.cityName === this.form.value.location)?.id || 1,
       };
 
-      this.catalogService.addItem(newItem).subscribe();
+      const formData: FormData = new FormData();
+      formData.append('newItem', JSON.stringify(newItem));
+      if (this.file) {
+        formData.append('file', this.file, this.file.name);
+      }
+      
+      this.catalogService.addItem(formData).subscribe();
 
-      this.close.emit();
+      // this.close.emit();
     }
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+
+    this.src = URL.createObjectURL(this.file);
   }
 
   goBack() {

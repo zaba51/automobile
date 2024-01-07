@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { BASE_URL } from 'src/shared/api';
 import { CatalogItem } from 'src/shared/types/catalogTypes';
 
 @Component({
@@ -16,6 +17,8 @@ export class VehicleCardComponent implements OnInit {
   @Input() isPrice: boolean = true;
 
   @Output() actionClick = new EventEmitter();
+
+  BASE_URL = BASE_URL;
 
   constructor() { }
 

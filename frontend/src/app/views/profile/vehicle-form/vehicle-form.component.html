@@ -33,13 +33,13 @@
             </div>
         </div>
         <div class="section">
-            <img src="https://carwow-uk-wp-3.imgix.net/18015-MC20BluInfinito-scaled-e1666008987698.jpg" alt="">
+            <img [src]="src" alt="">
 
             <div class="upload-button">
                 <label for="file-upload" class="custom-file-upload">
                     <mat-icon>upload</mat-icon><span>Change photo</span>
                 </label>
-                <input id="file-upload" type="file" />
+                <input id="file-upload" type="file" (change)="onFileSelected($event)" #fileUpload />
             </div>
 
             <app-input title="Price per day" [control]="form.get('price')" placeholder="Poland" type="number">

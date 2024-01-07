@@ -25,7 +25,7 @@ export class CatalogService {
     return this.http.get<CatalogItem>(API_URL + '/catalog/'+ id);
   }
 
-  addItem(item: AddItemDTO) {
+  addItem(item: FormData) {
     return this.http.post(API_URL + '/catalog/add', item);
   }
 

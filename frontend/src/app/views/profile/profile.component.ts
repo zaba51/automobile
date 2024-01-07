@@ -13,13 +13,13 @@ export class ProfileComponent implements OnInit {
   activeTab: string = '';
 
   navigationTabs = [
-    {
-      id: 'profile',
-      label: 'Profile',
-      icon: 'directions_car',
-      path: '',
-      condition: true,
-    },
+    // {
+    //   id: 'profile',
+    //   label: 'Profile',
+    //   icon: 'directions_car',
+    //   path: '',
+    //   condition: true,
+    // },
     {
       id: 'offer',
       label: 'Offer',
