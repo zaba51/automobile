@@ -25,4 +25,8 @@ export class InputComponent implements OnInit {
     this.control.patchValue(item.value);
     this.value = item.value;
   }
+
+  trackBy(index: number, item: any) {
+    return 1;
+  }
 }

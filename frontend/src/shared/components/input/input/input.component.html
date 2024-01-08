@@ -9,7 +9,11 @@
     />
     <div class="dropdown" *ngIf="dropdownItems.length > 0 && isDropdownOpen">
         <ul>
-            <li (click)="onDropdownSelect(item)" *ngFor="let item of dropdownItems">{{ item.label }}</li>
+            <ng-container
+                *ngFor="let item of dropdownItems; trackBy: trackBy"
+            >
+                <li (click)="onDropdownSelect(item); $event.stopPropagation()">{{ item.label }}</li>
+            </ng-container>
         </ul>
     </div>
     <div *ngIf="control.invalid && control.touched" class="error-message">

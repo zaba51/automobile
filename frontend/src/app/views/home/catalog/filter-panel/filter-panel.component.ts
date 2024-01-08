@@ -48,12 +48,12 @@ export class FilterPanelComponent implements OnInit {
           value: 'Ford',
         },
         {
-          label: 'Ford',
-          value: 'Ford',
+          label: 'Audi',
+          value: 'Audi',
         },
         {
-          label: 'Ford',
-          value: 'Ford',
+          label: 'Renaut',
+          value: 'Renaut',
         },
         {
           label: 'Hyundai',
@@ -74,20 +74,20 @@ export class FilterPanelComponent implements OnInit {
       headline: 'Price',
       items: [
         {
-          label: '0-50',
-          value: '0-50'
+          label: '0-20',
+          value: '0-20'
         },
         {
-          label: '50-100',
-          value: '50-100'
+          label: '20-50',
+          value: '20-50'
         },
         {
-          label: '101-300',
-          value: '101-300'
+          label: '50-70',
+          value: '50-70'
         },
         {
-          label: '300+',
-          value: '300-9999999'
+          label: '70+',
+          value: '70-9999999'
         },
       ]
     },
@@ -102,6 +102,24 @@ export class FilterPanelComponent implements OnInit {
         {
           label: 'Manual',
           value: 'Manual'
+        }
+      ]
+    },
+    {
+      group: 'engine',
+      headline: 'Engine',
+      items: [
+        {
+          label: 'Gasoline',
+          value: 'Gasoline'
+        },
+        {
+          label: 'Electric',
+          value: 'Electric'
+        },
+        {
+          label: 'Hybrid',
+          value: 'Hybrid'
         }
       ]
     },

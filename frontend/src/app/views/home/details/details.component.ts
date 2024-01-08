@@ -73,7 +73,7 @@ export class DetailsComponent implements OnInit {
       const date = new Date(this.searchDetails.beginTime);
 
       const newItem: AddReservationDTO = {
-        userId: 1,
+        userId: this.userId,
         catalogItemId: this.item.id,
         beginTime: this.searchDetails.beginTime,
         endTime: this.endTime.toISOString(),
@@ -86,9 +86,9 @@ export class DetailsComponent implements OnInit {
       };
 
       this.reservationsService.addReservation(this.userId, newItem).subscribe(result => {
-        if (result === true) {
-          this.router.navigate(['/profile'])
-        }
+        // if (result === true) {
+        //   this.router.navigate(['/profile'])
+        // }
       });
     }
   }

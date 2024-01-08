@@ -1,6 +1,8 @@
+using System.Data;
 using System.Linq.Expressions;
 using backend.Entities;
 using backend.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace backend.Services {
     public interface IAutomobileRepository
@@ -36,5 +38,7 @@ namespace backend.Services {
         Task<IEnumerable<Location>> GetLocations();
 
         Task<Supplier?> GetSupplierByQuery(Expression<Func<Supplier, bool>>  predicate);
+
+        IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel);
     }
 }

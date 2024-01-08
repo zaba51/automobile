@@ -92,7 +92,7 @@ export class VehicleFormComponent implements OnInit {
       
       this.catalogService.addItem(formData).subscribe();
 
-      // this.close.emit();
+      this.close.emit();
     }
   }
 

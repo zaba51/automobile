@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using backend.Entities;
 using backend.Models;
 using backend.Services;
@@ -21,17 +22,10 @@ public class ReservationController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(int userId)
     {
-        // if (!await _automobileRepository.UserExistsAsync(userId))
-        // {
-        //     return NotFound();
-        // }
-
-        // var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
-        // if (Convert.ToInt32(requestingUserId) != userId)
-        // {
-        //     return Forbid();
-        // }
+        if (!await _automobileRepository.UserExistsAsync(userId))
+        {
+            return NotFound();
+        }
 
         var reservations = await _automobileRepository.GetReservationsForUserAsync(userId);
 
@@ -41,6 +35,9 @@ public class ReservationController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<bool>> AddReservation(int userId, AddReservationDTO reservation)
     {
+
+        var transaction = _automobileRepository.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
+
         var newReservation = new Reservation()
         {
             CatalogItemId = reservation.CatalogItemId,
@@ -59,9 +56,29 @@ public class ReservationController : ControllerBase
             }
         };
 
+        var catalogItem = await _automobileRepository.GetItemByQuery(item => item.Id == newReservation.CatalogItemId);
+
+        if (catalogItem == null)
+            return NotFound(false);
+
+        IEnumerable<CatalogItem>? availableItems = await _automobileRepository
+            .GetMatchingCatalogItemsAsync(
+                newReservation.BeginTime,
+                (newReservation.EndTime - newReservation.BeginTime).Hours,
+                catalogItem.LocationId
+            );
+
+        // bool isAvailable = availableItems.Any(i => i.Id == newReservation.Id);
+        bool isAvailable = availableItems.Contains(catalogItem);
+
+        if (!isAvailable)
+            return Conflict(false);
+
         _automobileRepository.AddReservation(userId, newReservation);
 
         await _automobileRepository.SaveChangesAsync();
+
+        transaction.Commit();
 
         return Ok(true);
     }
@@ -78,14 +95,6 @@ public class ReservationController : ControllerBase
                 return NotFound();
             }
 
-            // var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
-
-            // if (Convert.ToInt32(requestingUserId) != userId)
-            // {
-            //     return Forbid();
-            // }
-
             var reservation = await _automobileRepository.GetSingleReservationForUserAsync(userId, reservationId);
 
             if (reservation == null)
@@ -96,7 +105,7 @@ public class ReservationController : ControllerBase
             
             if (!CanDeleteReservation(reservation))
             {
-                // return NotFound();
+                return NotFound();
             }
 
             await _automobileRepository.DeleteReservation(reservation);

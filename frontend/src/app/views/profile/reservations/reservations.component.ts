@@ -17,12 +17,12 @@ export class ReservationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const supplierId = this.authService.user?.supplierId;
+    // const supplierId = this.authService.user?.supplierId;
     this.userId = this.authService.user!.sub;
 
-    if (supplierId) {
-      this.reservationsService.getReservations(supplierId).subscribe(reservations => this.reservations = reservations);
-    }
+    // if (supplierId) {
+      this.reservationsService.getReservations(this.userId).subscribe(reservations => this.reservations = reservations);
+    // }
   }
 
   delete(reservationId: number) {
