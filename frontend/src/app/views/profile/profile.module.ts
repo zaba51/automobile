@@ -9,6 +9,7 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { isAuthenticatedGuard } from 'src/app/guards/is-authenticated.guard';
 import { isSupplierGuard } from 'src/app/guards/is-supplier.guard';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '',
@@ -44,7 +45,9 @@ const routes: Routes = [
     CommonModule,
     SharedComponentsModule,
     RouterModule.forChild(routes),
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ProfileModule { }
