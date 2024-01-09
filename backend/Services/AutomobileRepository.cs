@@ -161,6 +161,11 @@ namespace backend.Services {
                 .Include(s => s.Locations)
                 .FirstOrDefaultAsync();
         }
-        
+
+        public async Task<User?> GetUserByQuery(Expression<Func<User, bool>>  predicate) {
+            return await _context.Users
+                .Where(predicate)
+                .FirstOrDefaultAsync();
+        }
     }
 }

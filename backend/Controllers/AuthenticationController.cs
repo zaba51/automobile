@@ -37,11 +37,16 @@ namespace cineman.API.Controllers
         [HttpPost("authenticate")]
         public async Task<ActionResult<string>> Login(UserLoginBody userLoginBody)
         {
-            var user = await ValidateUserCredentials(
-                userLoginBody.Email,
-                userLoginBody.Password);
+            var user = await _automobileRepository.GetUserByQuery(user => user.Email == userLoginBody.Email);
 
             if (user == null)
+            {
+                return NotFound();
+            }
+
+            bool isPasswordValid = PasswordHasher.VerifyPassword(userLoginBody.Password, user.Password);
+
+            if (!isPasswordValid)
             {
                 return Unauthorized();
             }

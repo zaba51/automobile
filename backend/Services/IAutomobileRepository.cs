@@ -39,6 +39,8 @@ namespace backend.Services {
 
         Task<Supplier?> GetSupplierByQuery(Expression<Func<Supplier, bool>>  predicate);
 
+        Task<User?> GetUserByQuery(Expression<Func<User, bool>>  predicate);
+
         IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel);
     }
 }

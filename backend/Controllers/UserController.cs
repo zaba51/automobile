@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using backend.Entities;
 using backend.Helpers;
 using backend.Models;
@@ -48,7 +50,7 @@ namespace backend.Controllers
             var userToAdd = new User()
             {
                 Email = user.Email,
-                Password = user.Password
+                Password = PasswordHasher.HashPassword(user.Password)
             };
 
             _automobileRepository.AddUser(userToAdd);
