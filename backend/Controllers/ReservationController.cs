@@ -102,10 +102,9 @@ public class ReservationController : ControllerBase
                 return NotFound();
             }
 
-            
             if (!CanDeleteReservation(reservation))
             {
-                return NotFound();
+                return Forbid();
             }
 
             await _automobileRepository.DeleteReservation(reservation);
@@ -116,10 +115,10 @@ public class ReservationController : ControllerBase
     }
 
     private bool CanDeleteReservation(Reservation reservation) {
-        if (reservation.BeginTime + new TimeSpan(48, 0, 0) > DateTime.UtcNow) {
-            return false;
+        if (reservation.BeginTime > DateTime.UtcNow + new TimeSpan(48, 0, 0)) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

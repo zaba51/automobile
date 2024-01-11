@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   refreshToken() {
-    const validToken = this.user !== null && this.user!.exp > Date.now();
+    const validToken = this.token && this.user !== null && this.user!.exp > Date.now();
 
     if (!validToken) {
       localStorage.removeItem(this.TOKEN_NAME);

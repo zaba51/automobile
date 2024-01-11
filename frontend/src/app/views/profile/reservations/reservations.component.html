@@ -4,7 +4,7 @@
 >
     <div class="cell">
         <div class="label">Data</div>
-        <span>{{ reservation.beginTime | date: 'short'}}</span>
+        <span>{{ reservation.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
     </div>
     <div class="cell">
         <div class="label">Lokalizacja</div>

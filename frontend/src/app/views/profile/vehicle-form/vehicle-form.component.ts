@@ -33,6 +33,8 @@ export class VehicleFormComponent implements OnInit {
 
   src: string = '';
 
+  hasError: boolean = false;
+
   get dropdownItems() {
     return this.locations.map(location => {
       return {
@@ -90,9 +92,12 @@ export class VehicleFormComponent implements OnInit {
         formData.append('file', this.file, this.file.name);
       }
       
-      this.catalogService.addItem(formData).subscribe();
-
-      this.close.emit();
+      this.catalogService.addItem(formData).subscribe({
+        next: () => this.close.emit(),
+        error: (e) => {
+          this.setError();
+        }
+      });
     }
   }
 
@@ -104,5 +109,10 @@ export class VehicleFormComponent implements OnInit {
 
   goBack() {
     this.close.emit();
+  }
+
+  setError() {
+    this.hasError = true;
+    setTimeout(() => { this.hasError = false}, 2500);
   }
 }

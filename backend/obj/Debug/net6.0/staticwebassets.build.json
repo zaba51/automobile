@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ynx33puDHBOativsURccK3Oh5WQQ9r2A3d+BNKAKA+4=",
+  "Hash": "OHsH7I1B8pT20jvlh4c3wMk8VhnocN0nA40Mpht14QU=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -304,6 +304,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\cars\\c37ef8f5-c210-4036-ad4a-2d7ed1666dcc_Automobile.png"
+    },
+    {
+      "Identity": "C:\\Users\\Adrian\\Documents\\Studia\\WSPAI\\projekt\\automobile\\backend\\wwwroot\\assets\\cars\\cf5e96a9-daf4-4893-9499-3a1c3bb184ce_chevrolet_corvette_C6_red.jpg",
+      "SourceId": "backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Adrian\\Documents\\Studia\\WSPAI\\projekt\\automobile\\backend\\wwwroot\\",
+      "BasePath": "_content/backend",
+      "RelativePath": "assets/cars/cf5e96a9-daf4-4893-9499-3a1c3bb184ce_chevrolet_corvette_C6_red.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\cars\\cf5e96a9-daf4-4893-9499-3a1c3bb184ce_chevrolet_corvette_C6_red.jpg"
     },
     {
       "Identity": "C:\\Users\\Adrian\\Documents\\Studia\\WSPAI\\projekt\\automobile\\backend\\wwwroot\\assets\\cars\\df1a0b19-7723-474d-b7a5-e4f551048e5b_audi_a4_white.jpg",

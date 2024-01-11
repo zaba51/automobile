@@ -1,12 +1,13 @@
 <div class="container">
     <app-go-back (click)="goBack()"></app-go-back>
-
     <div class="header">
         <h2>Your deal</h2>
         <app-button title="Save" icon="add" (click)="onSave()">
         </app-button>
     </div>
-    <div class="divider"></div>
+    <div class="divider"
+        [ngClass]="{'error': hasError}"
+    ></div>
     <div class="wrapper">
         <div class="form-wrapper">
             <h3>Car's details</h3>

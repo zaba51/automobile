@@ -19,10 +19,10 @@
         flex-direction: column;
         align-items: flex-end;
         flex-basis: 15%;
+        text-align: right;
 
 
         .label {
-            text-align: right;
             font-size: 12px;
             line-height: 12px;
             color: var(--accent);

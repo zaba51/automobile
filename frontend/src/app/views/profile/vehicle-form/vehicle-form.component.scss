@@ -8,6 +8,14 @@
     display: grid;
     max-width:1000px;
     margin: 0 auto;
+
+    .divider {
+        transition: 0.5s;
+    }
+
+    .error {
+        background-color: var(--error);
+    }
 }
 
 .form-wrapper {

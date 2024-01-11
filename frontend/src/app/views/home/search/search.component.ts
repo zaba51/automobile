@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.location.setValue('Warsaw');
+    this.location.setValue('Cracow');
     this.date.setValue(new Date().toISOString().split('.')[0].slice(0, -3));
     this.time.setValue(10);
 

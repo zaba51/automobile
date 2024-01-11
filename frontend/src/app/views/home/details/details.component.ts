@@ -86,9 +86,9 @@ export class DetailsComponent implements OnInit {
       };
 
       this.reservationsService.addReservation(this.userId, newItem).subscribe(result => {
-        // if (result === true) {
-        //   this.router.navigate(['/profile'])
-        // }
+        if (result === true) {
+          this.router.navigate(['/profile'])
+        }
       });
     }
   }

@@ -34,8 +34,8 @@
 <ng-template #menu>
   <div class="menu" *ngIf="isMenuOpen">
     <ul>
-      <!-- <li (click)="goToProfile()">Profile</li> -->
-      <li (click)="goToProfile()">My reservations</li>
+      <li *ngIf="user && user.role == 'supplier'" (click)="navigate('/profile/offer')">Offer</li>
+      <li (click)="navigate('/profile/reservations')">My reservations</li>
       <li (click)="logout()">Sign off</li>
     </ul>
   </div>

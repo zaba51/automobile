@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/shared/services/auth/auth.service';
+import { AppUser } from 'src/shared/types/userTypes';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
   isMenuOpen = false;
-  
+  user: AppUser | null = null;
 
   currentRoute: string = '/';
 
@@ -19,6 +20,7 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit() {
     this.currentRoute = this.router.routerState.snapshot.url;
+    this.user = this.authService.user;
 
     this.router.events.pipe(filter(r=>r instanceof NavigationEnd)).subscribe(r=>{
       this.currentRoute = (r as NavigationEnd).url;
@@ -38,8 +40,8 @@ export class NavMenuComponent implements OnInit {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  goToProfile() {
-    this.router.navigate(['/profile/reservations'])
+  navigate(route: string) {
+    this.router.navigate([route])
   }
 
   collapse() {
