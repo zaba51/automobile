@@ -14,7 +14,7 @@
     </div>
     <div class="divider"></div>
     <div class="footer">
-        <img [src]="item.supplier.logoUrl"/>
+        <img [src]="item.supplier.logoUrl" *ngIf="isLogo"/>
         <app-button
             *ngIf="isDelete"
             title="Delete"

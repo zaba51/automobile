@@ -11,6 +11,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SortByPricePipe } from './pipes/sort-by-price.pipe';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { EmptyStateComponent } from './components/empty-state/empty-state.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { SortByPricePipe } from './pipes/sort-by-price.pipe';
     VehicleCardComponent,
     GoBackComponent,
     NavMenuComponent,
-    SortByPricePipe
+    SortByPricePipe,
+    SpinnerComponent,
+    EmptyStateComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +41,9 @@ import { SortByPricePipe } from './pipes/sort-by-price.pipe';
     VehicleCardComponent,
     GoBackComponent,
     NavMenuComponent,
-    SortByPricePipe
+    SortByPricePipe,
+    SpinnerComponent,
+    EmptyStateComponent
   ]
 })
 export class SharedComponentsModule { }

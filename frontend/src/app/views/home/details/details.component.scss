@@ -1,7 +1,12 @@
+:host {
+    flex-grow: 1;
+}
+
 .container {
     max-width: 1000px;
     margin: auto;
     padding: 1rem;
+    height: 100%;
 
     h3 {
         font-size: var(--m);
@@ -61,6 +66,7 @@ p {
     height: 18px;
     background-color: var(--accent);
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .drivers-form app-input:not(:first-of-type) {

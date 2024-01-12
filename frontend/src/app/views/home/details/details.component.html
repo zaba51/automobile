@@ -21,7 +21,7 @@
                     <div class="info-item"><mat-icon>arrow_right</mat-icon> {{ item.model.doorCount }} doors</div>
                     <div class="info-item"><mat-icon>arrow_right</mat-icon> {{ item.model.engine }} engine</div>
                     <div class="info-item"><mat-icon>arrow_right</mat-icon> {{ item.model.gear }} gear</div>
-                    <div class="info-item"><mat-icon>arrow_right</mat-icon> {{ item.model.power }} horse power</div>
+                    <!-- <div class="info-item"><mat-icon>arrow_right</mat-icon> {{ item.model.power }} horse power</div> -->
                     <div class="info-item"><mat-icon>arrow_right</mat-icon> Color: {{ item.model.color }} </div>
                 </div>
                 <div class="divider"></div>
@@ -101,4 +101,9 @@
     </ng-container>
 </div>
 
-<ng-template #loading>LOADING</ng-template>
+
+<ng-template #loading>
+    <app-spinner
+        title="The item is loading"
+    ></app-spinner>
+</ng-template>

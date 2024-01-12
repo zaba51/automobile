@@ -4,7 +4,7 @@
         (filterChange)="filterResults($event)"
     ></app-filter-panel>
     <main>
-        <div class="list-header">CARS AVAILABLE: {{availableItems.length}}</div>
+        <div class="list-header">CARS AVAILABLE: {{displayedItems.length}}</div>
         <div class="sorting">
             <select id="selectedOption" [(ngModel)]="selectedOption">
                 <option *ngFor="let option of options" [value]="option.value">

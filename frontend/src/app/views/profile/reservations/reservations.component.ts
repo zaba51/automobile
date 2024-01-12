@@ -8,7 +8,7 @@ import { IReservation, ReservationsService } from 'src/shared/services/reservati
   styleUrls: ['./reservations.component.scss']
 })
 export class ReservationsComponent implements OnInit {
-  reservations: IReservation[];
+  reservations: IReservation[] | 'Loading' = 'Loading';
   userId: number = 1;
 
   constructor(
@@ -17,18 +17,15 @@ export class ReservationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // const supplierId = this.authService.user?.supplierId;
     this.userId = this.authService.user!.sub;
 
-    // if (supplierId) {
-      this.reservationsService.getReservations(this.userId).subscribe(reservations => this.reservations = reservations);
-    // }
+    this.reservationsService.getReservations(this.userId).subscribe(reservations => this.reservations = reservations);
   }
 
   delete(reservationId: number) {
     this.reservationsService.deleteReservation(this.userId, reservationId).subscribe(
       {
-        next: (_) => this.reservations = this.reservations.filter(r => r.id != reservationId),
+        next: (_) => this.reservations = (this.reservations as IReservation[]).filter(r => r.id != reservationId),
         error: (e)=> {
           if (e.status == 403) {
             const message = "Reservation cannot be deleted later than 24 hours before beginning. "

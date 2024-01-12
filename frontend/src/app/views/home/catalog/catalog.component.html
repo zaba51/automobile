@@ -1,5 +1,22 @@
-<app-content-list
-    *ngIf="availableItems !== 'Loading'"
-    [availableItems]="availableItems"
-    (rentClick)="onRentClick($event)"
-></app-content-list>
+<ng-container
+    *ngIf="availableItems !== 'Loading'; else spinner"
+>
+    <app-content-list
+        *ngIf="availableItems.length > 0; else emptyState"
+        [availableItems]="availableItems"
+        (rentClick)="onRentClick($event)"
+    ></app-content-list>
+</ng-container>
+
+<ng-template #spinner>
+    <app-spinner
+        title="Your content is loading"
+    ></app-spinner>
+</ng-template>
+
+<ng-template #emptyState>
+    <app-empty-state
+        title="Sorry, no items available"
+        text="Try to search for a different time."
+    ></app-empty-state>
+</ng-template>

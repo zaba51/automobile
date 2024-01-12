@@ -16,6 +16,8 @@ export class VehicleCardComponent implements OnInit {
 
   @Input() isPrice: boolean = true;
 
+  @Input() isLogo: boolean = true;
+
   @Output() actionClick = new EventEmitter();
 
   BASE_URL = BASE_URL;

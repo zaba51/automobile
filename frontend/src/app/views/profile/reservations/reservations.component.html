@@ -1,42 +1,62 @@
-<div
-    *ngFor="let reservation of reservations"
-    class="reservation-item"
+<ng-container
+    *ngIf="reservations !== 'Loading'; else spinner"
 >
-    <div class="cell">
-        <div class="label">Data</div>
-        <span>{{ reservation.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
-    </div>
-    <div class="cell">
-        <div class="label">Lokalizacja</div>
-        <span>{{ reservation.catalogItem.location.cityName }}, {{ reservation.catalogItem.location.countryName }}</span>
-    </div>
-    <div class="cell">
-        <div class="label">Model</div>
-        <span>{{ reservation.catalogItem.model.name }}</span>
-    </div>
-    <div class="cell">
-        <div class="label">Cena</div>
-        <span>{{ reservation.catalogItem.price }}</span>
-    </div>
-    <div class="actions">
-        <div class="cell">
-            <app-button
-                title="Details"
-                size="small"
-                [iconButton]="true"
-                icon="announcement"
-                (click)="viewDetails(reservation.id)"
-            ></app-button>
+    <ng-container *ngIf="reservations.length > 0; else emptyState">
+
+        <div
+            *ngFor="let reservation of reservations"
+            class="reservation-item"
+        >
+            <div class="cell">
+                <div class="label">Data</div>
+                <span>{{ reservation.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
+            </div>
+            <div class="cell">
+                <div class="label">Lokalizacja</div>
+                <span>{{ reservation.catalogItem.location.cityName }}, {{ reservation.catalogItem.location.countryName }}</span>
+            </div>
+            <div class="cell">
+                <div class="label">Model</div>
+                <span>{{ reservation.catalogItem.model.name }}</span>
+            </div>
+            <div class="cell">
+                <div class="label">Cena</div>
+                <span>{{ reservation.catalogItem.price }}</span>
+            </div>
+            <div class="actions">
+                <div class="cell">
+                    <app-button
+                        title="Details"
+                        size="small"
+                        [iconButton]="true"
+                        icon="announcement"
+                        (click)="viewDetails(reservation.id)"
+                    ></app-button>
+                </div>
+                <div class="cell">
+                    <app-button
+                        title="Delete"
+                        size="small"
+                        [iconButton]="true"
+                        icon="delete"
+                        [style]="'error'"
+                        (click)="delete(reservation.id)"
+                    ></app-button>
+                </div>
+            </div>
         </div>
-        <div class="cell">
-            <app-button
-                title="Delete"
-                size="small"
-                [iconButton]="true"
-                icon="delete"
-                [style]="'error'"
-                (click)="delete(reservation.id)"
-            ></app-button>
-        </div>
-    </div>
-</div>
+    </ng-container>
+</ng-container>
+
+<ng-template #spinner>
+    <app-spinner
+        title="Your reservations are loading"
+    ></app-spinner>
+</ng-template>
+
+<ng-template #emptyState>
+    <app-empty-state
+        title="No reservations found. "
+        text="Add your first reservation."
+    ></app-empty-state>
+</ng-template>

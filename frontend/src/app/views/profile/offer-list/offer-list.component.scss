@@ -55,3 +55,7 @@ h2 {
         display: none;
     }
 }
+
+app-empty-state, app-spinner {
+    flex-grow: 1;
+}

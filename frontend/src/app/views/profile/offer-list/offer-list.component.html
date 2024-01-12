@@ -13,12 +13,13 @@
     ></app-button>
 </div>
 <div class="divider"></div>
-<div class="vehicle-list-wrapper" *ngIf="catalogItems !== 'Loading'">
+<div class="vehicle-list-wrapper" *ngIf="catalogItems !== 'Loading'; else spinner">
     <app-vehicle-card
         *ngFor="let item of displayItems"
         [item]="item"
         [isDelete]="true"
         [isRent]="false"
+        [isLogo]="false"
     ></app-vehicle-card>
 </div>
 
@@ -30,3 +31,9 @@
         [supplier]="supplier"
     ></app-vehicle-form>
 </ng-container>
+
+<ng-template #spinner>
+    <app-spinner
+        title="Your content is loading"
+    ></app-spinner>
+</ng-template>
