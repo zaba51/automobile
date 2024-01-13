@@ -1,9 +1,12 @@
+
+## About
+
 <div align="center">
-  <a href="https://github.com/MPT-B/GiroDelGusto">
     <img src="https://github.com/zaba51/automobile/assets/101710079/03811f4b-8abd-42e7-b941-615e3740e6d7" alt="Logo" width="248" height="32">
-  </a>
 </div>
 <br />
+
+Automobile is a car rental service that lets you rent a variety of vehicles for short periods of time from a plethora of suppliers from all around Europe. Amazing user experience and vastness of choices will make this the only car rental service you will ever need to google.
 
 ## Table of Contents
 
@@ -13,10 +16,6 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-
-## About
-
-Automobile is a car rental service that lets you rent a variety of vehicles for short periods of time from a plethora of suppliers from all around Europe. Amazing user experience and vastness of choices will make this the only car rental service you will ever need to google.
 
 ## Features
 
@@ -29,7 +28,7 @@ Automobile is a car rental service that lets you rent a variety of vehicles for 
 - Add vehicles to your offer.
 - Browse, manage and edit your catalogue. 
 
-### Screencshots
+### Screenshots
 <div id="screenshots">
   <img src="https://github.com/zaba51/automobile/assets/101710079/74332297-a3d6-4c89-bd86-b3939033efa3" width="800px" />
   <br />
@@ -56,15 +55,6 @@ Automobile is a car rental service that lets you rent a variety of vehicles for 
 
 
 ## Getting Started
-
-Provide instructions on setting up your project locally. Include details about prerequisites and installation steps.
-
-### Prerequisites
-
-- List any software, libraries, or frameworks that users need to have installed before they can use your project.
-
-### Installation
-
 
 ### Installation
 
