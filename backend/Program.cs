@@ -51,8 +51,11 @@ builder.Services.AddSwaggerGen();
 //     options.IdleTimeout = TimeSpan.FromMinutes(2);
 // });
 
-builder.Services.AddDbContext<AutomobileContext>(options => 
-    options.UseNpgsql(builder.Configuration.GetConnectionString("AutomobileContext")));
+builder.Services.AddLogging();
+
+builder.Services.AddDbContext<AutomobileContext>(options => {
+    options.UseNpgsql(builder.Configuration.GetConnectionString("AutomobileContext"));
+});
 
 builder.Services.AddScoped<IAutomobileRepository, AutomobileRepository>();
 
@@ -70,6 +73,7 @@ builder.Services.AddAuthorization(options => {
         policy.RequireClaim(ClaimTypes.Role, "supplier");
     });
 });
+builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();
 
