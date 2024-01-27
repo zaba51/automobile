@@ -16,22 +16,22 @@ namespace backend.Controllers;
 // [Authorize]
 public class CatalogController : ControllerBase
 {
-    private readonly IAutomobileRepository _automobileRepository;
+    private readonly ICatalogRepository _catalogRepository;
     private readonly IWebHostEnvironment _hostEnvironment;
 
     public CatalogController(
-        IAutomobileRepository automobileRepository,
+        ICatalogRepository catalogRepository,
         IWebHostEnvironment hostEnvironment    
     )
     {
-        _automobileRepository = automobileRepository;
+        _catalogRepository = catalogRepository;
         _hostEnvironment = hostEnvironment;
     }
 
     [HttpPost]
     public async Task<ActionResult<IEnumerable<CatalogItem>>> GetAvailableItems(CatalogRequest request)
     {
-        var items = await _automobileRepository
+        var items = await _catalogRepository
             .GetMatchingCatalogItemsAsync(request.BeginTime, request.Duration, request.LocationId);
 
         return Ok(items);
@@ -41,7 +41,7 @@ public class CatalogController : ControllerBase
     [Route("{itemId}")]
     public async Task<ActionResult<IEnumerable<CatalogItem>>> GetItemById(int itemId)
     {
-        var item = await _automobileRepository
+        var item = await _catalogRepository
             .GetItemByQuery(item => item.Id == itemId);
 
         if (item != null)
@@ -54,7 +54,7 @@ public class CatalogController : ControllerBase
     [HttpGet("locations")]
     public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
     {
-        var item = await _automobileRepository.GetLocations();
+        var item = await _catalogRepository.GetLocations();
 
         if (item != null)
         {
@@ -76,10 +76,9 @@ public class CatalogController : ControllerBase
         try
         {
             var newItemJson = addItemDto.NewItem;
-            // var item = JsonSerializer.Deserialize<AddCatalogItemDTO>(newItemJson);
             var item = JsonConvert.DeserializeObject<AddCatalogItemDTO>(newItemJson);
 
-            var existingModel = await _automobileRepository.GetModelByQuery((model) => (
+            var existingModel = await _catalogRepository.GetModelByQuery((model) => (
                 model.Company == item.Model.Company &&
                 model.Name == item.Model.Name &&
                 model.Power == item.Model.Power &&
@@ -128,11 +127,11 @@ public class CatalogController : ControllerBase
 
                 item.Model.ImageUrl = relativeFilePath;
 
-                _automobileRepository.AddModel(item.Model);
+                _catalogRepository.AddModel(item.Model);
 
-                await _automobileRepository.SaveChangesAsync();
+                await _catalogRepository.SaveChangesAsync();
 
-                var model = await _automobileRepository.GetModelByQuery((model) => model == item.Model);
+                var model = await _catalogRepository.GetModelByQuery((model) => model == item.Model);
 
                 newItem = new CatalogItem()
                 {
@@ -143,9 +142,9 @@ public class CatalogController : ControllerBase
                 };
             }
 
-            _automobileRepository.AddCatalogItem(newItem);
+            _catalogRepository.AddCatalogItem(newItem);
 
-            await _automobileRepository.SaveChangesAsync();
+            await _catalogRepository.SaveChangesAsync();
 
             return Ok();
         }
@@ -158,14 +157,14 @@ public class CatalogController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<SupplierInfo>>> GetSupplierInfo([FromQuery(Name = "supplierId")] int supplierId)
     {
-        var supplier = await _automobileRepository.GetSupplierByQuery(s => s.Id == supplierId);
+        var supplier = await _catalogRepository.GetSupplierByQuery(s => s.Id == supplierId);
 
         if (supplier == null)
         {
             return NotFound();
         }
 
-        var items = await _automobileRepository.GetItemsByQuery(item => item.Supplier.Id == supplierId);
+        var items = await _catalogRepository.GetItemsByQuery(item => item.Supplier.Id == supplierId);
 
         var supplierInfo = new SupplierInfo()
         {

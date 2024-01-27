@@ -24,7 +24,7 @@
         </div>
         <div class="divider"></div>
         <div class="sort-container"></div>
-        <div class="vehicle-list-wrapper">
+        <div class="vehicle-list-wrapper" *ngIf="displayedItems?.length; else emptyState">
             <app-vehicle-card
                 *ngFor="let item of displayedItems | sortByPrice: selectedOption"
                 [item]="item"
@@ -51,3 +51,10 @@
         </div>
     </div>
 </div>
+
+<ng-template #emptyState>
+    <app-empty-state
+        title="Sorry, no items match the filters"
+        text="Try to change the filters."
+    ></app-empty-state>
+</ng-template>

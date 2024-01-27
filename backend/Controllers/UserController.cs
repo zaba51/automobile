@@ -15,11 +15,11 @@ namespace backend.Controllers
     public class UsersController : ControllerBase
     {
 
-        private readonly IAutomobileRepository _automobileRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UsersController(IAutomobileRepository automobileRepository)
+        public UsersController(IUserRepository userRepository)
         {
-            _automobileRepository = automobileRepository ?? throw new ArgumentNullException(nameof(automobileRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         [HttpGet]
@@ -27,7 +27,7 @@ namespace backend.Controllers
         public async Task<ActionResult> GetSingleUser(
             int id)
         {
-            var user = await _automobileRepository.GetSingleUserAsync(id);
+            var user = await _userRepository.GetSingleUserAsync(id);
 
             if (user == null)
             {
@@ -42,7 +42,7 @@ namespace backend.Controllers
         public async Task<ActionResult> AddUser(AddUserDTO user)
         {
 
-            if (await _automobileRepository.GetUserByUsernameAsync(user.Email) != null)
+            if (await _userRepository.GetUserByUsernameAsync(user.Email) != null)
             {
                 return Conflict();
             }
@@ -53,9 +53,9 @@ namespace backend.Controllers
                 Password = PasswordHasher.HashPassword(user.Password)
             };
 
-            _automobileRepository.AddUser(userToAdd);
+            _userRepository.AddUser(userToAdd);
 
-            await _automobileRepository.SaveChangesAsync();
+            await _userRepository.SaveChangesAsync();
 
             CookieHelper.SignIn(HttpContext, userToAdd);
 

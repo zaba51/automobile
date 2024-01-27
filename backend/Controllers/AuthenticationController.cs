@@ -18,13 +18,13 @@ namespace cineman.API.Controllers
     public class AuthenticationController : ControllerBase
     {
 
-        private readonly IAutomobileRepository _automobileRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationController(IAutomobileRepository automobileRepository,
+        public AuthenticationController(IUserRepository automobileRepository,
         IConfiguration configuration)
         {
-            _automobileRepository = automobileRepository ?? throw new ArgumentNullException(nameof(automobileRepository));
+            _userRepository = automobileRepository ?? throw new ArgumentNullException(nameof(automobileRepository));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
@@ -37,7 +37,7 @@ namespace cineman.API.Controllers
         [HttpPost("authenticate")]
         public async Task<ActionResult<string>> Login(UserLoginBody userLoginBody)
         {
-            var user = await _automobileRepository.GetUserByQuery(user => user.Email == userLoginBody.Email);
+            var user = await _userRepository.GetUserByQuery(user => user.Email == userLoginBody.Email);
 
             if (user == null)
             {
@@ -63,11 +63,6 @@ namespace cineman.API.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok();
-        }
-
-        private async Task<User?> ValidateUserCredentials(string? email, string? password)
-        {
-            return await _automobileRepository.GetUserByCredentialsAsync(email, password);
         }
 
         [HttpGet("ping")]

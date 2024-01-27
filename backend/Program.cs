@@ -9,24 +9,6 @@ string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// builder.Services.AddCors(options => {
-//     options.AddPolicy(myAllowSpecificOrigins,
-//                       policy => 
-//                       {
-//                         policy.WithOrigins()
-//                             .AllowAnyOrigin()
-//                             .AllowAnyHeader()
-//                             .AllowAnyMethod();
-//                       });
-//     options.AddPolicy("any",
-//                     builder => builder
-//                     .AllowAnyMethod()
-//                     .AllowAnyHeader()
-
-//                     .AllowCredentials()
-//                     .SetIsOriginAllowed(hostName => true));
-// });
-
 builder.Services.AddCors(options =>
     {
         options.AddDefaultPolicy(builder => 
@@ -37,19 +19,11 @@ builder.Services.AddCors(options =>
         );
     });
 
-// Add services to the container.
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// builder.Services.AddDistributedMemoryCache();
-// builder.Services.AddSession(options => 
-// {
-//     options.IdleTimeout = TimeSpan.FromMinutes(2);
-// });
 
 builder.Services.AddLogging();
 
@@ -58,13 +32,16 @@ builder.Services.AddDbContext<AutomobileContext>(options => {
 });
 
 builder.Services.AddScoped<IAutomobileRepository, AutomobileRepository>();
+builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
         options.SlidingExpiration = true;
-        options.Cookie.SameSite = SameSiteMode.None;
+        options.Cookie.SameSite = SameSiteMode.Unspecified;
     });
 
 builder.Services.AddAuthorization(options => {
@@ -77,8 +54,6 @@ builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();
 
-// app.UseSession();
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

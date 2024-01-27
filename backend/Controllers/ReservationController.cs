@@ -13,21 +13,29 @@ namespace backend.Controllers;
 public class ReservationController : ControllerBase
 {
     
-    private readonly IAutomobileRepository _automobileRepository;
-    public ReservationController(IAutomobileRepository automobileRepository)
+    private readonly IReservationRepository _reservationRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly ICatalogRepository _catalogRepository;
+    public ReservationController(
+        IReservationRepository reservationRepository,
+        IUserRepository userRepository,
+        ICatalogRepository catalogRepository
+    )
     {
-        _automobileRepository = automobileRepository;
+        _userRepository = userRepository;
+        _reservationRepository = reservationRepository;
+        _catalogRepository = catalogRepository;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(int userId)
     {
-        if (!await _automobileRepository.UserExistsAsync(userId))
+        if (!await _userRepository.UserExistsAsync(userId))
         {
             return NotFound();
         }
 
-        var reservations = await _automobileRepository.GetReservationsForUserAsync(userId);
+        var reservations = await _reservationRepository.GetReservationsForUserAsync(userId);
 
         return Ok(reservations);
     }
@@ -36,7 +44,7 @@ public class ReservationController : ControllerBase
     public async Task<ActionResult<bool>> AddReservation(int userId, AddReservationDTO reservation)
     {
 
-        var transaction = _automobileRepository.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
+        var transaction = _reservationRepository.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
         var newReservation = new Reservation()
         {
@@ -56,12 +64,12 @@ public class ReservationController : ControllerBase
             }
         };
 
-        var catalogItem = await _automobileRepository.GetItemByQuery(item => item.Id == newReservation.CatalogItemId);
+        var catalogItem = await _catalogRepository.GetItemByQuery(item => item.Id == newReservation.CatalogItemId);
 
         if (catalogItem == null)
             return NotFound(false);
 
-        IEnumerable<CatalogItem>? availableItems = await _automobileRepository
+        IEnumerable<CatalogItem>? availableItems = await _catalogRepository
             .GetMatchingCatalogItemsAsync(
                 newReservation.BeginTime,
                 (newReservation.EndTime - newReservation.BeginTime).Hours,
@@ -74,9 +82,9 @@ public class ReservationController : ControllerBase
         if (!isAvailable)
             return Conflict(false);
 
-        _automobileRepository.AddReservation(userId, newReservation);
+        _reservationRepository.AddReservation(userId, newReservation);
 
-        await _automobileRepository.SaveChangesAsync();
+        await _reservationRepository.SaveChangesAsync();
 
         transaction.Commit();
 
@@ -90,12 +98,12 @@ public class ReservationController : ControllerBase
         int reservationId
     )
     {
-            if (!await _automobileRepository.UserExistsAsync(userId))
+            if (!await _userRepository.UserExistsAsync(userId))
             {
                 return NotFound();
             }
 
-            var reservation = await _automobileRepository.GetSingleReservationForUserAsync(userId, reservationId);
+            var reservation = await _reservationRepository.GetSingleReservationForUserAsync(userId, reservationId);
 
             if (reservation == null)
             {
@@ -107,9 +115,9 @@ public class ReservationController : ControllerBase
                 return Forbid();
             }
 
-            await _automobileRepository.DeleteReservation(reservation);
+            await _reservationRepository.DeleteReservation(reservation);
 
-            await _automobileRepository.SaveChangesAsync();
+            await _reservationRepository.SaveChangesAsync();
 
             return NoContent();
     }
