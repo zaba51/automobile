@@ -4,14 +4,16 @@
         (filterChange)="filterResults($event)"
     ></app-filter-panel>
     <main>
-        <div class="list-header">CARS AVAILABLE: {{displayedItems.length}}</div>
-        <div class="sorting">
-            <select id="selectedOption" [(ngModel)]="selectedOption">
-                <option *ngFor="let option of options" [value]="option.value">
-                    {{ option.label }}
-                </option>
-            </select>
-        </div>
+        <header>
+            <div class="list-header">CARS AVAILABLE: {{displayedItems.length}}</div>
+            <div class="sorting">
+                <select id="selectedOption" [(ngModel)]="selectedOption">
+                    <option *ngFor="let option of options" [value]="option.value">
+                        {{ option.label }}
+                    </option>
+                </select>
+            </div>
+        </header>
         <div class="mobile-actions">
             <div class="action" (click)="onToggleFilter(!filterPanelOpen); $event.stopPropagation()">
                 <mat-icon>filter_list</mat-icon>
@@ -21,6 +23,7 @@
                 <mat-icon>sort</mat-icon>
                 <span>Sort</span>
             </div>
+
         </div>
         <div class="divider"></div>
         <div class="sort-container"></div>

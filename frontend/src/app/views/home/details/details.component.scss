@@ -8,6 +8,10 @@
     padding: 1rem;
     height: 100%;
 
+    h2 {
+        margin-top: 1.5rem;
+    }
+
     h3 {
         font-size: var(--m);
     }
@@ -28,6 +32,7 @@
 .details-wrapper {
     display: grid;
     grid-template-columns: 1fr 300px;
+    grid-template-rows: 1fr 200px;
 }
 
 main {
@@ -75,6 +80,11 @@ p {
 
 .terms {
     margin: 3rem 0;
+    grid-row:2;
+
+    app-button {
+        margin-top: 2rem;
+    }
 }
 
 .alert {
@@ -118,6 +128,11 @@ app-go-back {
         grid-template-rows: auto 1fr;
     }
 
+    .terms {
+        margin: 3rem 0;
+        grid-row:3;
+    }
+    
     
     :host ::ng-deep app-input {
         width: 100%;

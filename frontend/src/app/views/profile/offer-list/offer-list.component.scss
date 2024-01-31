@@ -9,6 +9,8 @@
     display: flex;
     padding: 1rem;
     align-items: center;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
 
     .logo {
         height: 50px;
@@ -53,6 +55,14 @@ h2 {
 @media (max-width: 950px) {
     .cars-available {
         display: none;
+    }
+
+    .header {
+        justify-content: center;
+
+        .search {
+            margin-left: 0;
+        }
     }
 }
 

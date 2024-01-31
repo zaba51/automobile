@@ -7,7 +7,7 @@
             *ngFor="let reservation of reservations"
             class="reservation-item"
         >
-            <div class="cell">
+            <div class="cell date">
                 <div class="label">Data</div>
                 <span>{{ reservation.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
             </div>
@@ -21,7 +21,7 @@
             </div>
             <div class="cell">
                 <div class="label">Cena</div>
-                <span>{{ reservation.catalogItem.price }}</span>
+                <span>{{ reservation.catalogItem.price }} USD</span>
             </div>
             <div class="actions">
                 <div class="cell">
