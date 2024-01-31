@@ -13,6 +13,7 @@ Automobile is a car rental service that lets you rent a variety of vehicles for 
 - [About](#about)
 - [Features](#features)
 - [Screenshots](#screenshots)
+- [ERD](#erd-diagram)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -53,6 +54,8 @@ Automobile is a car rental service that lets you rent a variety of vehicles for 
   <br />
 </div>
 
+## ERD Diagram
+<img src="https://github.com/zaba51/automobile/assets/101710079/ccea0080-3a2f-4376-a169-20f2905fc5b3" width="800px" />
 
 ## Getting Started
 
@@ -70,3 +73,27 @@ Automobile is a car rental service that lets you rent a variety of vehicles for 
    ```sh
    docker-compose up -d
    ```
+4. Import the database
+
+## Stack
+   <div>
+  <a href="https://angular.io/" rel="noreferrer" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/800px-Angular_full_color_logo.svg.png" height="35px">
+  </a>
+  &nbsp;
+  <a href="" rel="noreferrer" target="_blank">
+      <img src="https://www.chillcode.org/img/Icons/icon_NET_Core_Logo.png" height="35px">
+  </a>
+  &nbsp;
+  <a href="https://www.typescriptlang.org/" rel="noreferrer" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg/480px-Typescript.svg.png" height="30px">
+  </a>
+  &nbsp;
+  <a href="https://www.postgresql.org/" rel="noreferrer" target="_blank">
+     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/640px-Postgresql_elephant.svg.png" alt="mariadb" height="30px">
+  </a>
+ &nbsp;
+  <a href="" rel="noreferrer" target="_blank">
+     <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" height="30px">
+  </a>
+ </div>
