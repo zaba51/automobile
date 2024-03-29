@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using backend.Entities;
@@ -27,6 +28,13 @@ namespace backend.Controllers
         public async Task<ActionResult> GetSingleUser(
             int id)
         {
+            var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (Convert.ToInt32(requestingUserId) != id)
+            {
+                return Forbid();
+            }
+
             var user = await _userRepository.GetSingleUserAsync(id);
 
             if (user == null)

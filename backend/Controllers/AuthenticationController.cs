@@ -51,9 +51,7 @@ namespace cineman.API.Controllers
                 return Unauthorized();
             }
 
-            CookieHelper.SignIn(HttpContext, user);
-
-            string token = JsonHelper.GetAppUserToken(user);
+            string token = JWTHelper.SignIn(user, _configuration);
 
             return Ok(token);
         }

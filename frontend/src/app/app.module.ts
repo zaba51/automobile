@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedComponentsModule } from 'src/shared/shared-components.module';
 import { CustomInterceptor } from './interceptors/custom.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,18 @@ import { CustomInterceptor } from './interceptors/custom.interceptor';
     SharedComponentsModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CustomInterceptor ,
-      multi: true
-    }
+    [
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: CustomInterceptor,
+        multi: true
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+      }
+    ]
   ],
   bootstrap: [AppComponent]
 })

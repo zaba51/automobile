@@ -1,9 +1,12 @@
 using System.Security.Claims;
+using System.Text;
 using System.Text.Json.Serialization;
 using backend.DbContexts;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -23,7 +26,26 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(setupAction => {
+    setupAction.AddSecurityDefinition("CinemanApiBearerAuth", new OpenApiSecurityScheme()
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        Description = "Input a valid token to access this API"
+    });
+
+    setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "CinemanApiBearerAuth" }
+                }, new List<string>()
+        }
+    });
+});
 
 builder.Services.AddLogging();
 
@@ -36,12 +58,24 @@ builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-        options.SlidingExpiration = true;
-        options.Cookie.SameSite = SameSiteMode.Unspecified;
+builder.Services.AddAuthentication("Bearer")
+    // .AddCookie(options =>
+    // {
+    //     options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    //     options.SlidingExpiration = true;
+    //     options.Cookie.SameSite = SameSiteMode.Unspecified;
+    // });
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Authentication:Issuer"],
+                ValidAudience = builder.Configuration["Authentication:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+        };
     });
 
 builder.Services.AddAuthorization(options => {

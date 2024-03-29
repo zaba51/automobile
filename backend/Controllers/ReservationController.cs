@@ -35,6 +35,13 @@ public class ReservationController : ControllerBase
             return NotFound();
         }
 
+        var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+        if (Convert.ToInt32(requestingUserId) != userId)
+        {
+            return Forbid();
+        }
+
         var reservations = await _reservationRepository.GetReservationsForUserAsync(userId);
 
         return Ok(reservations);
@@ -43,6 +50,17 @@ public class ReservationController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<bool>> AddReservation(int userId, AddReservationDTO reservation)
     {
+        if (!await _userRepository.UserExistsAsync(userId))
+        {
+            return NotFound();
+        }
+
+        var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+        if (Convert.ToInt32(requestingUserId) != userId)
+        {
+            return Forbid();
+        }
 
         var transaction = _reservationRepository.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
@@ -101,6 +119,13 @@ public class ReservationController : ControllerBase
             if (!await _userRepository.UserExistsAsync(userId))
             {
                 return NotFound();
+            }
+
+            var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (Convert.ToInt32(requestingUserId) != userId)
+            {
+                return Forbid();
             }
 
             var reservation = await _reservationRepository.GetSingleReservationForUserAsync(userId, reservationId);

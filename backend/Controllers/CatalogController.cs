@@ -67,16 +67,17 @@ public class CatalogController : ControllerBase
     [Authorize(Policy = "OnlySupplier")]
     public async Task<ActionResult> AddCatalogItem([FromForm] AddItemDto addItemDto)
     {
-
-        // var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-
-        // if(userRole != "supplier") {
-        //     return Forbid();
-        // }
         try
         {
             var newItemJson = addItemDto.NewItem;
             var item = JsonConvert.DeserializeObject<AddCatalogItemDTO>(newItemJson);
+
+            var requestingSupplierId = User.Claims.FirstOrDefault(c => c.Type == "supplierId")?.Value;
+
+            if (Convert.ToInt32(requestingSupplierId) != item.SupplierId)
+            {
+                return Forbid();
+            }
 
             var existingModel = await _catalogRepository.GetModelByQuery((model) => (
                 model.Company == item.Model.Company &&
