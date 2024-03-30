@@ -23,6 +23,19 @@ namespace backend.Controllers
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
+        /// <summary>
+        /// GetSingleUser
+        /// </summary>
+        /// <param name="id">Id of the user</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Requested user</response>
+        /// <response code="401">Access without a valid token</response>
+        /// <response code="403">User not authorized for this resource</response>
+        /// <response code="404">User with provided id doesn't exist</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         [Route("{id}", Name = "GetSingleUser")]
         public async Task<ActionResult> GetSingleUser(
@@ -44,7 +57,16 @@ namespace backend.Controllers
 
             return Ok(user);
         }
-        
+
+        /// <summary>
+        /// AddUser
+        /// </summary>
+        /// <param name="user">AddUserDTO for creation</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Requested user</response>
+        /// <response code="409">user with provided username already exists</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> AddUser(AddUserDTO user)

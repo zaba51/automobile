@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
 
+/// <summary>
+/// Controller for managing reservations for a specific user.
+/// </summary>
 [ApiController]
 [Authorize]
 [Route("api/users/{userId}/reservations")]
@@ -26,7 +29,20 @@ public class ReservationController : ControllerBase
         _reservationRepository = reservationRepository;
         _catalogRepository = catalogRepository;
     }
-
+    
+    /// <summary>
+    /// GetReservations
+    /// </summary>
+    /// <param name="userId">Id of the user</param>
+    /// <returns>Reservations</returns>
+    /// <response code="200">Returned user's reservations</response>
+    /// <response code="401">Unauthorized access</response>
+    /// <response code="403">Forbidden access to resource</response>
+    /// <response code="404">User not found</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(int userId)
     {
@@ -46,7 +62,23 @@ public class ReservationController : ControllerBase
 
         return Ok(reservations);
     }
-    
+
+    /// <summary>
+    /// AddReservation
+    /// </summary>
+    /// <param name="userId">Id of the user</param>
+    /// <param name="reservation">AddReservationDTO specifing reservation details </param>
+    /// <returns>An ActionResult with boolean</returns>
+    /// <response code="200">Succesfully added reservation</response>
+    /// <response code="401">Unauthorized access</response>
+    /// <response code="403">Forbidden access to resource</response>
+    /// <response code="404">User or item not found</response>
+    /// <response code="409">Item is no longer available</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [HttpPost]
     public async Task<ActionResult<bool>> AddReservation(int userId, AddReservationDTO reservation)
     {
@@ -109,7 +141,20 @@ public class ReservationController : ControllerBase
         return Ok(true);
     }
 
-    
+    /// <summary>
+    /// DeleteReservations
+    /// </summary>
+    /// <param name="userId">Id of the user</param>
+    /// <param name="reservationId">Id of the reservation</param>
+    /// <returns>An ActionResult with boolean</returns>
+    /// <response code="204">Succesfully deleted reservation</response>
+    /// <response code="401">Unauthorized access</response>
+    /// <response code="403">Forbidden access to resource or reservation can no longer be deleted</response>
+    /// <response code="404">User or item not found</response>
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpDelete("{reservationId}")]
     public async Task<ActionResult<bool>> DeleteReservations(
         int userId,
