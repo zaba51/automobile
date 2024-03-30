@@ -12,6 +12,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { FilterPanelComponent } from './catalog/filter-panel/filter-panel.component';
 import { isAuthenticatedGuard } from 'src/app/guards/is-authenticated.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   { 
@@ -51,7 +52,8 @@ const routes: Routes = [
     SharedComponentsModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
   ]
 })
 export class HomeModule { }

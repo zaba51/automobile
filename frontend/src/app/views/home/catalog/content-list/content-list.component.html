@@ -1,17 +1,16 @@
 <div class="container">
-    <app-filter-panel
-        class="filter-panel desktop"
-        (filterChange)="filterResults($event)"
-    ></app-filter-panel>
+    <app-filter-panel class="filter-panel desktop" (filterChange)="filterResults($event)"></app-filter-panel>
     <main>
         <header>
             <div class="list-header">CARS AVAILABLE: {{displayedItems.length}}</div>
             <div class="sorting">
-                <select id="selectedOption" [(ngModel)]="selectedOption">
-                    <option *ngFor="let option of options" [value]="option.value">
-                        {{ option.label }}
-                    </option>
-                </select>
+                <mat-form-field [subscriptSizing]="'dynamic'">
+                    <mat-select id="selectedOption" [(ngModel)]="selectedOption" panelClass="panel-background">
+                        <mat-option *ngFor="let option of options" [value]="option.value">
+                            {{option.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </header>
         <div class="mobile-actions">
@@ -28,36 +27,22 @@
         <div class="divider"></div>
         <div class="sort-container"></div>
         <div class="vehicle-list-wrapper" *ngIf="displayedItems?.length; else emptyState">
-            <app-vehicle-card
-                *ngFor="let item of displayedItems | sortByPrice: selectedOption"
-                [item]="item"
-                (actionClick)="onActionClick($event)"
-            >AAA</app-vehicle-card>
+            <app-vehicle-card *ngFor="let item of displayedItems | sortByPrice: selectedOption" [item]="item"
+                (actionClick)="onActionClick($event)">AAA</app-vehicle-card>
         </div>
     </main>
 </div>
 
 <div class="side-panel" #sidePanel>
-    <app-filter-panel
-        [ngClass]="{'hidden': !filterPanelOpen}"
-        class="filter-panel mobile"
-        (filterChange)="filterResults($event)"
-    ></app-filter-panel>
-    <div
-        class="mobile-sort"
-        [ngClass]="{'hidden': !sortPanelOpen}"
-    >
-        <div
-            class="sort-item"
-            *ngFor="let option of options" (click)="selectedOption = option.value">
+    <app-filter-panel [ngClass]="{'hidden': !filterPanelOpen}" class="filter-panel mobile"
+        (filterChange)="filterResults($event)"></app-filter-panel>
+    <div class="mobile-sort" [ngClass]="{'hidden': !sortPanelOpen}">
+        <div class="sort-item" *ngFor="let option of options" (click)="selectedOption = option.value">
             {{ option.label }}
         </div>
     </div>
 </div>
 
 <ng-template #emptyState>
-    <app-empty-state
-        title="Sorry, no items match the filters"
-        text="Try to change the filters."
-    ></app-empty-state>
+    <app-empty-state title="Sorry, no items match the filters" text="Try to change the filters."></app-empty-state>
 </ng-template>

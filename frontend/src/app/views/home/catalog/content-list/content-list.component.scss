@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .container {
     padding: 1rem;
     display: grid;
@@ -74,24 +76,15 @@ main {
         display: block;
     }
 
-    select {
-        font-size: 16px;
-        padding: 0.2rem 0.5rem;
+    select, ::ng-deep .mat-mdc-text-field-wrapper {
+        font-size: 10px;
         border: none;
-        border-radius: 15px;
+        border-radius: 4px;
         background-color: var(--accent);
         transition: border-color 0.3s;
         cursor: pointer;
         font-weight: 500;
-
-        option {
-            &:hover {
-                font-weight: 600;
-                background-color: var(--dark-1);
-            }
-        }
     }
-
 }
 
 .side-panel {

@@ -77,3 +77,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 .overflow-x {
   overflow-x: hidden;
 }
+
+.panel-background {
+  background-color: var(--accent) !important;
+
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text  {
+    color: black;
+    font-weight: bold;
+  }
+}
+
+
+.divider {
+  background-color: var(--primary);
+  max-width: 1400px;
+  margin: 0 auto;
+  border: none;
+  height: 2px;
+}

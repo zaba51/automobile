@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, map, startWith } from 'rxjs';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
@@ -43,7 +43,13 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.activeTab = this.router.routerState.snapshot.url.split('profile/')[1];
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map((event) => (event as NavigationEnd).url),
+      startWith(this.router.routerState.snapshot.url)
+    ).subscribe((url: string) => {
+      this.activeTab = url.split('profile/')[1];
+    })
   }
 
   onActionClick(action: any) {

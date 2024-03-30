@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { SharedComponentsModule } from 'src/shared/shared-components.module';
 import { CustomInterceptor } from './interceptors/custom.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
       { path: 'auth', loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule) },
       { path: 'profile', loadChildren: () => import('./views/profile/profile.module').then(m => m.ProfileModule) },
     ]),
-    SharedComponentsModule
+    SharedComponentsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     [
