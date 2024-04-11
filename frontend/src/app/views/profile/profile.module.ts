@@ -10,6 +10,7 @@ import { ReservationsComponent } from './reservations/reservations.component';
 import { isAuthenticatedGuard } from 'src/app/guards/is-authenticated.guard';
 import { isSupplierGuard } from 'src/app/guards/is-supplier.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 const routes: Routes = [
   { path: '',
@@ -30,6 +31,11 @@ const routes: Routes = [
       {
         path: 'reservations',
         component: ReservationsComponent
+      },
+      {
+        path: 'transactions',
+        component: TransactionsComponent,
+        canActivate: [isSupplierGuard],
       }
     ],
   }
@@ -40,7 +46,8 @@ const routes: Routes = [
     ProfileComponent,
     OfferListComponent,
     VehicleFormComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    TransactionsComponent
   ],
   imports: [
     CommonModule,

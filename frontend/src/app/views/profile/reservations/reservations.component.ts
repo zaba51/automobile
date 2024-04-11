@@ -16,6 +16,11 @@ export class ReservationsComponent implements OnInit {
     private authService: AuthService
   ) { }
 
+  get reservationsReversed() {
+    if (this.reservations instanceof Array) return [...this.reservations].reverse();
+    else return [];
+  }
+
   ngOnInit(): void {
     this.userId = this.authService.user!.sub;
 
@@ -36,5 +41,9 @@ export class ReservationsComponent implements OnInit {
 
   viewDetails(reservationId: number) {
     
+  }
+
+  isOutdated(reservation: IReservation) {
+    return new Date(reservation.beginTime) < new Date();
   }
 }

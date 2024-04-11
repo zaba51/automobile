@@ -1,0 +1,51 @@
+<ng-container
+    *ngIf="reservationTransactions !== 'Loading'; else spinner"
+>
+    <ng-container *ngIf="reservationTransactions !== 'Error'; else error">
+        <ng-container *ngIf="reservationTransactions.length > 0; else emptyState">
+
+            <div
+                *ngFor="let transaction of reservationTransactions"
+                class="transactions-item"
+            >
+                <div class="cell date">
+                    <div class="label">Transaction date</div>
+                    <span>{{ transaction.transactionTime| date:'MMMM d, y, H:mm z': 'UTC' }}</span>
+                </div>
+                <div class="cell date2">
+                    <div class="label">Rental date</div>
+                    <span>{{ transaction.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
+                </div>
+                <div class="cell">
+                    <div class="label">Location</div>
+                    <span>{{ transaction.catalogItem.location.cityName }}, {{ transaction.catalogItem.location.countryName }}</span>
+                </div>
+                <div class="cell">
+                    <div class="label">Model</div>
+                    <span>{{ transaction.catalogItem.model.name }}</span>
+                </div>
+                <div class="cell">
+                    <div class="label">Price</div>
+                    <span>{{ transaction.catalogItem.price }} USD</span>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-container>
+
+<ng-template #spinner>
+    <app-spinner
+        title="Transactions are loading"
+    ></app-spinner>
+</ng-template>
+
+<ng-template #emptyState>
+    <app-empty-state
+        title="No transactions found. "
+        text="A list of transactions will be shown, when a user books your vehicle."
+    ></app-empty-state>
+</ng-template>
+
+<ng-template #error>
+    <p [style.color]="'red'">Server error occured</p>
+</ng-template>

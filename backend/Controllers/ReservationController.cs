@@ -1,9 +1,11 @@
 using System.Security.Claims;
+using System.Text.Json;
 using backend.Entities;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace backend.Controllers;
 
@@ -15,21 +17,24 @@ namespace backend.Controllers;
 [Route("api/users/{userId}/reservations")]
 public class ReservationController : ControllerBase
 {
-    
+
     private readonly IReservationRepository _reservationRepository;
     private readonly IUserRepository _userRepository;
     private readonly ICatalogRepository _catalogRepository;
+    private readonly KafkaProducerService _kafkaProducer;
     public ReservationController(
         IReservationRepository reservationRepository,
         IUserRepository userRepository,
-        ICatalogRepository catalogRepository
+        ICatalogRepository catalogRepository,
+        KafkaProducerService kafkaProducer
     )
     {
         _userRepository = userRepository;
         _reservationRepository = reservationRepository;
         _catalogRepository = catalogRepository;
+        _kafkaProducer = kafkaProducer;
     }
-    
+
     /// <summary>
     /// GetReservations
     /// </summary>
@@ -106,7 +111,8 @@ public class ReservationController : ControllerBase
 
             EndTime = reservation.EndTime,
 
-            DriversDetails = new DriversDetails() {
+            DriversDetails = new DriversDetails()
+            {
                 Name = reservation.DriversDetails.Name,
                 Surname = reservation.DriversDetails.Surname,
                 Country = reservation.DriversDetails.Country,
@@ -119,17 +125,8 @@ public class ReservationController : ControllerBase
         if (catalogItem == null)
             return NotFound(false);
 
-        IEnumerable<CatalogItem>? availableItems = await _catalogRepository
-            .GetMatchingCatalogItemsAsync(
-                newReservation.BeginTime,
-                (newReservation.EndTime - newReservation.BeginTime).Hours,
-                catalogItem.LocationId
-            );
-
-        // bool isAvailable = availableItems.Any(i => i.Id == newReservation.Id);
-        bool isAvailable = availableItems.Contains(catalogItem);
-
-        if (!isAvailable)
+        bool canAddReservation = await CanAddReservation(newReservation, catalogItem);
+        if (!canAddReservation)
             return Conflict(false);
 
         _reservationRepository.AddReservation(userId, newReservation);
@@ -137,6 +134,8 @@ public class ReservationController : ControllerBase
         await _reservationRepository.SaveChangesAsync();
 
         transaction.Commit();
+
+        ProduceTransactionMessage(newReservation, catalogItem);
 
         return Ok(true);
     }
@@ -161,42 +160,80 @@ public class ReservationController : ControllerBase
         int reservationId
     )
     {
-            if (!await _userRepository.UserExistsAsync(userId))
-            {
-                return NotFound();
-            }
+        if (!await _userRepository.UserExistsAsync(userId))
+        {
+            return NotFound();
+        }
 
-            var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var requestingUserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (Convert.ToInt32(requestingUserId) != userId)
-            {
-                return Forbid();
-            }
+        if (Convert.ToInt32(requestingUserId) != userId)
+        {
+            return Forbid();
+        }
 
-            var reservation = await _reservationRepository.GetSingleReservationForUserAsync(userId, reservationId);
+        var reservation = await _reservationRepository.GetSingleReservationForUserAsync(userId, reservationId);
 
-            if (reservation == null)
-            {
-                return NotFound();
-            }
+        if (reservation == null)
+        {
+            return NotFound();
+        }
 
-            if (!CanDeleteReservation(reservation))
-            {
-                return Forbid();
-            }
+        if (!CanDeleteReservation(reservation))
+        {
+            return Forbid();
+        }
 
-            await _reservationRepository.DeleteReservation(reservation);
+        await _reservationRepository.DeleteReservation(reservation);
 
-            await _reservationRepository.SaveChangesAsync();
+        await _reservationRepository.SaveChangesAsync();
 
-            return NoContent();
+        return NoContent();
     }
 
-    private bool CanDeleteReservation(Reservation reservation) {
-        if (reservation.BeginTime > DateTime.UtcNow + new TimeSpan(48, 0, 0)) {
+    private bool CanDeleteReservation(Reservation reservation)
+    {
+        if (reservation.BeginTime > DateTime.UtcNow + new TimeSpan(48, 0, 0))
+        {
             return true;
         }
 
         return false;
+    }
+
+    private async Task<bool> CanAddReservation(Reservation newReservation, CatalogItem catalogItem)
+    {
+        IEnumerable<CatalogItem>? availableItems = await _catalogRepository
+        .GetMatchingCatalogItemsAsync(
+            newReservation.BeginTime,
+            (newReservation.EndTime - newReservation.BeginTime).Hours,
+            catalogItem.LocationId
+        );
+
+        // bool isAvailable = availableItems.Any(i => i.Id == newReservation.Id);
+        bool isAvailable = availableItems.Contains(catalogItem);
+
+        return isAvailable;
+    }
+
+    private void ProduceTransactionMessage(Reservation reservation, CatalogItem catalogItem)
+    {
+        var reservationTransactionDTO = new ReservationTransactionDTO
+        {
+            Guid = Guid.NewGuid(),
+            TransactionTime = DateTime.UtcNow,
+            CatalogItem = catalogItem,
+            UserId = reservation.UserId,
+            BeginTime = reservation.BeginTime,
+            EndTime = reservation.EndTime
+        };
+        var jsonSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+        };
+        string json = JsonConvert.SerializeObject(reservationTransactionDTO, jsonSettings);
+
+        string topic = _kafkaProducer.GetTopicName(catalogItem.SupplierId);
+        _kafkaProducer.ProduceAsync(topic, json);
     }
 }

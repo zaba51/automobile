@@ -11,11 +11,13 @@
         [type]="'datetime-local'"
         [title]="'Date'"
         [control]="date"
+        [min]="minDate"
         [value]="date.value"
     ></app-input>
     <app-input
         [type]="'number'"
         [placeholder]="'10'"
+        [min]="1"
         [title]="'Time (hours)'"
         [control]="time"
     ></app-input>

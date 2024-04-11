@@ -35,6 +35,7 @@
   <div class="menu" *ngIf="isMenuOpen">
     <ul>
       <li *ngIf="user && user.role == 'supplier'" (click)="navigate('/profile/offer')">Offer</li>
+      <li *ngIf="user && user.role == 'supplier'" (click)="navigate('/profile/transactions')">Transactions</li>
       <li (click)="navigate('/profile/reservations')">My reservations</li>
       <li (click)="logout()">Sign off</li>
     </ul>

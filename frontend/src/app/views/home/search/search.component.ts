@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit {
   location = new FormControl<string>('');
   date = new FormControl();
   time = new FormControl();
+  minDate: string;
 
   isDropdownOpen = false;
 
@@ -35,7 +36,8 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.location.setValue('Cracow');
-    this.date.setValue(new Date().toISOString().split('.')[0].slice(0, -3));
+    this.minDate = new Date().toISOString().split('.')[0].slice(0, -3)
+    this.date.setValue(this.minDate);
     this.time.setValue(10);
 
     this.location.valueChanges.subscribe(value => {
@@ -55,7 +57,7 @@ export class SearchComponent implements OnInit {
     console.log(this.location, this.date, this.time);
     this.search.emit({
       locationId: this.locations.find(x => x.cityName === this.location.value)?.id || 1,
-      date: this.date.value,
+      date: this.date.value + ':00.000Z',
       time: this.time.value
     });
   }

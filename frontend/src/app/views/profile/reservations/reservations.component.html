@@ -4,15 +4,16 @@
     <ng-container *ngIf="reservations.length > 0; else emptyState">
 
         <div
-            *ngFor="let reservation of reservations"
+            *ngFor="let reservation of reservationsReversed"
             class="reservation-item"
+            [ngClass]="{'outdated': isOutdated(reservation)}"
         >
             <div class="cell date">
-                <div class="label">Data</div>
+                <div class="label">Date</div>
                 <span>{{ reservation.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
             </div>
             <div class="cell">
-                <div class="label">Lokalizacja</div>
+                <div class="label">Location</div>
                 <span>{{ reservation.catalogItem.location.cityName }}, {{ reservation.catalogItem.location.countryName }}</span>
             </div>
             <div class="cell">
@@ -20,7 +21,7 @@
                 <span>{{ reservation.catalogItem.model.name }}</span>
             </div>
             <div class="cell">
-                <div class="label">Cena</div>
+                <div class="label">Price</div>
                 <span>{{ reservation.catalogItem.price }} USD</span>
             </div>
             <div class="actions">

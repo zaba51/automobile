@@ -14,6 +14,7 @@ export class InputComponent implements OnInit {
   @Input() control: any = new FormControl(this.value);
   @Input() isDropdownOpen = false;
   @Input() dropdownItems: any[] = [];
+  @Input() min: any;
 
   constructor() { }
 

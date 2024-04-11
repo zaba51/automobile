@@ -61,6 +61,8 @@ builder.Services.AddScoped<IAutomobileRepository, AutomobileRepository>();
 builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<KafkaProducerService>();
+builder.Services.AddScoped<KafkaConsumerService>();
 
 builder.Services.AddAuthentication("Bearer")
     // .AddCookie(options =>
