@@ -16,7 +16,7 @@ namespace backend.Services {
 
         public async Task<IEnumerable<CatalogItem>> GetCatalogItemsAsync() {
             return await _context.CatalogItems
-                .Include(item => item.Model)
+                .Include(item => item.Model).ThenInclude(m => m.CarCompany)
                 .Include(item => item.Supplier)
                 .Include(item => item.Location)
                 .ToListAsync();
@@ -31,6 +31,7 @@ namespace backend.Services {
                             (r.EndTime > beginTime && r.EndTime <= beginTime.AddHours(duration)) ||
                             (beginTime >= r.BeginTime && beginTime.AddHours(duration) <= r.EndTime)
                         )
+                .Include(r => r.CatalogItem.Model).ThenInclude(m => m.CarCompany)
                 .Select(r => r.CatalogItem)
                 .ToListAsync();
 
@@ -40,13 +41,13 @@ namespace backend.Services {
         }
 
         public async Task<Model?> GetModelByQuery(Expression<Func<Model, bool>>  predicate) {
-            return await _context.Models.Where(predicate).FirstOrDefaultAsync();
+            return await _context.Models.Where(predicate).Include(m => m.CarCompany).FirstOrDefaultAsync();
         }
 
         public async Task<CatalogItem?> GetItemByQuery(Expression<Func<CatalogItem, bool>>  predicate) {
             return await _context.CatalogItems
                 .Where(predicate)
-                .Include(item => item.Model)
+                .Include(item => item.Model).ThenInclude(m => m.CarCompany)
                 .Include(item => item.Supplier)
                 .Include(item => item.Location)
                 .FirstOrDefaultAsync();
@@ -55,7 +56,7 @@ namespace backend.Services {
         public async Task<IEnumerable<CatalogItem>> GetItemsByQuery(Expression<Func<CatalogItem, bool>>  predicate) {
             return await _context.CatalogItems
                 .Where(predicate)
-                .Include(item => item.Model)
+                .Include(item => item.Model).ThenInclude(m => m.CarCompany)
                 .Include(item => item.Supplier)
                 .Include(item => item.Location)
                 .ToListAsync();
@@ -75,6 +76,12 @@ namespace backend.Services {
             return await _context.Suppliers
                 .Where(predicate)
                 .Include(s => s.Locations)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<CarCompany?> GetCarCompanyByQuery(Expression<Func<CarCompany, bool>>  predicate) {
+            return await _context.CarCompanies.
+                Where(predicate)
                 .FirstOrDefaultAsync();
         }
     }

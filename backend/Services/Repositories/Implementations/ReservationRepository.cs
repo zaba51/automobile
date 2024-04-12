@@ -19,7 +19,7 @@ namespace backend.Services {
             return await _context.Reservations
                 .Include(r => r.DriversDetails)
                 .Include(r => r.CatalogItem)
-                    .ThenInclude(item => item.Model)
+                    .ThenInclude(item => item.Model).ThenInclude(m => m.CarCompany)
                  .Include(r => r.CatalogItem.Supplier)
                  .Include(r => r.CatalogItem.Location)
                 .Where(r => r.UserId == userId)

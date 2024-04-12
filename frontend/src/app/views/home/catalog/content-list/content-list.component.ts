@@ -105,7 +105,7 @@ export class ContentListComponent implements OnInit {
 
   private filterByCompany(values: string[], visibleItems: CatalogItem[]) {
     if (values.length < 1) return visibleItems;
-    return visibleItems.filter(item => values.includes(item.model.company.toLowerCase()))
+    return visibleItems.filter(item => values.includes(item.model.carCompany.name.toLowerCase()))
   }
 
   private filterByPrice(values: string[], visibleItems: CatalogItem[]) {

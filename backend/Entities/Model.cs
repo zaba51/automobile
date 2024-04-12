@@ -12,19 +12,27 @@ namespace backend.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id {get; set; }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Company Company {get; set; }
+        // [JsonConverter(typeof(JsonStringEnumConverter))]
+        public int CarCompanyId {get; set; }
+        public CarCompany CarCompany {get; set; }
+
         public string? Name {get; set; }
+
         public int Power {get; set; }
         
         // [Column(TypeName = "nvarchar(24)")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Gear Gear {get; set; }
+
         public int DoorCount {get; set; }
+
         public int SeatCount {get; set; }
+
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Engine Engine {get; set; }
+        
         public string? Color {get; set; }
+        
         public string? ImageUrl {get; set; }
 
         // public override bool Equals(object obj)

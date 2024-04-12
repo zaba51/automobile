@@ -2,7 +2,7 @@
     <div class="main-section">
         <img class="element" [src]="BASE_URL + '/' +item.model.imageUrl" />
         <div class="element info">
-            <div class="title">{{ item.model.company }} {{ item.model.name }}</div>
+            <div class="title">{{ item.model.carCompany.name }} {{ item.model.name }}</div>
             <div class="info-line"><mat-icon>person</mat-icon>{{ item.model.seatCount }} seats</div>
             <div class="info-line"><mat-icon>build_circle</mat-icon>{{ item.model.engine }}</div>
             <div class="info-line"><mat-icon>settings</mat-icon>{{ item.model.gear }}</div>

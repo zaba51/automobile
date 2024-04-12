@@ -18,6 +18,7 @@ namespace backend.Services {
         Task<CatalogItem?> GetItemByQuery(Expression<Func<CatalogItem, bool>>  predicate);
         Task<IEnumerable<CatalogItem>> GetItemsByQuery(Expression<Func<CatalogItem, bool>>  predicate);
         Task<Supplier?> GetSupplierByQuery(Expression<Func<Supplier, bool>>  predicate);
-       
+
+        Task<CarCompany?> GetCarCompanyByQuery(Expression<Func<CarCompany, bool>>  predicate);
     }
 }

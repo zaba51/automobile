@@ -55,7 +55,7 @@ export class OfferListComponent implements OnInit {
     else {
       this.displayItems = this.catalogItems.filter(item => {
         return item.model.name.toLowerCase().includes(value)
-            || item.model.company.toLowerCase().includes(value)  
+            || item.model.carCompany.name.toLowerCase().includes(value)  
       })
     }
   }

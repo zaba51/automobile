@@ -18,7 +18,7 @@ public class SupplierController : ControllerBase
         return await _consumerService.ConsumeMessagesAsync(GetTopicName(supplierId));
     }
 
-    public string GetTopicName(int supplierId)
+    private string GetTopicName(int supplierId)
     {
         return $"transactions_{supplierId}";
     }

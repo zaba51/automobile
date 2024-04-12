@@ -13,6 +13,7 @@ namespace backend.DbContexts
         public DbSet<User> Users {get; set; }
         public DbSet<Supplier> Suppliers {get; set; }
         public DbSet<Location> Locations {get; set; }
+        public DbSet<CarCompany> CarCompanies {get; set; }
 
         public AutomobileContext(DbContextOptions options) : base(options)
         {
@@ -20,9 +21,9 @@ namespace backend.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Model>()
-                .Property(m => m.Company)
-                .HasConversion<string>();
+            // modelBuilder.Entity<Model>()
+            //     .Property(m => m.Company)
+            //     .HasConversion<string>();
 
             modelBuilder.Entity<Model>()
                 .Property(m => m.Gear)
@@ -31,12 +32,27 @@ namespace backend.DbContexts
             modelBuilder.Entity<Model>()
                 .Property(m => m.Engine)
                 .HasConversion<string>();
-                
+
+            modelBuilder.Entity<CarCompany>().HasData(
+                new CarCompany()
+                {
+                    Id = 1,
+                    Code = "FIAT",
+                    Name = "Fiat"
+                },
+                new CarCompany()
+                {
+                    Id = 2,
+                    Code = "TOYOTA",
+                    Name = "Toyota"
+                }
+            );
+
             modelBuilder.Entity<Model>().HasData(
                 new Model()
                 {
                     Id = 1,
-                    Company = Company.FIAT,
+                    CarCompanyId = 2,
                     Name = "Panda",
                     Power = 69,
                     Gear = Gear.AUTOMATIC,
@@ -49,7 +65,7 @@ namespace backend.DbContexts
                 new Model()
                 {
                     Id = 2,
-                    Company = Company.TOYOTA,
+                    CarCompanyId = 1,
                     Name = "Corolla",
                     Power = 140,
                     Gear = Gear.AUTOMATIC,
@@ -62,7 +78,7 @@ namespace backend.DbContexts
                 new Model()
                 {
                     Id = 3,
-                    Company = Company.TOYOTA,
+                    CarCompanyId = 1,
                     Name = "Corolla",
                     Power = 140,
                     Gear = Gear.MANUAL,

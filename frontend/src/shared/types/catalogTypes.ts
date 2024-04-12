@@ -19,9 +19,15 @@ export interface Supplier {
     locations: Location[]
 }
 
+export interface CarCompany {
+    id: number,
+    code: string,
+    name: string
+}
+
 export interface Model {
     id: number,
-    company: string,
+    carCompany: CarCompany,
     name: string,
     power: number,
     gear: string,
@@ -38,7 +44,7 @@ export interface AddItemDTO {
         power: number,
         gear: string,
         doorCount: number,
-        company: string,
+        carCompany: { name: string },
         seatCount: number,
         engine: string,
         color: string,

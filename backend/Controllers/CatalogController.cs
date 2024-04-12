@@ -120,7 +120,7 @@ public class CatalogController : ControllerBase
             }
 
             var existingModel = await _catalogRepository.GetModelByQuery((model) => (
-                model.Company == item.Model.Company &&
+                model.CarCompany.Name ==item.Model.CarCompany.Name &&
                 model.Name == item.Model.Name &&
                 model.Power == item.Model.Power &&
                 model.Gear == item.Model.Gear &&
@@ -166,7 +166,12 @@ public class CatalogController : ControllerBase
                     relativeFilePath = Path.Combine("assets", "cars", uniqueFileName);
                 }
 
+                var company = _catalogRepository.GetCarCompanyByQuery((company) => company.Name == item.Model.CarCompany.Name);
+
+                if (company == null) throw new Exception("No such company");
+
                 item.Model.ImageUrl = relativeFilePath;
+                item.Model.CarCompany.Id = company.Id;
 
                 _catalogRepository.AddModel(item.Model);
 
