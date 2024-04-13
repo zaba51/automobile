@@ -4,13 +4,22 @@ import { Observable, of } from 'rxjs';
 import { API_URL } from 'src/shared/api';
 import { CatalogItem } from 'src/shared/types/catalogTypes';
 
+export interface AdditionalService {
+  id: number,
+  serviceCategory: string,
+  name: string,
+  description: string,
+  price: number,
+}
+
 export interface IReservation {
   id: number,
   userId: number,
   catalogItem: CatalogItem,
   beginTime: string,
   endTime: string,
-  driversDetails: IDriversDetails
+  driversDetails: IDriversDetails,
+  additionalServices: AdditionalService[]
 }
 
 export interface AddReservationDTO {
@@ -18,7 +27,8 @@ export interface AddReservationDTO {
   catalogItemId: number,
   beginTime: string,
   endTime: string,
-  driversDetails: IDriversDetails
+  driversDetails: IDriversDetails,
+  additionalServiceIds: number[];
 }
 
 export interface IDriversDetails {

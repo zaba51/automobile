@@ -30,6 +30,20 @@
                     <div class="info-item"><mat-icon>check_box</mat-icon>Free cancellation up to 72 hours before pick-up</div>
                     <div class="info-item"><mat-icon>check_box</mat-icon>Great choice</div>
                 </div>
+                <div class="additional-services">
+                    <h3>Additional services</h3>
+                    <div class="info-item"
+                        *ngFor="let service of additionalServices"
+                    >
+                        <input type="checkbox"
+                            [name]="service.name"
+                            [id]="service.id"
+                            (click)="onAdditionalServiceClick(service)"
+                            class="checkbox"
+                        >
+                        {{ service.name }} - {{ service.price }} USD
+                    </div>
+                </div>
                 <div class="divider"></div>
                 <h3>Driver's details</h3>
                 <div class="drivers-form">
@@ -93,8 +107,8 @@
                     Standard insurance included
                 </div>
                 <div class="price-container">
-                    <div class="price">{{ item.price }} USD</div>
-                    <span>/1 day</span>
+                    <span>Your total is: </span>
+                    <div class="price">{{ totalPrice }} USD</div>
                 </div>
             </nav>
         </div>

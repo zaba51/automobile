@@ -22,6 +22,12 @@
             align-items: center;
             gap: 0.2rem;
 
+            .checkbox {
+                margin-right: 10px;
+                accent-color: var(--accent);
+                cursor: pointer;
+            }
+
             mat-icon {
                 color: var(--accent);
             }
@@ -48,6 +54,7 @@ nav {
     top: 1rem;
     align-self: baseline;
     border: 1px solid var(--dark-1);
+    background: var(--dark-1);
 }
 .schedule {
     margin: auto;

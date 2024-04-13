@@ -8,7 +8,7 @@
             class="reservation-item"
             [ngClass]="{'outdated': isOutdated(reservation)}"
         >
-            <div class="cell date">
+            <div class="cell span2">
                 <div class="label">Date</div>
                 <span>{{ reservation.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
             </div>
@@ -24,16 +24,25 @@
                 <div class="label">Price</div>
                 <span>{{ reservation.catalogItem.price }} USD</span>
             </div>
+            <div class="cell span2">
+                <div class="label">Additional services</div>
+                <ng-container *ngIf="reservation.additionalServices.length; else empty">
+                    <span *ngFor="let service of reservation.additionalServices">
+                        {{ service.name }} - {{ service.price }} USD
+                    </span>
+                </ng-container>
+                <ng-template #empty>-</ng-template>
+            </div>
             <div class="actions">
-                <div class="cell">
-                    <!-- <app-button
+                <!-- <div class="cell">
+                    <app-button
                         title="Details"
                         size="small"
                         [iconButton]="true"
                         icon="announcement"
                         (click)="viewDetails(reservation.id)"
-                    ></app-button> -->
-                </div>
+                    ></app-button>
+                </div> -->
                 <div class="cell">
                     <app-button
                         title="Delete"
@@ -46,7 +55,7 @@
                 </div>
             </div>
         </div>
-    </ng-container>
+    </ng-container> 
 </ng-container>
 
 <ng-template #spinner>

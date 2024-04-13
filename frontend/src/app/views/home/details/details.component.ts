@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of, switchMap } from 'rxjs';
 import { markFormGroupTouched } from 'src/shared/helpers/validation';
 import { CatalogService } from 'src/shared/services/catalog/catalog.service';
-import { AddReservationDTO, ReservationsService } from 'src/shared/services/reservations/reservations.service';
+import { AddReservationDTO, AdditionalService, ReservationsService } from 'src/shared/services/reservations/reservations.service';
 import { CatalogItem, Model } from 'src/shared/types/catalogTypes';
 import { ISearchDetails } from '../catalog/catalog.component';
 import { AuthService } from 'src/shared/services/auth/auth.service';
@@ -22,6 +22,9 @@ export class DetailsComponent implements OnInit {
   beginTime: Date;
   endTime: Date;
   userId: number;
+  additionalServices: AdditionalService[];
+  addedAdditionalServiceIds: number[] = [];
+  serviceTotalPrice = 0;
 
   form = new FormGroup({
     name: new FormControl<string>('', Validators.required),
@@ -29,6 +32,13 @@ export class DetailsComponent implements OnInit {
     country: new FormControl<string>('', Validators.required),
     number: new FormControl<string>('', Validators.required),
   });
+
+  get totalPrice() {
+    if (this.item !== 'Loading') {
+      return this.item.price * Math.ceil(this.searchDetails.duration / 24 ) + this.serviceTotalPrice;
+    }
+    else return 0;
+  }
 
   constructor(
     private router: Router,
@@ -57,6 +67,10 @@ export class DetailsComponent implements OnInit {
       }
     });
 
+    this.catalogService.getAdditionalServices().subscribe(services => {
+      this.additionalServices = services;
+    })
+
     this.userId = this.authService.user!.sub;;
 
     this.searchDetails = (this.location.getState() as any)?.searchDetails;
@@ -82,7 +96,8 @@ export class DetailsComponent implements OnInit {
           surname: this.form.get('surname')?.value as string,
           country: this.form.get('country')?.value as string,
           number: this.form.get('number')?.value as string,
-        }
+        },
+        additionalServiceIds: this.addedAdditionalServiceIds
       };
 
       this.reservationsService.addReservation(this.userId, newItem).subscribe(result => {
@@ -96,5 +111,17 @@ export class DetailsComponent implements OnInit {
   goBack() {
     // this.router.navigate(['/search']);
     this.location.back();
+  }
+
+  onAdditionalServiceClick(service: AdditionalService) {
+    const isServiceAdded = this.addedAdditionalServiceIds.includes(service.id);
+    if (isServiceAdded) {
+      this.addedAdditionalServiceIds = this.addedAdditionalServiceIds.filter(s => s !== service.id);
+      this.serviceTotalPrice -= service.price;
+    }
+    else {
+      this.addedAdditionalServiceIds = [...this.addedAdditionalServiceIds, service.id];
+      this.serviceTotalPrice += service.price;
+    }
   }
 }

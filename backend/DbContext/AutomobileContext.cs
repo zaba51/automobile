@@ -15,6 +15,8 @@ namespace backend.DbContexts
         public DbSet<Location> Locations {get; set; }
         public DbSet<CarCompany> CarCompanies {get; set; }
 
+        public DbSet<AdditionalService> AdditionalServices {get; set;}
+
         public AutomobileContext(DbContextOptions options) : base(options)
         {
         }
@@ -32,6 +34,45 @@ namespace backend.DbContexts
             modelBuilder.Entity<Model>()
                 .Property(m => m.Engine)
                 .HasConversion<string>();
+
+             modelBuilder.Entity<AdditionalService>()
+                .Property(m => m.ServiceCategory)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<AdditionalService>().HasData(
+                new AdditionalService()
+                {
+                    Id = 1,
+                    Name = "Additional Insurance",
+                    Description = "",
+                    ServiceCategory =  ServiceCategory.INSURANCE,
+                    Price  = 15,
+                },
+                 new AdditionalService()
+                {
+                    Id = 2,
+                    Name = "Bike holder",
+                    Description = "",
+                    ServiceCategory =  ServiceCategory.BIKE_HOLDER,
+                    Price  = 10,
+                },
+                new AdditionalService()
+                {
+                    Id = 3,
+                    Name = "Child seat",
+                    Description = "",
+                    ServiceCategory =  ServiceCategory.CHILD_SEAT,
+                    Price  = 15,
+                },
+                new AdditionalService()
+                {
+                    Id = 4,
+                    Name = "Animal Carrier",
+                    Description = "",
+                    ServiceCategory =  ServiceCategory.ANIMAL_CARRIER,
+                    Price  = 7,
+                }
+            );
 
             modelBuilder.Entity<CarCompany>().HasData(
                 new CarCompany()

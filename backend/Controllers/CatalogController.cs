@@ -91,6 +91,29 @@ public class CatalogController : ControllerBase
     }
 
     /// <summary>
+    /// Retrieves a list of all additional services
+    /// </summary>
+    /// <returns>
+    /// Returns an ActionResult containing the list of additional services
+    /// else returns a NotFound result.
+    /// </returns>
+    /// <response code="200">AdditionalServices</response>
+    /// <response code="404">AdditionalServices not found</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("additionalServices")]
+    public async Task<ActionResult<IEnumerable<AdditionalService>>> GetAdditionalServices()
+    {
+        var item = await _catalogRepository.GetAdditionalServices();
+
+        if (item != null)
+        {
+            return Ok(item);
+        }
+        return NotFound();
+    }
+
+    /// <summary>
     /// AddCatalogItem
     /// </summary>
     /// <param name="addItemDto">AddItemDto to add Catalog item</param>

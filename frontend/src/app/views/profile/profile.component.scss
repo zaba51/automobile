@@ -50,3 +50,13 @@
         }
     }
 }
+
+@media (max-width: 480px) {
+    .container {
+        .navigation {
+            ul {
+                flex-direction: column;
+            }
+        }
+    }
+}

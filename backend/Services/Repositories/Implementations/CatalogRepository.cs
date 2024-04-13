@@ -84,6 +84,11 @@ namespace backend.Services {
                 Where(predicate)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<AdditionalService>> GetAdditionalServices()
+        {
+            return await _context.AdditionalServices.ToListAsync();
+        }
     }
 
 }

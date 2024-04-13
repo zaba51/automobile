@@ -22,6 +22,7 @@ namespace backend.Services {
                     .ThenInclude(item => item.Model).ThenInclude(m => m.CarCompany)
                  .Include(r => r.CatalogItem.Supplier)
                  .Include(r => r.CatalogItem.Location)
+                 .Include(r => r.AdditionalServices)
                 .Where(r => r.UserId == userId)
                 .OrderBy(r => r.BeginTime)
                 .ToListAsync();
@@ -37,7 +38,9 @@ namespace backend.Services {
         public async Task<Reservation?> GetSingleReservationForUserAsync(int userId, int reservationId)
         {
             return await _context.Reservations
-                .Where(r => r.UserId == userId && r.Id == reservationId).FirstOrDefaultAsync();
+                .Where(r => r.UserId == userId && r.Id == reservationId)
+                .Include(r => r.AdditionalServices)
+                .FirstOrDefaultAsync();
         }
 
         public async Task DeleteReservation(Reservation reservation)

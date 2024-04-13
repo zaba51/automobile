@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { ISearchDetails } from 'src/app/views/home/catalog/catalog.component';
 import { API_URL } from 'src/shared/api';
 import { AddItemDTO, CatalogItem, Location, SupplierInfo } from 'src/shared/types/catalogTypes';
+import { AdditionalService } from '../reservations/reservations.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,10 @@ export class CatalogService {
 
   getLocations(): Observable<Location[]> {
     return this.http.get<Location[]>(API_URL + '/catalog/locations');
+  }
+
+  getAdditionalServices(): Observable<AdditionalService[]> {
+    return this.http.get<AdditionalService[]>(API_URL + '/catalog/additionalServices');
   }
 }
 

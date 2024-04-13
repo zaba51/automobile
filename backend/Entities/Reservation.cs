@@ -29,5 +29,7 @@ namespace backend.Entities
         [ForeignKey("DriversDetailsId")]
         public DriversDetails DriversDetails {get; set; }
         public int DriversDetailsId {get; set; }
+
+        public List<AdditionalService> AdditionalServices { get; } = new();
     }
 }

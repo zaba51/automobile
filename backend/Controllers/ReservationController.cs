@@ -101,6 +101,9 @@ public class ReservationController : ControllerBase
 
         var transaction = _reservationRepository.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
+        var allServices = await _catalogRepository.GetAdditionalServices();
+        var additionalServices = allServices.Where(c => reservation.AdditionalServiceIds.Contains(c.Id));
+
         var newReservation = new Reservation()
         {
             CatalogItemId = reservation.CatalogItemId,
@@ -119,6 +122,7 @@ public class ReservationController : ControllerBase
                 Number = reservation.DriversDetails.Number
             }
         };
+        newReservation.AdditionalServices.AddRange(additionalServices);
 
         var catalogItem = await _catalogRepository.GetItemByQuery(item => item.Id == newReservation.CatalogItemId);
 
@@ -135,7 +139,7 @@ public class ReservationController : ControllerBase
 
         transaction.Commit();
 
-        ProduceTransactionMessage(newReservation, catalogItem);
+        Task.Run(() => ProduceTransactionMessage(newReservation, catalogItem));
 
         return Ok(true);
     }
