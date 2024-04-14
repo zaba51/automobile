@@ -16,6 +16,14 @@ button {
     &.error {
         background-color: var(--error);
     }
+
+    &.confirm {
+        background-color: var(--primary);
+    }
+
+    &.accent {
+        background-color: var(--accent);
+    }
 }
 
 .big {

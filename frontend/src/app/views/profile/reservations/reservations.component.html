@@ -43,16 +43,40 @@
                         (click)="viewDetails(reservation.id)"
                     ></app-button>
                 </div> -->
-                <div class="cell">
+                <ng-container *ngIf="confirmId !== reservation.id; else confirm">
                     <app-button
+                        *ngIf="!isOutdated(reservation)"
                         title="Delete"
                         size="small"
                         [iconButton]="true"
                         icon="delete"
-                        [style]="'error'"
-                        (click)="delete(reservation.id)"
+                        [style]="'alert'"
+                        (click)="confirmId = reservation.id"
                     ></app-button>
-                </div>
+                </ng-container>
+                <ng-template #confirm>
+                    <div class="cell">
+                        <div>
+                            <app-button
+                                title="Cancel"
+                                size="small"
+                                [iconButton]="true"
+                                icon="close"
+                                [style]="'confirm'"
+                                (click)="confirmId = null"
+                            ></app-button>
+                            <app-button
+                                title="Delete"
+                                size="small"
+                                [iconButton]="true"
+                                icon="delete"
+                                [style]="'error'"
+                                (click)="delete(reservation.id); confirmId = null"
+                            ></app-button>
+                        </div>
+                        Are you sure you want to cancel?
+                    </div>
+                </ng-template>
             </div>
         </div>
     </ng-container> 

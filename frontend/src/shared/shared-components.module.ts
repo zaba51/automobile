@@ -13,6 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SortByPricePipe } from './pipes/sort-by-price.pipe';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { EmptyStateComponent } from './components/empty-state/empty-state.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -25,14 +27,16 @@ import { EmptyStateComponent } from './components/empty-state/empty-state.compon
     NavMenuComponent,
     SortByPricePipe,
     SpinnerComponent,
-    EmptyStateComponent
+    EmptyStateComponent,
+    PaymentDialogComponent
   ],
   imports: [
     CommonModule,
     MatIconModule,
     MatIconModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   exports: [
     InputComponent,

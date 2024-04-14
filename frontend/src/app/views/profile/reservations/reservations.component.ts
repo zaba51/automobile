@@ -10,6 +10,7 @@ import { IReservation, ReservationsService } from 'src/shared/services/reservati
 export class ReservationsComponent implements OnInit {
   reservations: IReservation[] | 'Loading' = 'Loading';
   userId: number = 1;
+  confirmId: null | number = null;
 
   constructor(
     private reservationsService: ReservationsService,

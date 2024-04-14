@@ -9,6 +9,7 @@ import { AddReservationDTO, AdditionalService, ReservationsService } from 'src/s
 import { CatalogItem, Model } from 'src/shared/types/catalogTypes';
 import { ISearchDetails } from '../catalog/catalog.component';
 import { AuthService } from 'src/shared/services/auth/auth.service';
+import { PaymentService } from 'src/shared/services/payment/payment.service';
 
 @Component({
   selector: 'app-details',
@@ -46,7 +47,8 @@ export class DetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private reservationsService: ReservationsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private paymentService: PaymentService
   ) { }
 
 
@@ -100,11 +102,18 @@ export class DetailsComponent implements OnInit {
         additionalServiceIds: this.addedAdditionalServiceIds
       };
 
-      this.reservationsService.addReservation(this.userId, newItem).subscribe(result => {
-        if (result === true) {
-          this.router.navigate(['/profile'])
+      this.paymentService
+        .processPayment(this.totalPrice, this.userId)
+        .then((success) => {
+          if (success) {
+            this.reservationsService.addReservation(this.userId, newItem).subscribe(result => {
+                if (result === true) {
+                    this.router.navigate(['/profile'])
+                  }
+                });
+            }
         }
-      });
+      )
     }
   }
 

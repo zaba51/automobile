@@ -1,0 +1,11 @@
+.code {
+    font-size: 40px;
+}
+
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+input { text-transform: uppercase; }

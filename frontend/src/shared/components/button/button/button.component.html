@@ -5,8 +5,10 @@
         'medium': size === 'medium', 
         'big': size === 'big', 
         'error': style === 'error',
+        'confirm': style === 'confirm',
     }"
     (click)="outClick.emit()"
+    [disabled]="disabled"
 >
     <mat-icon>{{icon}}</mat-icon>
     <span *ngIf="!iconButton">{{ title }}</span>

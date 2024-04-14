@@ -1,0 +1,21 @@
+<h2 [style.color]="'white'" mat-dialog-title>Please input your payment code to finish transaction</h2>
+<mat-dialog-content class="mat-typography">
+  <h1 [style.color]="'white'">Price to Pay:  {{ context.price }} USD</h1>
+  <span [style.color]="'white'">CODE: </span><input #input class="code" type="text" maxlength="6"/>
+  <img src="assets/images/Automobile.png" />
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <app-button
+        title="Cancel"
+        size="small"
+        icon="credit_card"
+        (click)="dialogRef.close(false)"
+    ></app-button>
+    <app-button
+        title="Pay and reserve"
+        size="small"
+        icon="credit_card"
+        [disabled]="input.value.length < 6"
+        (click)="dialogRef.close(true)"
+    ></app-button>
+</mat-dialog-actions>
