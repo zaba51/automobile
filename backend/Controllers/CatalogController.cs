@@ -17,15 +17,16 @@ namespace backend.Controllers;
 public class CatalogController : ControllerBase
 {
     private readonly ICatalogRepository _catalogRepository;
-    private readonly IWebHostEnvironment _hostEnvironment;
+
+    private readonly ICatalogService _catalogService;
 
     public CatalogController(
         ICatalogRepository catalogRepository,
-        IWebHostEnvironment hostEnvironment    
+        ICatalogService catalogService
     )
     {
         _catalogRepository = catalogRepository;
-        _hostEnvironment = hostEnvironment;
+        _catalogService = catalogService;
     }
 
     /// <summary>
@@ -132,8 +133,7 @@ public class CatalogController : ControllerBase
     {
         try
         {
-            var newItemJson = addItemDto.NewItem;
-            var item = JsonConvert.DeserializeObject<AddCatalogItemDTO>(newItemJson);
+            var item = JsonConvert.DeserializeObject<AddCatalogItemDTO>(addItemDto.NewItem);
 
             var requestingSupplierId = User.Claims.FirstOrDefault(c => c.Type == "supplierId")?.Value;
 
@@ -142,83 +142,12 @@ public class CatalogController : ControllerBase
                 return Forbid();
             }
 
-            var existingModel = await _catalogRepository.GetModelByQuery((model) => (
-                model.CarCompany.Name ==item.Model.CarCompany.Name &&
-                model.Name == item.Model.Name &&
-                model.Power == item.Model.Power &&
-                model.Gear == item.Model.Gear &&
-                model.DoorCount == item.Model.DoorCount &&
-                model.SeatCount == item.Model.SeatCount &&
-                model.Engine == item.Model.Engine &&
-                model.Color == item.Model.Color
-            ));
-            CatalogItem newItem;
-
-            if (existingModel != null)
-            {
-                newItem = new CatalogItem()
-                {
-                    ModelId = existingModel.Id,
-                    Price = item.Price,
-                    SupplierId = item.SupplierId,
-                    LocationId = item.LocationId
-                };
-            }
-            else
-            {
-                var file = addItemDto.File;
-                string relativeFilePath = "";
-
-                if (file != null && file.Length > 0)
-                {
-                    var uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "assets", "cars");
-
-                    if (!Directory.Exists(uploadsFolder))
-                    {
-                        Directory.CreateDirectory(uploadsFolder);
-                    }
-
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-
-                    relativeFilePath = Path.Combine("assets", "cars", uniqueFileName);
-                }
-
-                var company = _catalogRepository.GetCarCompanyByQuery((company) => company.Name == item.Model.CarCompany.Name);
-
-                if (company == null) throw new Exception("No such company");
-
-                item.Model.ImageUrl = relativeFilePath;
-                item.Model.CarCompany.Id = company.Id;
-
-                _catalogRepository.AddModel(item.Model);
-
-                await _catalogRepository.SaveChangesAsync();
-
-                var model = await _catalogRepository.GetModelByQuery((model) => model == item.Model);
-
-                newItem = new CatalogItem()
-                {
-                    ModelId = model.Id,
-                    Price = item.Price,
-                    SupplierId = item.SupplierId,
-                    LocationId = item.LocationId
-                };
-            }
-
-            _catalogRepository.AddCatalogItem(newItem);
-
-            await _catalogRepository.SaveChangesAsync();
+            await _catalogService.AddCatalogItemAsync(item, addItemDto.File);
 
             return Ok();
         }
         catch (Exception e)
-        { 
+        {
             return BadRequest();
         }
     }
@@ -250,5 +179,4 @@ public class CatalogController : ControllerBase
         };
         return Ok(supplierInfo);
     }
-
 }
