@@ -129,6 +129,10 @@ app-go-back {
 }
 
 @media (max-width: 850px) {
+    nav {
+        position: static;
+    }
+
     .details-wrapper {
         display: grid;
         grid-template-columns: 1fr;

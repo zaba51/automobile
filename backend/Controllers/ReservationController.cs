@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Text.Json;
 using backend.Entities;
+using backend.Exceptions;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -22,17 +23,20 @@ public class ReservationController : ControllerBase
     private readonly IUserRepository _userRepository;
     private readonly ICatalogRepository _catalogRepository;
     private readonly KafkaProducerService _kafkaProducer;
+    private readonly IReservationService _reservationService;
     public ReservationController(
         IReservationRepository reservationRepository,
         IUserRepository userRepository,
         ICatalogRepository catalogRepository,
-        KafkaProducerService kafkaProducer
+        KafkaProducerService kafkaProducer,
+        IReservationService reservationService
     )
     {
         _userRepository = userRepository;
         _reservationRepository = reservationRepository;
         _catalogRepository = catalogRepository;
         _kafkaProducer = kafkaProducer;
+        _reservationService = reservationService;
     }
 
     /// <summary>
@@ -99,49 +103,22 @@ public class ReservationController : ControllerBase
             return Forbid();
         }
 
-        var transaction = _reservationRepository.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
-
-        var allServices = await _catalogRepository.GetAdditionalServices();
-        var additionalServices = allServices.Where(c => reservation.AdditionalServiceIds.Contains(c.Id));
-
-        var newReservation = new Reservation()
+        try
         {
-            CatalogItemId = reservation.CatalogItemId,
+            var (newReservation, catalogItem) = await _reservationService.AddReservationAsync(userId, reservation);
 
-            UserId = reservation.UserId,
+            Task.Run(() => ProduceTransactionMessage(newReservation, catalogItem, TransactionType.RESERVE));
 
-            BeginTime = reservation.BeginTime,
-
-            EndTime = reservation.EndTime,
-
-            DriversDetails = new DriversDetails()
-            {
-                Name = reservation.DriversDetails.Name,
-                Surname = reservation.DriversDetails.Surname,
-                Country = reservation.DriversDetails.Country,
-                Number = reservation.DriversDetails.Number
-            }
-        };
-        newReservation.AdditionalServices.AddRange(additionalServices);
-
-        var catalogItem = await _catalogRepository.GetItemByQuery(item => item.Id == newReservation.CatalogItemId);
-
-        if (catalogItem == null)
+            return Ok(true);
+        }
+        catch (ElementNotFoundException)
+        {
             return NotFound(false);
-
-        bool canAddReservation = await CanAddReservation(newReservation, catalogItem);
-        if (!canAddReservation)
+        }
+        catch (CancellationExpiredException)
+        {
             return Conflict(false);
-
-        _reservationRepository.AddReservation(userId, newReservation);
-
-        await _reservationRepository.SaveChangesAsync();
-
-        transaction.Commit();
-
-        Task.Run(() => ProduceTransactionMessage(newReservation, catalogItem));
-
-        return Ok(true);
+        }
     }
 
     /// <summary>
@@ -188,9 +165,12 @@ public class ReservationController : ControllerBase
             return Forbid();
         }
 
+        await ProduceTransactionMessage(reservation, reservation.CatalogItem, TransactionType.CANCEL);
+        
         await _reservationRepository.DeleteReservation(reservation);
 
         await _reservationRepository.SaveChangesAsync();
+
 
         return NoContent();
     }
@@ -205,22 +185,7 @@ public class ReservationController : ControllerBase
         return false;
     }
 
-    private async Task<bool> CanAddReservation(Reservation newReservation, CatalogItem catalogItem)
-    {
-        IEnumerable<CatalogItem>? availableItems = await _catalogRepository
-        .GetMatchingCatalogItemsAsync(
-            newReservation.BeginTime,
-            (newReservation.EndTime - newReservation.BeginTime).Hours,
-            catalogItem.LocationId
-        );
-
-        // bool isAvailable = availableItems.Any(i => i.Id == newReservation.Id);
-        bool isAvailable = availableItems.Contains(catalogItem);
-
-        return isAvailable;
-    }
-
-    private void ProduceTransactionMessage(Reservation reservation, CatalogItem catalogItem)
+    private async Task ProduceTransactionMessage(Reservation reservation, CatalogItem catalogItem, TransactionType transactionType)
     {
         var reservationTransactionDTO = new ReservationTransactionDTO
         {
@@ -229,7 +194,8 @@ public class ReservationController : ControllerBase
             CatalogItem = catalogItem,
             UserId = reservation.UserId,
             BeginTime = reservation.BeginTime,
-            EndTime = reservation.EndTime
+            EndTime = reservation.EndTime,
+            TransactionType = transactionType
         };
         var jsonSettings = new JsonSerializerSettings
         {
@@ -238,6 +204,7 @@ public class ReservationController : ControllerBase
         string json = JsonConvert.SerializeObject(reservationTransactionDTO, jsonSettings);
 
         string topic = _kafkaProducer.GetTopicName(catalogItem.SupplierId);
-        _kafkaProducer.ProduceAsync(topic, json);
+        
+        Task.Run(() => _kafkaProducer.ProduceAsync(topic, json));
     }
 }

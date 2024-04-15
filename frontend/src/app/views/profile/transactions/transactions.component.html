@@ -7,26 +7,27 @@
             <div
                 *ngFor="let transaction of reservationTransactions"
                 class="transactions-item"
+                [ngClass]="{'cancel': transaction.transactionType == trasnactionTypes.CANCEL}"
             >
                 <div class="cell date">
                     <div class="label">Transaction date</div>
-                    <span>{{ transaction.transactionTime| date:'MMMM d, y, H:mm z': 'UTC' }}</span>
+                    <span>{{ transaction?.transactionTime| date:'MMMM d, y, H:mm z': 'UTC' }}</span>
                 </div>
                 <div class="cell date2">
                     <div class="label">Rental date</div>
-                    <span>{{ transaction.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
+                    <span>{{ transaction?.beginTime | date:'MMMM d, y, H:mm z': 'UTC' }}</span>
                 </div>
                 <div class="cell">
                     <div class="label">Location</div>
-                    <span>{{ transaction.catalogItem.location.cityName }}, {{ transaction.catalogItem.location.countryName }}</span>
+                    <span>{{ transaction?.catalogItem?.location?.cityName }}, {{ transaction?.catalogItem?.location?.countryName }}</span>
                 </div>
                 <div class="cell">
                     <div class="label">Model</div>
-                    <span>{{ transaction.catalogItem.model.name }}</span>
+                    <span>{{ transaction.catalogItem?.model?.name }}</span>
                 </div>
                 <div class="cell">
                     <div class="label">Price</div>
-                    <span>{{ transaction.catalogItem.price }} USD</span>
+                    <span>{{ transaction.catalogItem?.price }} USD</span>
                 </div>
             </div>
         </ng-container>

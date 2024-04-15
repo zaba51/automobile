@@ -4,13 +4,19 @@ import { Observable } from 'rxjs';
 import { API_URL } from '../../api';
 import { CatalogItem } from 'src/shared/types/catalogTypes';
 
+export enum TransactionType {
+  CANCEL,
+  RESERVE
+}
+
 export interface IReservationTransaction {
   guid: string,
   transactionTime: string,
   catalogItem: CatalogItem,
   userId: number,
   beginTime: string,
-  endTime: string
+  endTime: string,
+  transactionType: TransactionType
 }
 
 @Injectable({

@@ -16,6 +16,10 @@
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 1fr;
 
+    &.cancel {
+        border-left: 5px solid var(--error);
+    }
+
     .actions {
         display: flex;
         gap: 0.5rem;

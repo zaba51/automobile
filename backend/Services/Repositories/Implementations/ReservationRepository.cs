@@ -39,7 +39,12 @@ namespace backend.Services {
         {
             return await _context.Reservations
                 .Where(r => r.UserId == userId && r.Id == reservationId)
-                .Include(r => r.AdditionalServices)
+                .Include(r => r.DriversDetails)
+                .Include(r => r.CatalogItem)
+                    .ThenInclude(item => item.Model).ThenInclude(m => m.CarCompany)
+                 .Include(r => r.CatalogItem.Supplier)
+                 .Include(r => r.CatalogItem.Location)
+                 .Include(r => r.AdditionalServices)
                 .FirstOrDefaultAsync();
         }
 

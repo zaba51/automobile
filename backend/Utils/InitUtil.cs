@@ -27,6 +27,7 @@ namespace backend.Utils
             _builder.Services.AddScoped<KafkaConsumerService>();
             _builder.Services.AddScoped<UploadService>();
             _builder.Services.AddScoped<ICatalogService, CatalogService>();
+            _builder.Services.AddScoped<IReservationService, ReservationService>();
         }
 
         public void AddCors()

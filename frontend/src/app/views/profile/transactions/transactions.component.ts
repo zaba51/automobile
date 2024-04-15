@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs';
 import { AuthService } from 'src/shared/services/auth/auth.service';
-import { IReservationTransaction, SupplierService } from 'src/shared/services/supplier/supplier.service';
+import { IReservationTransaction, SupplierService, TransactionType } from 'src/shared/services/supplier/supplier.service';
 
 @Component({
   selector: 'app-transactions',
@@ -10,6 +10,8 @@ import { IReservationTransaction, SupplierService } from 'src/shared/services/su
 })
 export class TransactionsComponent {
   protected reservationTransactions: IReservationTransaction[] | 'Loading' | 'Error' = 'Loading';
+
+  protected readonly trasnactionTypes = TransactionType;
 
   constructor(private supplierService: SupplierService, private authService: AuthService) {}
 
